@@ -30,12 +30,10 @@ public class Player {
     }
 
     public void regenMana(){
-        System.out.println(manaLeft);
-        System.out.println(playerCharacter.getMana());
         if(manaLeft < playerCharacter.getMana()){
             manaLeft += playerCharacter.getManaRegen();
         }
-        if(manaLeft > playerCharacter.getMana()){
+        else{
             manaLeft = playerCharacter.getMana();
         }
 
@@ -43,6 +41,15 @@ public class Player {
 
     public void receiveHit(int dmg){
         this.healthLeft -= dmg;
+    }
+
+    public void useMana(int manaUsed){
+        if(manaLeft>manaUsed){
+            manaLeft -=manaUsed;
+        }
+        else{
+            manaLeft = 0.0f;
+        }
     }
 
     public Hero getPlayerCharacter() {

@@ -1,5 +1,9 @@
 package fr.ul.roguelike.model;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 public abstract class Hero {
     private int hp;
     private int mana;
@@ -17,6 +21,9 @@ public abstract class Hero {
 
     protected int nb_spell_slots;
 
+    protected Animation<TextureRegion> anim;
+    protected float stateTime;
+
     public Hero(int hp, int mana, float mana_regen, float critic_chance, int physical_dmg, int magical_dmg, float physical_def, float magical_def,int manaRegenTime) {
         this.hp = hp;
         this.mana = mana;
@@ -28,6 +35,10 @@ public abstract class Hero {
         this.magicalDef = magical_def;
         this.nb_spell_slots = 0;
         this.manaRegenTime = manaRegenTime;
+    }
+
+    public void draw(SpriteBatch sb, int posX, int posY){
+        return;
     }
 
     public int getHp() {

@@ -1,8 +1,14 @@
 package fr.ul.roguelike.model.Monster;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 public abstract class Monster {
     private int hp;
+    private int currentHp;
     private int mana;
+    private int currentMana;
 
     protected int attackSpeed;
     private float timeSincePreviousAttack;
@@ -15,9 +21,14 @@ public abstract class Monster {
     private float physicalDef;
     private float magicalDef;
 
+    protected Animation<TextureRegion> anim;
+    protected float stateTime;
+
     public Monster(int hp, int mana, int attackSpeed, float criticChance, int physicalDmg, int magicalDmg, float physicalDef, float magicalDef) {
         this.hp = hp;
+        this.currentHp = hp;
         this.mana = mana;
+        this.currentMana = mana;
         this.attackSpeed = attackSpeed;
         this.criticChance = criticChance;
         this.physicalDmg = physicalDmg;
@@ -27,11 +38,28 @@ public abstract class Monster {
         this.timeSincePreviousAttack = 0.0f;
     }
 
+    public void draw(SpriteBatch sb, int posX, int posY){
+        return;
+    }
+    public void receiveHit(int hitpoint){
+        currentHp -= hitpoint;
+    }
+    public float hpLeftRatio(){
+        return 1.f* currentHp/hp;
+    }
     public void updateLastAttackTimer(float newTime){
         timeSincePreviousAttack = newTime;
     }
     public float getTimeSincePreviousAttack() {
         return timeSincePreviousAttack;
+    }
+
+    public int getCurrentHp() {
+        return currentHp;
+    }
+
+    public int getCurrentMana() {
+        return currentMana;
     }
 
     public int getHp() {
@@ -64,5 +92,9 @@ public abstract class Monster {
 
     public float getMagicalDef() {
         return magicalDef;
+    }
+
+    public Animation<TextureRegion> getAnim() {
+        return anim;
     }
 }
