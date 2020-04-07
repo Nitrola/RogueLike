@@ -1,8 +1,16 @@
 package fr.ul.roguelike.controllers;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 
 public class KeyboardListener implements InputProcessor {
+    private boolean debug;
+
+    public KeyboardListener(){
+        debug = false;
+    }
+
     @Override
     public boolean keyDown(int keycode) {
         return false;
@@ -10,7 +18,16 @@ public class KeyboardListener implements InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
-        return false;
+        switch (keycode) {
+            case Input.Keys.D:
+                debug = !debug;
+                break;
+            case Input.Keys.ESCAPE:
+            case Input.Keys.Q:
+                Gdx.app.exit();
+                break;
+        }
+        return true;
     }
 
     @Override
@@ -41,5 +58,9 @@ public class KeyboardListener implements InputProcessor {
     @Override
     public boolean scrolled(int amount) {
         return false;
+    }
+
+    public boolean isDebug() {
+        return debug;
     }
 }
