@@ -16,7 +16,6 @@ public class Player {
     private int healthLeft;
     private float manaLeft;
 
-
     public Player(){
 
         playerCharacter = new Warrior();
@@ -27,28 +26,52 @@ public class Player {
         manaLeft = 0.0f;
 
         current_level = 0;
+
+    }
+    public void updateState(){
+        //System.out.println(playerCharacter.getCombatState());
+        if(healthLeft <= 0){
+            playerCharacter.setCombatState(Hero.CombatState.DEAD);
+        }
+        else if(playerCharacter.shouldIdle()){
+            playerCharacter.setCombatState(Hero.CombatState.IDLE);
+        }
+
     }
 
     public void regenMana(){
-        if(manaLeft < playerCharacter.getMana()){
-            manaLeft += playerCharacter.getManaRegen();
+        if(playerCharacter.getCombatState() != Hero.CombatState.DEAD) {
+            if (manaLeft < playerCharacter.getMana()) {
+                manaLeft += playerCharacter.getManaRegen();
+            } else {
+                manaLeft = playerCharacter.getMana();
+            }
         }
-        else{
-            manaLeft = playerCharacter.getMana();
-        }
-
     }
 
     public void receiveHit(int dmg){
-        this.healthLeft -= dmg;
+        if(playerCharacter.getCombatState() != Hero.CombatState.DEAD) {
+
+            if (healthLeft - dmg > 0) {
+                this.healthLeft -= dmg;
+            } else {
+                healthLeft = 0;
+            }
+            System.out.println(healthLeft);
+        }
     }
 
     public void useMana(int manaUsed){
-        if(manaLeft>manaUsed){
-            manaLeft -=manaUsed;
-        }
-        else{
-            manaLeft = 0.0f;
+        if(playerCharacter.getCombatState() != Hero.CombatState.DEAD) {
+            if (manaLeft > manaUsed) {
+                manaLeft -= manaUsed;
+                playerCharacter.setCombatState(Hero.CombatState.ATTACKING);
+                playerCharacter.setAnimeTime(0.0f);
+            }
+            else {
+                manaLeft = 0.0f;
+            }
+
         }
     }
 

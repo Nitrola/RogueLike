@@ -11,7 +11,7 @@ public class Warrior extends Hero {
 
 
     public Warrior() {
-        super(100,100,1f,0.01f,10,1,5,5,2);
+        super(100,100,5f,0.01f,10,1,5,5,1);
         nb_spell_slots = 2;
         Texture warriorSheet = new Texture("combat/WarriorWalk.png");
         TextureRegion[][] tmp = TextureRegion.split(warriorSheet,warriorSheet.getWidth() / 3 , warriorSheet.getHeight()/1);
@@ -21,15 +21,11 @@ public class Warrior extends Hero {
             tmp[0][i].flip(true,false);
             walkFrames[index++] = tmp[0][i];
         }
-        anim = new Animation<TextureRegion>(0.1f,walkFrames);
+
+        animAttack = new Animation<Texture>(0.1f,loadFrames(5,"combat/Warrior/Attack/HeroKnight_Attack1_"));
+        animBlock = new Animation<Texture>(0.1f,loadFrames(4,"combat/Warrior/Block/HeroKnight_Block_"));
+        animDead = new Animation<Texture>(0.1f,loadFrames(9,"combat/Warrior/Death/HeroKnight_Death_"));
+        animIdle = new Animation<Texture>(0.1f,loadFrames(7,"combat/Warrior/Idle/HeroKnight_Idle_"));
     }
 
-    @Override
-    public void draw(SpriteBatch sb, int posX, int posY){
-        stateTime += Gdx.graphics.getDeltaTime();
-        TextureRegion currentFrame = this.anim.getKeyFrame(stateTime,true);
-
-        sb.draw(currentFrame,posX,posY,currentFrame.getRegionWidth()*3,currentFrame.getRegionHeight()*3);
-
-    }
 }

@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Timer;
+import fr.ul.roguelike.controllers.CombatController;
 import fr.ul.roguelike.model.Monster.Golem;
 import fr.ul.roguelike.model.Monster.Monster;
 import fr.ul.roguelike.model.Player;
@@ -35,10 +36,11 @@ public class CombatMenu extends ScreenAdapter {
     private Texture background;
     private Sprite attackButton;
     private Sprite defButton;
-    private Texture manaPotion;
-    private Texture lifePotion;
+    private Sprite manaPotion;
+    private Sprite healthPotion;
     private ArrayList<Texture> spellsButton;
 
+    private CombatController combatController;
 
 
 
@@ -48,12 +50,9 @@ public class CombatMenu extends ScreenAdapter {
     public CombatMenu(Player p) {
         player = p;
         monsters = new ArrayList<>();
-        monsters.add(new Golem(100, 0, 5, 0.0f, 5, 0, 0.2f, 0.5f));
+        monsters.add(new Golem(100, 0, 1, 0.0f, 5, 0, 0.2f, 0.5f));
         gen_monsters(p.getCurrent_level());
         spellsButton = new ArrayList<>();
-
-
-        //loading assets.
 
         cam = new OrthographicCamera();
 
@@ -63,34 +62,42 @@ public class CombatMenu extends ScreenAdapter {
         sb = new SpriteBatch();
         sb.setProjectionMatrix(cam.combined);
 
+        // loading textures
         background = new Texture("combat/background.png");
-        attackButton = new Sprite(new Texture("combat/Attack.png"));
-        attackButton.setPosition(Gdx.graphics.getWidth()/10,Gdx.graphics.getHeight()/10);
-        attackButton.setSize(Gdx.graphics.getWidth()/10,Gdx.graphics.getHeight()/10);
+        attackButton = new Sprite(new Texture("combat/button_attack.png"));
+        manaPotion = new Sprite(new Texture("combat/button_manapotion.png"));
+        healthPotion = new Sprite(new Texture("combat/button_potion.png"));
+        defButton = new Sprite(new Texture("combat/button_def.png"));
+
+        // resizing buttons
+        final int buttonSize = Gdx.graphics.getWidth()/15;
+        attackButton.setSize(buttonSize,buttonSize);
+        defButton.setSize(buttonSize,buttonSize);
+        healthPotion.setSize(buttonSize,buttonSize);
+        manaPotion.setSize(buttonSize,buttonSize);
 
 
-        defButton = new Sprite(new Texture("combat/Def.png"));
-
-
-
-
+        // Positionning buttons
+        attackButton.setPosition(Gdx.graphics.getWidth()/9,Gdx.graphics.getWidth()/15);
+        defButton.setPosition(attackButton.getX() * 3 , attackButton.getY());
+        healthPotion.setPosition(attackButton.getX() * 5 , attackButton.getY());
+        manaPotion.setPosition(attackButton.getX() * 7 , attackButton.getY());
 
         sr = new ShapeRenderer();
         sr.setProjectionMatrix(cam.combined);
-        //player regenration
 
+        //player regenration
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
-                regenMana();
+                player.regenMana();;
             }
         },0.0f,player.getPlayerCharacter().getManaRegenTime());
 
+        combatController = new CombatController(attackButton.getBoundingRectangle(),defButton.getBoundingRectangle(),healthPotion.getBoundingRectangle(),manaPotion.getBoundingRectangle(),player,monsters);
+
     }
 
-    public void regenMana(){
-        player.regenMana();
-    }
     private void gen_monsters(int playerLevel){
 
     }
@@ -107,30 +114,37 @@ public class CombatMenu extends ScreenAdapter {
 
         if(!monsters.isEmpty()) {
             monsters.get(0).draw(sb,Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 3);
-
         }
+
         attackButton.draw(sb);
-        sb.draw(defButton,
-                attackButton.getWidth() + Gdx.graphics.getWidth()/9,Gdx.graphics.getHeight()/9,
-                Gdx.graphics.getWidth()/10,Gdx.graphics.getHeight()/10
-        );
+        defButton.draw(sb);
+        healthPotion.draw(sb);
+        manaPotion.draw(sb);
 
         sb.end();
+
+        drawLifeBars();
+
+        update(delta);
+    }
+
+    private void drawLifeBars(){
         Gdx.gl.glClearColor(1f, 0.25f, 0.25f, 1);
+
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.setColor(1.f,0f,0f,1f);
-        //playerHP
+
+        //player life bar
         float playerHpLeftRate =1.0f * player.getHealthLeft() / player.getPlayerCharacter().getHp();
         sr.rect(
                 0.0f,Gdx.graphics.getHeight() - Gdx.graphics.getHeight()/20,
-                playerHpLeftRate *Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/20)
-        ;
+                playerHpLeftRate *Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/20);
+
         //monster health bar
         if(!monsters.isEmpty()) {
             sr.rect(
                     Gdx.graphics.getWidth() / 2, (Gdx.graphics.getHeight() / 3) + monsters.get(0).getAnim().getKeyFrames()[0].getRegionHeight() * 6,
-                    monsters.get(0).hpLeftRatio() * monsters.get(0).getAnim().getKeyFrames()[0].getRegionWidth() * 6f, Gdx.graphics.getHeight() / 40
-            );
+                    monsters.get(0).hpLeftRatio() * monsters.get(0).getAnim().getKeyFrames()[0].getRegionWidth() * 6f, Gdx.graphics.getHeight() / 40);
         }
 
         //player Mana
@@ -138,17 +152,17 @@ public class CombatMenu extends ScreenAdapter {
         sr.setColor(0f,0.3f,1f,1f);
         sr.rect(
                 0.0f,(float)Gdx.graphics.getHeight() - 2* Gdx.graphics.getHeight()/20,
-                playerManaLeftRate * Gdx.graphics.getWidth()/2.f,Gdx.graphics.getHeight()/20
-        );
+                playerManaLeftRate * Gdx.graphics.getWidth()/2.f,Gdx.graphics.getHeight()/20);
+
+
+
         sr.end();
-        update(delta);
     }
 
     private void update(float delta){
-
+        player.updateState();
         for(Monster m : monsters){
             if(m.getTimeSincePreviousAttack() < m.getAttackSpeed()){
-
                 m.updateLastAttackTimer( (m.getTimeSincePreviousAttack() + delta));
             }
             else{
@@ -156,18 +170,7 @@ public class CombatMenu extends ScreenAdapter {
                 player.receiveHit(m.getPhysicalDmg());
             }
         }
-        if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
-            if(attackButton.getBoundingRectangle().contains(Gdx.input.getX(),Gdx.graphics.getHeight()- Gdx.input.getY())){
-                if(player.getManaLeft() > 1 && !monsters.isEmpty()) {
-                    monsters.get(0).receiveHit(player.getPlayerCharacter().getPhysicalDmg());
-                    player.useMana(1);
-                    if(monsters.get(0).getCurrentHp() <= 0){
-                        monsters.remove(0);
-                    }
-                }
-            }
-        }
-
+        combatController.checkInput();
     }
 
     @Override
