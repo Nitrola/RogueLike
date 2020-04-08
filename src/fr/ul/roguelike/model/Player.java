@@ -49,15 +49,18 @@ public class Player {
         }
     }
 
+    public void parry(){
+        playerCharacter.setAnimeTime(0.0f);
+        playerCharacter.setCombatState(Hero.CombatState.BLOCKING);
+    }
     public void receiveHit(int dmg){
-        if(playerCharacter.getCombatState() != Hero.CombatState.DEAD) {
+        if(playerCharacter.getCombatState() != Hero.CombatState.DEAD && playerCharacter.getCombatState() != Hero.CombatState.BLOCKING){
 
             if (healthLeft - dmg > 0) {
                 this.healthLeft -= dmg;
             } else {
                 healthLeft = 0;
             }
-            System.out.println(healthLeft);
         }
     }
 
