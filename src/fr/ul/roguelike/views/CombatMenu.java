@@ -1,6 +1,7 @@
 package fr.ul.roguelike.views;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
@@ -32,17 +33,14 @@ public class CombatMenu extends ScreenAdapter {
     private Music combat_music;
 
     private Texture background;
-    private Texture playerCharacterTex;
-    private Texture attackButton;
-    private Texture fleeButton;
+    private Sprite attackButton;
+    private Sprite defButton;
     private Texture manaPotion;
     private Texture lifePotion;
-    private ArrayList<Texture> monstersTexture;
-    private ArrayList<TextureRegion> monstersSprite;
     private ArrayList<Texture> spellsButton;
 
-    private Timer manaTimer;
-    private Timer.Task regenMana;
+
+
 
     private TextureRegion playerTextureRegion;
 
@@ -52,26 +50,10 @@ public class CombatMenu extends ScreenAdapter {
         monsters = new ArrayList<>();
         monsters.add(new Golem(100, 0, 5, 0.0f, 5, 0, 0.2f, 0.5f));
         gen_monsters(p.getCurrent_level());
-        monstersTexture = new ArrayList<>();
-        monstersTexture.add(new Texture("combat/golem.png"));
-        monstersSprite = new ArrayList<>();
-        monstersSprite.add(new TextureRegion(monstersTexture.get(0),
-                3 * monstersTexture.get(0).getWidth() / 7, monstersTexture.get(0).getHeight() / 4,
-                monstersTexture.get(0).getWidth() / 7,
-                monstersTexture.get(0).getHeight() / 4));
         spellsButton = new ArrayList<>();
 
 
-        //loading assets
-        background = new Texture("combat/background.png");
-        playerCharacterTex = new Texture("combat/" + player.getPlayerCharacter().getClass().getSimpleName().toString() + ".png");
-
-        this.playerTextureRegion = new TextureRegion(playerCharacterTex,
-                3 * playerCharacterTex.getWidth() / 9, 3 * playerCharacterTex.getHeight() / 9,
-                playerCharacterTex.getWidth() / 9,
-                playerCharacterTex.getHeight() / 6
-        );
-        playerTextureRegion.flip(true, false);
+        //loading assets.
 
         cam = new OrthographicCamera();
 
@@ -81,17 +63,22 @@ public class CombatMenu extends ScreenAdapter {
         sb = new SpriteBatch();
         sb.setProjectionMatrix(cam.combined);
 
+        background = new Texture("combat/background.png");
+        attackButton = new Sprite(new Texture("combat/Attack.png"));
+        attackButton.setPosition(Gdx.graphics.getWidth()/10,Gdx.graphics.getHeight()/10);
+        attackButton.setSize(Gdx.graphics.getWidth()/10,Gdx.graphics.getHeight()/10);
+
+
+        defButton = new Sprite(new Texture("combat/Def.png"));
+
+
+
+
+
         sr = new ShapeRenderer();
         sr.setProjectionMatrix(cam.combined);
         //player regenration
-        /*manaTimer = new Timer();
-        regenMana = new Timer.Task() {
-            @Override
-            public void run() {
-                player.regenMana();
-            }
-        };
-        manaTimer.scheduleTask(regenMana, 1.0f,player.getPlayerCharacter().getManaRegenTime());*/
+
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
@@ -116,15 +103,17 @@ public class CombatMenu extends ScreenAdapter {
 
         sb.begin();
         sb.draw(background,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        player.getPlayerCharacter().draw(sb,Gdx.graphics.getWidth()/6 ,Gdx.graphics.getHeight()/3);
 
-        sb.draw(
-                playerTextureRegion,
-                 Gdx.graphics.getWidth()/6 ,Gdx.graphics.getHeight()/3,
-                playerTextureRegion.getRegionWidth() * 3, playerTextureRegion.getRegionHeight() * 3);
-        sb.draw(
-                monstersSprite.get(0),
-                Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/3,
-                monstersSprite.get(0).getRegionWidth() * 6, monstersSprite.get(0).getRegionHeight() * 6);
+        if(!monsters.isEmpty()) {
+            monsters.get(0).draw(sb,Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 3);
+
+        }
+        attackButton.draw(sb);
+        sb.draw(defButton,
+                attackButton.getWidth() + Gdx.graphics.getWidth()/9,Gdx.graphics.getHeight()/9,
+                Gdx.graphics.getWidth()/10,Gdx.graphics.getHeight()/10
+        );
 
         sb.end();
         Gdx.gl.glClearColor(1f, 0.25f, 0.25f, 1);
@@ -137,10 +126,12 @@ public class CombatMenu extends ScreenAdapter {
                 playerHpLeftRate *Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/20)
         ;
         //monster health bar
-        sr.rect(
-                Gdx.graphics.getWidth()/2 ,(Gdx.graphics.getHeight()/3) + monstersSprite.get(0).getRegionHeight()*6,
-                monstersSprite.get(0).getRegionWidth() * 6, Gdx.graphics.getHeight()/40
-        );
+        if(!monsters.isEmpty()) {
+            sr.rect(
+                    Gdx.graphics.getWidth() / 2, (Gdx.graphics.getHeight() / 3) + monsters.get(0).getAnim().getKeyFrames()[0].getRegionHeight() * 6,
+                    monsters.get(0).hpLeftRatio() * monsters.get(0).getAnim().getKeyFrames()[0].getRegionWidth() * 6f, Gdx.graphics.getHeight() / 40
+            );
+        }
 
         //player Mana
         float playerManaLeftRate =1.0f * player.getManaLeft() / player.getPlayerCharacter().getMana();
@@ -150,10 +141,10 @@ public class CombatMenu extends ScreenAdapter {
                 playerManaLeftRate * Gdx.graphics.getWidth()/2.f,Gdx.graphics.getHeight()/20
         );
         sr.end();
-        manageCombat(delta);
+        update(delta);
     }
 
-    private void manageCombat(float delta){
+    private void update(float delta){
 
         for(Monster m : monsters){
             if(m.getTimeSincePreviousAttack() < m.getAttackSpeed()){
@@ -163,6 +154,17 @@ public class CombatMenu extends ScreenAdapter {
             else{
                 m.updateLastAttackTimer(0);
                 player.receiveHit(m.getPhysicalDmg());
+            }
+        }
+        if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+            if(attackButton.getBoundingRectangle().contains(Gdx.input.getX(),Gdx.graphics.getHeight()- Gdx.input.getY())){
+                if(player.getManaLeft() > 1 && !monsters.isEmpty()) {
+                    monsters.get(0).receiveHit(player.getPlayerCharacter().getPhysicalDmg());
+                    player.useMana(1);
+                    if(monsters.get(0).getCurrentHp() <= 0){
+                        monsters.remove(0);
+                    }
+                }
             }
         }
 
