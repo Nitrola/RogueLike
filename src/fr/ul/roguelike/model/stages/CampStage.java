@@ -15,14 +15,17 @@ public class CampStage extends Stage {
     }
 
     public void draw(SpriteBatch spriteBatch){
-        if(!passed) {
-            spriteBatch.draw(new Texture(Gdx.files.internal("camp_passed.png"))
+        if(actual){
+            coeff = 3;
+        }
+        if(passed) {
+            spriteBatch.draw(new Texture(Gdx.files.internal("images/camp_passed.png"))
                     , this.getPosition().x - getRayon(), this.getPosition().y - getRayon(),
-                    getRayon() * 2, getRayon() * 2);
+                    getRayon() * coeff, getRayon() * coeff);
         }else{
-            spriteBatch.draw(new Texture(Gdx.files.internal("camp.png"))
+            spriteBatch.draw(new Texture(Gdx.files.internal("images/camp.png"))
                     , this.getPosition().x - getRayon(), this.getPosition().y - getRayon(),
-                    getRayon() * 2, getRayon() * 2);
+                    getRayon() * coeff, getRayon() * coeff);
         }
     }
 }

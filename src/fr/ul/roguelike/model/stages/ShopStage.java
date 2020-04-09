@@ -14,14 +14,18 @@ public class ShopStage extends Stage {
     }
 
     public void draw(SpriteBatch spriteBatch){
-        if(!passed) {
-            spriteBatch.draw(new Texture(Gdx.files.internal("shop_passed.png"))
+        if(actual){
+            coeff = 3;
+        }
+        if(passed) {
+            spriteBatch.draw(new Texture(Gdx.files.internal("images/shop_passed.png"))
                     , this.getPosition().x - getRayon(), this.getPosition().y - getRayon(),
-                    getRayon() * 2, getRayon() * 2);
+                    getRayon() * coeff, getRayon() * coeff);
+
         }else{
-            spriteBatch.draw(new Texture(Gdx.files.internal("shop.png"))
+            spriteBatch.draw(new Texture(Gdx.files.internal("images/shop.png"))
                     , this.getPosition().x - getRayon(), this.getPosition().y - getRayon(),
-                    getRayon() * 2, getRayon() * 2);
+                    getRayon() * coeff, getRayon() * coeff);
         }
     }
 }
