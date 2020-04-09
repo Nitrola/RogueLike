@@ -11,19 +11,24 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import fr.ul.roguelike.model.GameWorld;
 
 public abstract class Stage {
-    private Body body;
-    private FixtureDef fixtureDef;
-    private BodyDef bodyDef;
-    private GameWorld gameWorld;
-    private Vector2 position;
-    private int rayon = 30;
+    protected Body body;
+    protected FixtureDef fixtureDef;
+    protected BodyDef bodyDef;
+    protected GameWorld gameWorld;
+    protected Vector2 position;
+    protected int rayon = 30;
     protected boolean passed;
-    protected Stage nextStage;
+    protected boolean actual;
+    protected int coeff = 2;
+    protected Stage rightStage;
+    protected Stage leftStage;
+
 
     public Stage(GameWorld gameWorld, Vector2 pos){
         this.gameWorld = gameWorld;
         position = pos;
         passed = false;
+        actual = false;
         bodyDef = new BodyDef();
         bodyDef.position.set(position);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -56,11 +61,19 @@ public abstract class Stage {
         this.passed = passed;
     }
 
-    public void setNextStage(Stage nextStage, OrthographicCamera camera) {
-        this.nextStage = nextStage;
+    public void setRightStage(Stage nextStage, OrthographicCamera camera) {
+        this.rightStage = nextStage;
     }
 
-    public Stage getNextStage() {
-        return nextStage;
+    public Stage getRightStage() {
+        return rightStage;
+    }
+
+    public void setLeftStage(Stage nextStage, OrthographicCamera camera) {
+        this.leftStage = nextStage;
+    }
+
+    public Stage getLeftStage() {
+        return leftStage;
     }
 }

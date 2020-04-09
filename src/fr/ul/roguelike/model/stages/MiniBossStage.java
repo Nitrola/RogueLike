@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import fr.ul.roguelike.model.GameWorld;
 
-public class CombatStage extends Stage {
+public class MiniBossStage extends Stage {
 
-    public CombatStage(GameWorld gameWorld, Vector2 pos){
+    public MiniBossStage(GameWorld gameWorld, Vector2 pos){
         super(gameWorld, pos);
 
     }
@@ -18,13 +18,14 @@ public class CombatStage extends Stage {
             coeff = 3;
         }
         if(passed) {
-            spriteBatch.draw(new Texture(Gdx.files.internal("images/combat_passed.png"))
+            spriteBatch.draw(new Texture(Gdx.files.internal("images/skull_passed.png"))
                     , this.getPosition().x - getRayon(), this.getPosition().y - getRayon(),
                     getRayon() * coeff, getRayon() * coeff);
         }else{
-            spriteBatch.draw(new Texture(Gdx.files.internal("images/combat.png"))
+            spriteBatch.draw(new Texture(Gdx.files.internal("images/skull.png"))
                     , this.getPosition().x - getRayon(), this.getPosition().y - getRayon(),
                     getRayon() * coeff, getRayon() * coeff);
         }
     }
 }
+
