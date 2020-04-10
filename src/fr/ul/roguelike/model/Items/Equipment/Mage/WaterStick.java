@@ -10,5 +10,7 @@ public class WaterStick extends Equipement {
         super("Water Stick", "Aqua isn't totally useless");
         equipement = new EquipementStats(1,5,0f,0f);
         texture = new Texture("equipment/waterStick.png");
+        equipementType = EquipementType.STAFF;
+
     }
 }

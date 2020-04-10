@@ -18,14 +18,15 @@ public class Player {
     private int healthLeft;
     private float manaLeft;
     private int currentGold;
+    private PlayerGear playerGear;
 
-    private ArrayList<Equipement> equipements;
     private ArrayList<Item> inventory;
     private ArrayList<Equipement> inventoryEquipements;
 
     public Player(){
 
         playerCharacter = new Warrior();
+        playerGear = new PlayerGear();
         spells = new ArrayList<>(playerCharacter.getNb_spell_slots());
         items = new ArrayList<>();
 
@@ -35,19 +36,15 @@ public class Player {
         currentLevel = 0;
         currentGold = 0;
 
-        equipements = new ArrayList<>(5);
         inventory = new ArrayList<>();
         inventoryEquipements = new ArrayList<>();
 
     }
 
-    public void add(Equipement equipement){
-        equipements.add(equipement);
+    public PlayerGear getPlayerGear() {
+        return playerGear;
     }
 
-    public void remove(Equipement equipement){
-        equipements.remove(equipement);
-    }
     public void updateState(){
         //System.out.println(playerCharacter.getCombatState());
         if(healthLeft <= 0){

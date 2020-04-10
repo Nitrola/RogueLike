@@ -1,6 +1,7 @@
 package fr.ul.roguelike.views;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -26,11 +27,12 @@ public class InventoryMenu extends ScreenAdapter {
     private Stage stage;
     private ScrollPane scrollPane;
     private Texture background;
-    private Sprite inventorySlot;
     private Sprite headSlot;
     private Sprite leftWepSlot;
     private Sprite rightWepSlot;
     private Sprite armorSlot;
+    private ArrayList<Button> itemsButton;
+    ArrayList<Equipement> equipements;
     public InventoryMenu(Player p) {
 
         this.p = p;
@@ -45,10 +47,11 @@ public class InventoryMenu extends ScreenAdapter {
         leftWepSlot.setPosition(Gdx.graphics.getWidth()*0.04f,Gdx.graphics.getHeight()*0.4f);
         headSlot.setPosition(Gdx.graphics.getWidth()*0.17f,Gdx.graphics.getHeight()*0.6f);
 
+        itemsButton = new ArrayList<>();
         //inventorySlot.scale(2f);
         Table table = new Table();
 
-        ArrayList<Equipement> equipements = new ArrayList<>();
+        equipements = new ArrayList<>();
 
             equipements.add(new DemonSword());
             equipements.add(new ArcherPlate());
@@ -66,9 +69,11 @@ public class InventoryMenu extends ScreenAdapter {
             equipements.add(new BaseBow());
          equipements.add(new DemonSword());
 
+
         //table.setFillParent(true);
         table.align(Align.top);
         for(Equipement e : equipements){
+
             Button ib = new Button(new TextureRegionDrawable(e.getTexture()));
 
 
@@ -77,6 +82,7 @@ public class InventoryMenu extends ScreenAdapter {
                     "Att: " + e.getPhysicalDamage() + " Mag: " + e.getMagicDamage() + " Armor: " + e.getArmor() + " MagRes: " + e.getMagicResist(),
                     new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
             table.row();
+            itemsButton.add(ib);
         }
         table.align(Align.left);
 
@@ -130,6 +136,16 @@ public class InventoryMenu extends ScreenAdapter {
 
     }
 
+    public void update(){
+        for(int i = 0; i < itemsButton.size(); i++){
+            Button b = itemsButton.get(i);
+            if(b.isPressed()){
+                //todo
+                p.getPlayerGear().changeGear(equipements.get(i));
+                break;
+            }
+        }
+    }
     @Override
     public void dispose() {
     }

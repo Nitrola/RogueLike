@@ -10,6 +10,8 @@ public class HighMageMantel extends Equipement {
         super("High Mage Mantel", "A mantel worn by the best mage in the world");
         equipement = new EquipementStats(0,0,0.1f,0.1f);
         texture = new Texture("equipment/HighMageMantel.png");
+        equipementType = EquipementType.ARMOR;
+
     }
 
 }

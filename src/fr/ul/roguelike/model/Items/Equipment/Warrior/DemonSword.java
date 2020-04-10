@@ -13,6 +13,8 @@ public class DemonSword extends Equipement {
         super("Demon Sword", "A sword welded by powerfull demons bathed in blood");
         equipement = new EquipementStats(10,3,0.1f,0.1f);
         texture = new Texture("equipment/demonSword.png");
+        equipementType = EquipementType.SWORD;
+
     }
     @Override
     public float getArmor() {
