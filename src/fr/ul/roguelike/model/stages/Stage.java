@@ -76,4 +76,15 @@ public abstract class Stage {
     public Sprite getSprite() {
         return sprite;
     }
+
+    public void setActual() {
+        this.actual = true;
+        sprite.setSize((float) (sprite.getWidth()*1.5), (float) (sprite.getHeight()*1.5));
+        rayon = (int) (rayon*1.5);
+        sprite.setPosition(this.getPosition().x - getRayon(), this.getPosition().y - getRayon());
+    }
+
+    public boolean isActual() {
+        return actual;
+    }
 }

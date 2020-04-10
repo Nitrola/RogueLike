@@ -23,19 +23,25 @@ import java.util.Random;
 public class MapInterface extends ScreenAdapter {
     private SpriteBatch spriteBatch;
     private GameWorld gameWorld;
+    private Texture map;
     private ArrayList<Stage> listeStages;
     private KeyboardListener keyboardListener;
     private OrthographicCamera camera = new OrthographicCamera();
     private ShapeRenderer shapeRenderer;
+    private Stage actualStage;
+
+
+
     static int i = 0;
     static int j = -1;
     static boolean bool = false;
-    static Stage stageD, stageG, stageU, tamponD, tamponG;
+    static Stage tamponD, tamponG, tampon;
     private int coeff = 100;
 
     public MapInterface(){
         spriteBatch = new SpriteBatch();
         gameWorld = new GameWorld();
+        map = new Texture(Gdx.files.internal("images/map.png"));
         keyboardListener = new KeyboardListener();
         Gdx.input.setInputProcessor(keyboardListener);
         camera.setToOrtho(false, 1600,900);
@@ -53,7 +59,7 @@ public class MapInterface extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
-        spriteBatch.draw(new Texture(Gdx.files.internal("images/map.png")), -200, -100);
+        spriteBatch.draw(map, -200, -100);
         spriteBatch.end();
 
         //Dessin des traits qui relient les stages
@@ -90,6 +96,9 @@ public class MapInterface extends ScreenAdapter {
                     stage.setPassed(true);
                 }
             }
+            if(stage.equals(actualStage) && !stage.isActual()){
+                stage.setActual();
+            }
             stage.draw(spriteBatch);
         }
 
@@ -112,11 +121,12 @@ public class MapInterface extends ScreenAdapter {
         int y = 450;
         Stage stage, tampon;
         tampon = new CombatStage(gameWorld, new Vector2(x, y));
+        actualStage = tampon;
         listeStages.add(tampon);
         buildMap(tampon);
 
         //Fin de la map par un boss
-        stage = new BossStage(gameWorld, new Vector2(x + 1050 , y));
+        stage = new BossStage(gameWorld, new Vector2(x + 1100 , y));
         listeStages.add(stage);
         Stage s;
         for(int i = 0 ; i < listeStages.size() ; i++){
@@ -142,39 +152,74 @@ public class MapInterface extends ScreenAdapter {
      * @param stage racine
      */
     private void buildMap(Stage stage){
-        int rand = 1;
-
+        Random r = new Random();
+        int rand = r.nextInt(2);
+        createRightStage(stage);
+        createLeftStage(stage);
         switch(rand){
             //Première map
+            case 0:
+                tamponD = stage.getRightStage();
+                tamponG = stage.getLeftStage();
+                createRightStage(tamponD);
+                createLeftStage(tamponD);
+
+                tamponG.setRightStage(tamponD.getLeftStage());
+                createLeftStage(tamponG);
+                createUniqueStage(tamponG.getRightStage());
+                createUniqueStage(tamponG.getRightStage().getUniqueStage());
+                tamponG = tamponG.getRightStage().getUniqueStage().getUniqueStage();
+                tamponD = tamponD.getRightStage();
+                createUniqueStage(tamponD);
+                createUniqueStage(tamponD.getUniqueStage());
+                createUniqueStage(tamponD.getUniqueStage().getUniqueStage());
+                tampon = tamponD.getUniqueStage().getUniqueStage();
+                tamponD = tampon.getUniqueStage();
+                createUniqueStage(stage.getLeftStage().getLeftStage());
+                createUniqueStage(stage.getLeftStage().getLeftStage().getUniqueStage());
+                tampon = stage.getLeftStage().getLeftStage().getUniqueStage().getUniqueStage();
+                createRightStage(tampon);
+                tamponG.setLeftStage(tampon.getRightStage());
+                createRightStage(tampon.getRightStage());
+                createLeftStage(tampon.getRightStage().getRightStage());
+                createRightStage(tampon.getRightStage().getRightStage());
+                createUniqueStage(tampon.getRightStage().getRightStage().getRightStage());
+                tamponD.setLeftStage(tampon.getRightStage().getRightStage());
+                createUniqueStage(tampon.getRightStage().getRightStage().getLeftStage());
+                break;
             case 1:
-            createRightStage(stage);
-            createLeftStage(stage);
-            tamponD = stageD;
-            tamponG = stageG;
-            createRightStage(tamponD);
-            createLeftStage(tamponD);
+                createUniqueStage(stage);
+                createUniqueStage(stage.getUniqueStage());
+                tamponD = stage.getRightStage();
+                tamponG = stage.getLeftStage();
+                createRightStage(tamponD);
+                createLeftStage(tamponG);
+                tampon = stage.getUniqueStage().getUniqueStage();
 
-            tamponG.setRightStage(stageG);
-            createLeftStage(tamponG);
-            createUniqueStage(tamponG.getRightStage());
-            createUniqueStage(stageU);
-            tamponG = stageU;
+                createUniqueStage(tamponD.getRightStage());
+                createUniqueStage(tamponG.getLeftStage());
+                createUniqueStage(tampon);
+                createUniqueStage(tampon.getUniqueStage());
+                tampon = tampon.getUniqueStage().getUniqueStage();
+                tamponD.getRightStage().getUniqueStage().setLeftStage(tampon);
+                tamponG.getLeftStage().getUniqueStage().setRightStage(tampon);
 
-            createUniqueStage(stageD);
-            createUniqueStage(stageU);
-            createUniqueStage(stageU);
-            tamponD = stageU;
-            createUniqueStage(stageG);
-            createUniqueStage(stageU);
-            createRightStage(stageU);
-            tamponG.setLeftStage(stageD);
-            createRightStage(stageD);
-            tamponD.setLeftStage(stageD);
-            createLeftStage(stageD);
-            createRightStage(stageD);
-            createUniqueStage(stageD);
-            createUniqueStage(stageG);
-            break;
+                createUniqueStage(tampon);
+                createLeftStage(tampon);
+                createRightStage(tampon);
+
+                createUniqueStage(tampon.getUniqueStage());
+                createUniqueStage(tampon.getRightStage());
+                createUniqueStage(tampon.getLeftStage());
+
+                tamponD = tampon.getUniqueStage().getUniqueStage();
+                createUniqueStage(tamponD);
+                tampon.getRightStage().getUniqueStage().setLeftStage(tamponD.getUniqueStage());
+                tampon.getLeftStage().getUniqueStage().setRightStage(tamponD.getUniqueStage());
+
+                createUniqueStage(tamponD.getUniqueStage());
+                break;
+
         }
 
     }
@@ -196,21 +241,21 @@ public class MapInterface extends ScreenAdapter {
 
     private void createRightStage(Stage stage){
         //Fils droit
-        stageD = stageAleatoire(new Vector2(stage.getPosition().x + coeff, stage.getPosition().y - coeff));
+        Stage stageD = stageAleatoire(new Vector2(stage.getPosition().x + coeff, stage.getPosition().y - coeff));
         listeStages.add(stageD);
         stage.setRightStage(stageD);
     }
 
     private void createUniqueStage(Stage stage){
         //Fils droit
-        stageU = stageAleatoire(new Vector2(stage.getPosition().x + coeff+20, stage.getPosition().y));
+        Stage stageU = stageAleatoire(new Vector2(stage.getPosition().x + coeff+20, stage.getPosition().y));
         listeStages.add(stageU);
         stage.setUniqueStage(stageU);
     }
 
     private void createLeftStage(Stage stage){
         //Fils gauche
-        stageG = stageAleatoire(new Vector2(stage.getPosition().x + coeff, stage.getPosition().y + coeff));
+        Stage stageG = stageAleatoire(new Vector2(stage.getPosition().x + coeff, stage.getPosition().y + coeff));
         listeStages.add(stageG);
         stage.setLeftStage(stageG);
     }
