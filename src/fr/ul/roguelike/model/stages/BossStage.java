@@ -18,22 +18,6 @@ public class BossStage extends Stage {
         position = pos;
         passed = false;
         actual = false;
-        bodyDef = new BodyDef();
-        bodyDef.position.set(position);
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-
-        body = gameWorld.getWorld().createBody(bodyDef);
-
-        CircleShape circle = new CircleShape();
-        circle.setRadius(rayon);
-
-        fixtureDef = new FixtureDef();
-        fixtureDef.shape = circle;
-        fixtureDef.isSensor = true;
-
-        body.createFixture(fixtureDef);
-
-        circle.dispose();
     }
 
     public void draw(SpriteBatch spriteBatch){
