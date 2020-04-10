@@ -145,4 +145,8 @@ public abstract class Hero {
     public float getManaRegen() {
         return manaRegen;
     }
+
+    public Texture getTexture(){
+        return animIdle.getKeyFrames()[0];
+    }
 }

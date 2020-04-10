@@ -1,6 +1,8 @@
 package fr.ul.roguelike.model;
 
+import com.badlogic.gdx.graphics.Texture;
 import fr.ul.roguelike.model.Heros.Warrior;
+import fr.ul.roguelike.model.Items.Equipment.Equipement;
 import fr.ul.roguelike.model.Items.Item;
 import fr.ul.roguelike.model.Spells.Spell;
 
@@ -12,9 +14,14 @@ public class Player {
     private ArrayList<Spell> spells;
     private ArrayList<Item> items;
 
-    private int current_level;
+    private int currentLevel;
     private int healthLeft;
     private float manaLeft;
+    private int currentGold;
+
+    private ArrayList<Equipement> equipements;
+    private ArrayList<Item> inventory;
+    private ArrayList<Equipement> inventoryEquipements;
 
     public Player(){
 
@@ -25,8 +32,21 @@ public class Player {
         healthLeft = playerCharacter.getHp();
         manaLeft = 0.0f;
 
-        current_level = 0;
+        currentLevel = 0;
+        currentGold = 0;
 
+        equipements = new ArrayList<>(5);
+        inventory = new ArrayList<>();
+        inventoryEquipements = new ArrayList<>();
+
+    }
+
+    public void add(Equipement equipement){
+        equipements.add(equipement);
+    }
+
+    public void remove(Equipement equipement){
+        equipements.remove(equipement);
     }
     public void updateState(){
         //System.out.println(playerCharacter.getCombatState());
@@ -56,10 +76,13 @@ public class Player {
     public void receiveHit(int dmg){
         if(playerCharacter.getCombatState() != Hero.CombatState.DEAD && playerCharacter.getCombatState() != Hero.CombatState.BLOCKING){
 
-            if (healthLeft - dmg > 0) {
+            if (healthLeft - dmg > 0 && healthLeft - dmg < playerCharacter.getHp()) {
                 this.healthLeft -= dmg;
-            } else {
+            } else if(healthLeft - dmg <= 0) {
                 healthLeft = 0;
+            }
+            else if(healthLeft - dmg >= playerCharacter.getHp()){
+                healthLeft = playerCharacter.getHp();
             }
         }
     }
@@ -98,8 +121,8 @@ public class Player {
         return manaLeft;
     }
 
-    public int getCurrent_level() {
-        return current_level;
+    public int getCurrentLevel() {
+        return currentLevel;
     }
 
 }

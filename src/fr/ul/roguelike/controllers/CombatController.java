@@ -25,7 +25,7 @@ public class CombatController {
     }
 
     public void checkInput() {
-        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) ) {
             int posX = Gdx.input.getX();
             int posY = Gdx.graphics.getHeight() - Gdx.input.getY();
 
@@ -44,7 +44,6 @@ public class CombatController {
 
             if (healthPotion.contains(posX, posY)) {
                 player.receiveHit(-10);
-
             }
 
             if (manaPotion.contains(posX, posY)) {
