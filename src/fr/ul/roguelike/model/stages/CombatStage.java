@@ -19,9 +19,6 @@ public class CombatStage extends Stage {
     }
 
     public void draw(SpriteBatch spriteBatch){
-        if(actual){
-            coeff = 3;
-        }
         if(passed) {
             sprite.setTexture(texturePassed);
         }

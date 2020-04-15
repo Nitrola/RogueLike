@@ -3,6 +3,7 @@ package fr.ul.roguelike.controllers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
+import fr.ul.roguelike.model.Hero;
 import fr.ul.roguelike.model.Monster.Monster;
 import fr.ul.roguelike.model.Player;
 
@@ -24,11 +25,11 @@ public class CombatController {
     }
 
     public void checkInput() {
-        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) ) {
             int posX = Gdx.input.getX();
             int posY = Gdx.graphics.getHeight() - Gdx.input.getY();
 
-            if (attack.contains(posX, posY)) {
+            if (attack.contains(posX, posY) && !monsters.isEmpty()) {
                 monsters.get(0).receiveHit(player.getPlayerCharacter().getPhysicalDmg());
                 player.useMana(1);
                 if (monsters.get(0).getCurrentHp() <= 0) {
@@ -37,12 +38,12 @@ public class CombatController {
             }
 
             if (block.contains(posX, posY)) {
-
+                player.useMana(1);
+                player.parry();
             }
 
             if (healthPotion.contains(posX, posY)) {
                 player.receiveHit(-10);
-
             }
 
             if (manaPotion.contains(posX, posY)) {
