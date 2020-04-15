@@ -104,6 +104,7 @@ public class ShopMenu extends ScreenAdapter {
         stage.addActor(exitBouton);
         //exitBouton.addListener(new ClickListener())
 
+
         coin = new Texture(Gdx.files.internal("images/coin.png"));
 
         spriteBatchPolice = new SpriteBatch();
