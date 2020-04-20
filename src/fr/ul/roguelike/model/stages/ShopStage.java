@@ -11,7 +11,7 @@ public class ShopStage extends Stage {
 
     public ShopStage(GameWorld gameWorld, Vector2 pos){
         super(gameWorld, pos);
-        texture = new Texture(Gdx.files.internal("images/shop.png"));
+        texture = new Texture(Gdx.files.internal("images/shop_icon.png"));
         texturePassed = new Texture(Gdx.files.internal("images/shop_passed.png"));
         sprite = new Sprite(texture);
         sprite.setPosition(this.getPosition().x - getRayon(), this.getPosition().y - getRayon());

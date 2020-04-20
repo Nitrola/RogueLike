@@ -11,13 +11,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -25,6 +23,7 @@ import com.badlogic.gdx.utils.Align;
 import fr.ul.roguelike.model.Items.ButtonItem;
 import fr.ul.roguelike.model.Items.Item;
 import fr.ul.roguelike.model.Items.ItemWeapon;
+import fr.ul.roguelike.model.Popup;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -42,6 +41,7 @@ public class ShopMenu extends ScreenAdapter {
     private ButtonItem playButton;
     private Iterator<ButtonItem> iterator;
     private int money;
+    private Popup popup;
 
     private FreeTypeFontGenerator fontGen;
     private FreeTypeFontGenerator.FreeTypeFontParameter fontCarac;
@@ -61,10 +61,30 @@ public class ShopMenu extends ScreenAdapter {
 
     public ShopMenu(){
         items = new ArrayList<>();
+
+        items.add(new ItemWeapon("healingPotion",20, "Rends des PV"));
+        items.add(new ItemWeapon("strengthPotion",20, "Donne de l'attaque pour un moment"));
+        items.add(new ItemWeapon("sword",75, "Arme tranchante de corps à corps"));
+        items.add(new ItemWeapon("bow",65, "Il est beau mon bow"));
+        items.add(new ItemWeapon("shield",70, "Permet de se protéger"));
+        items.add(new ItemWeapon("spatule",100000, "Trouvez en deux pour avoir un personnage en plus !"));
+        items.add(new ItemWeapon("aiguisoir",100, "Bah... il aiguise quoi frère"));
+        items.add(new ItemWeapon("axe",50, "Coupe du bois ou coupe tes ennemis, ton choix"));
+        items.add(new ItemWeapon("book",20, "Qu'est-ce que tu veux foutre d'un bouquin en combat ?"));
+        items.add(new ItemWeapon("cape",88, "Rends invi... heu non attenez c'est pas ça"));
+        items.add(new ItemWeapon("boots",30, "Parce que marcher pied nu, ça n'est pas très pratique"));
+        items.add(new ItemWeapon("parchemin",99, "Un parchemin sur un parchemin"));
+        items.add(new ItemWeapon("pierre de protection",144, "Pierre vous protègera à l'avenir"));
+        items.add(new ItemWeapon("pierre",45, "Une pierre. Si si, oui je sais, elle coûte cher"));
+        items.add(new ItemWeapon("plastron",55, "Afin de garder sa virginité"));
+        items.add(new ItemWeapon("talisman",48, "On sait pas trop s'il marche vraiment celui là"));
+
         shop = new ArrayList<>();
         buttons = new ArrayList<>();
         stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
         money = 999;
+        popup = new Popup(this);
 
         fontGen = new FreeTypeFontGenerator(Gdx.files.internal(("fonts/comicSansMS.ttf")));
         fontCarac = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -87,7 +107,6 @@ public class ShopMenu extends ScreenAdapter {
         fond.setWidth(largeurEcran);
         fond.setHeight(hauteurEcran);
         stage.addActor(fond);
-        Gdx.input.setInputProcessor(stage);
 
         Texture exit = new Texture(Gdx.files.internal("images/exit.png"));
         Drawable drawableExit = new TextureRegionDrawable(new TextureRegion(exit));
@@ -116,22 +135,7 @@ public class ShopMenu extends ScreenAdapter {
         cameraPolice.setToOrtho(false,largeurEcran,hauteurEcran);
         cameraPolice.update();
 
-        items.add(new ItemWeapon("healingPotion",20));
-        items.add(new ItemWeapon("strengthPotion",20));
-        items.add(new ItemWeapon("sword",75));
-        items.add(new ItemWeapon("bow",65));
-        items.add(new ItemWeapon("shield",70));
-        items.add(new ItemWeapon("spatule",100000));
-        items.add(new ItemWeapon("aiguisoir",100));
-        items.add(new ItemWeapon("axe",50));
-        items.add(new ItemWeapon("book",20));
-        items.add(new ItemWeapon("cape",88));
-        items.add(new ItemWeapon("boots",30));
-        items.add(new ItemWeapon("parchemin",99));
-        items.add(new ItemWeapon("pierre de protection",144));
-        items.add(new ItemWeapon("pierre",45));
-        items.add(new ItemWeapon("plastron",55));
-        items.add(new ItemWeapon("talisman",48));
+
         Random r = new Random();
         for(int i=0;i<6; i++) {
             int rand = r.nextInt(items.size());
@@ -158,19 +162,12 @@ public class ShopMenu extends ScreenAdapter {
             playButton.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    if(money - i.getPrice() >=0) {
-                        shop.remove(i);
-                        for (ButtonItem b : buttons) {
-                            if (b.getNomItem().equals(i.getName())) {
-                                    b.setClicked(true);
-                                    money = money - i.getPrice();
-                                    b.addAction(Actions.removeActor());
-                                    sound.play(1.0f);
-                            }
-                        }
-                    } else {
-                        soundError.play(1.0f);
+                        //Afficher description
+                        if(!popup.isPrint()){
+                            popup.setItem(i);
+                            popup.setPrint(true);
                     }
+
                 };
             });
             index++;
@@ -207,7 +204,17 @@ public class ShopMenu extends ScreenAdapter {
                 }
             }
         }
+
         spriteBatchPolice.end();
+
+        //Quand le popup est affiché
+        if(popup.isPrint()) {
+            popup.draw();
+            for(ButtonItem b : buttons){
+                b.addAction(Actions.removeActor());
+            }
+        }
+
 
         //Verification des boutons cliqués
         iterator = buttons.iterator();
@@ -221,5 +228,36 @@ public class ShopMenu extends ScreenAdapter {
 
     }
 
+    //////////////////////////////////
+    ///////Getters and Setters///////
+    /////////////////////////////////
 
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public void playSound() {
+        sound.play(1.0f);
+    }
+
+    public void playSoundError() {
+        soundError.play(1.0f);
+    }
+
+    public ArrayList<ButtonItem> getButtons() {
+        return buttons;
+    }
+
+    public ArrayList<Item> getShop() {
+        return shop;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
 }

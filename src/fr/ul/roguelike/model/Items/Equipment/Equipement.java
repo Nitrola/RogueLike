@@ -20,6 +20,10 @@ public abstract class Equipement extends Item{
         super(itemName, itemDescription);
     }
 
+    public Equipement(String itemName, int price, String description) {
+        super(itemName, price, description);
+    }
+
     public EquipementStats getEquipement() {
         return equipement;
     }

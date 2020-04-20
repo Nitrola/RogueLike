@@ -30,10 +30,6 @@ public class MapInterface extends ScreenAdapter {
     private ShapeRenderer shapeRenderer;
     private Stage actualStage;
 
-
-
-    static int i = 0;
-    static int j = -1;
     static boolean bool = false;
     static Stage tamponD, tamponG, tampon;
     private int coeff = 100;
@@ -94,7 +90,9 @@ public class MapInterface extends ScreenAdapter {
             if(stage.getSprite().getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY())){
                 if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched()) {
                     stage.setPassed(true);
+
                 }
+
             }
             if(stage.equals(actualStage) && !stage.isActual()){
                 stage.setActual();
