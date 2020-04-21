@@ -41,9 +41,9 @@ public class InventoryMenu extends ScreenAdapter {
     ArrayList<Equipement> equipements;
     private boolean camp;
 
-    public InventoryMenu(Player p,MapInterface mapInterface) {
+    public InventoryMenu(MapInterface mapInterface) {
 
-        this.p = p;
+        this.p = mapInterface.getPlayer();
         this.mapInterface = mapInterface;
         headSlot = new Sprite(new Texture("inventory/headSlot.png")) ;
         leftWepSlot = new Sprite(new Texture("inventory/leftWeaponSlot.png")) ;
@@ -89,7 +89,6 @@ public class InventoryMenu extends ScreenAdapter {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     if(camp){
-                        System.out.println(e.getPhysicalDamage());
                         upgrade(e);
                     }
                 };
@@ -134,12 +133,28 @@ public class InventoryMenu extends ScreenAdapter {
 
     public void upgrade(Equipement equipement){
         equipement.getEquipement().upgrade();
+        camp = false;
         mapInterface.getRogueLike().setScreen(mapInterface);
-
     }
 
     public void toUpgrade (){
         camp = true;
+        for(final Equipement e : equipements) {
+
+            ButtonItem ib = new ButtonItem(new TextureRegionDrawable(e.getTexture()));
+            ib.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    if (camp) {
+                        upgrade(e);
+                    }
+                }
+
+                ;
+            });
+            stage.addActor(ib);
+            Gdx.input.setInputProcessor(stage);
+        }
     }
 
 

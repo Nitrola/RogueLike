@@ -70,8 +70,7 @@ public class CampMenu extends ScreenAdapter {
             public void clicked(InputEvent event, float x, float y) {
                 player.heal(20);
                 cfButton.addAction(Actions.removeActor());
-                System.out.println(player.getHealthLeft());
-                //TODO faire un retour au menu
+                mapInterface.getRogueLike().setScreen(mapInterface.getInventoryMenu());
             };
         });
 
@@ -81,12 +80,9 @@ public class CampMenu extends ScreenAdapter {
         uwButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //System.out.println("upgrade weapon");
                 uwButton.addAction(Actions.removeActor());
-                InventoryMenu inventoryMenu = new InventoryMenu(player,mapInterface);
-                inventoryMenu.toUpgrade();
-                mapInterface.getRogueLike().setScreen(inventoryMenu);
-                //TODO Faire un retour au menu
+                mapInterface.getInventoryMenu().toUpgrade();
+                mapInterface.getRogueLike().setScreen(mapInterface.getInventoryMenu());
             };
         });
         stage.addActor(cfButton);

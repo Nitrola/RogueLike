@@ -21,6 +21,9 @@ import java.util.Random;
 
 public class MapInterface extends ScreenAdapter {
     private RogueLike rogueLike;
+    private InventoryMenu inventoryMenu;
+    private Player player;
+
     private SpriteBatch spriteBatch;
     private GameWorld gameWorld;
     private Texture map;
@@ -35,6 +38,8 @@ public class MapInterface extends ScreenAdapter {
 
     public MapInterface(RogueLike rogueLike){
         this.rogueLike = rogueLike;
+        player = new Player();
+        inventoryMenu = new InventoryMenu(this);
         spriteBatch = new SpriteBatch();
         gameWorld = new GameWorld();
         map = new Texture(Gdx.files.internal("images/map.png"));
@@ -92,12 +97,12 @@ public class MapInterface extends ScreenAdapter {
                     if(stage instanceof ShopStage){
                         rogueLike.setScreen(new ShopMenu(this));
                     }else if(stage instanceof CombatStage){
-                        rogueLike.setScreen(new CombatMenu(new Player(), this));
+                        rogueLike.setScreen(new CombatMenu(player, this));
                     }else if(stage instanceof CampStage){
                         rogueLike.setScreen(new CampMenu(this));
                     }else if(stage instanceof MiniBossStage){
                         //TODO faire combat plus dur
-                        rogueLike.setScreen(new CombatMenu(new Player(), this));
+                        rogueLike.setScreen(new CombatMenu(player, this));
                     }
                     actualStage.setActual();
                     actualStage = stage;
@@ -282,5 +287,13 @@ public class MapInterface extends ScreenAdapter {
 
     public RogueLike getRogueLike() {
         return rogueLike;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public InventoryMenu getInventoryMenu() {
+        return inventoryMenu;
     }
 }
