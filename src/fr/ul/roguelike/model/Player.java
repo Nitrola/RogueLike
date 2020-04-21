@@ -84,6 +84,14 @@ public class Player {
         }
     }
 
+    public void heal(int heal){
+
+        healthLeft+=heal;
+        if(healthLeft > playerCharacter.getHp()){
+            healthLeft = playerCharacter.getHp();
+        }
+    }
+
     public void useMana(int manaUsed){
         if(playerCharacter.getCombatState() != Hero.CombatState.DEAD) {
             if (manaLeft > manaUsed) {

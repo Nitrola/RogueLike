@@ -120,6 +120,7 @@ public class Popup {
 
         textField = new TextField.TextFieldStyle(police, Color.BLACK, null, null, null);
         textArea = new TextArea("", textField);
+        textArea.setDisabled(true);
     }
 
     public void draw(){
