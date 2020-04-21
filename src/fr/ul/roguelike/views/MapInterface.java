@@ -34,7 +34,7 @@ public class MapInterface extends ScreenAdapter {
     private Stage actualStage;
 
     static Stage tamponD, tamponG, tampon;
-    private int coeff = 100;
+    private int coeff = Gdx.graphics.getWidth()/16;
 
     public MapInterface(RogueLike rogueLike){
         this.rogueLike = rogueLike;
@@ -130,8 +130,8 @@ public class MapInterface extends ScreenAdapter {
      * Appelle les fonctions qui génère l'arbre
      */
     private void generateMap(){
-        int x = 200;
-        int y = 450;
+        int x = Gdx.graphics.getWidth()/8;
+        int y = Gdx.graphics.getHeight()/2;
         Stage stage, tampon;
         tampon = new CombatStage(gameWorld, new Vector2(x, y));
         actualStage = tampon;
@@ -237,7 +237,7 @@ public class MapInterface extends ScreenAdapter {
 
     private void createUniqueStage(Stage stage){
         //Fils droit
-        Stage stageU = stageAleatoire(new Vector2(stage.getPosition().x + coeff+20, stage.getPosition().y));
+        Stage stageU = stageAleatoire(new Vector2(stage.getPosition().x + coeff+Gdx.graphics.getWidth()/80, stage.getPosition().y));
         listeStages.add(stageU);
         stage.setUniqueStage(stageU);
     }
