@@ -18,6 +18,7 @@ import fr.ul.roguelike.model.Player;
 import java.util.ArrayList;
 
 public class CombatMenu extends ScreenAdapter {
+    private MapInterface mapInterface;
 
     //Model
     private Player player;
@@ -54,7 +55,8 @@ public class CombatMenu extends ScreenAdapter {
 
     private State currentState;
 
-    public CombatMenu(Player p) {
+    public CombatMenu(Player p, MapInterface mi) {
+        mapInterface = mi;
         player = p;
         monsters = new ArrayList<>();
         monsters.add(MonsterFactory.create("golem"));
@@ -132,6 +134,7 @@ public class CombatMenu extends ScreenAdapter {
                     0,0,
                     Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
             sb.end();
+            mapInterface.getRogueLike().setScreen(mapInterface);
         }
 
         if(currentState == State.LOOSE){

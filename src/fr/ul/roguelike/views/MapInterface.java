@@ -87,15 +87,20 @@ public class MapInterface extends ScreenAdapter {
         //Dessin des icônes de stage
         spriteBatch.begin();
         for (Stage stage: listeStages) {
-            if(stage.getSprite().getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY())){
+            if(stage.getSprite().getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()) && actualStage.isNext(stage)){
                 if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched()) {
                     if(stage instanceof ShopStage){
                         rogueLike.setScreen(new ShopMenu(this));
                     }else if(stage instanceof CombatStage){
-                        rogueLike.setScreen(new CombatMenu(new Player()));
+                        rogueLike.setScreen(new CombatMenu(new Player(), this));
                     }else if(stage instanceof CampStage){
                         rogueLike.setScreen(new CampMenu());
+                    }else if(stage instanceof MiniBossStage){
+                        //TODO faire combat plus dur
+                        rogueLike.setScreen(new CombatMenu(new Player(), this));
                     }
+                    actualStage.setActual();
+                    actualStage = stage;
                 }
 
             }

@@ -262,4 +262,10 @@ public class ShopMenu extends ScreenAdapter {
     public Stage getStage() {
         return stage;
     }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+
+    }
 }

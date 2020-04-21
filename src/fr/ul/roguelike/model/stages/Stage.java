@@ -78,13 +78,28 @@ public abstract class Stage {
     }
 
     public void setActual() {
-        this.actual = true;
-        sprite.setSize((float) (sprite.getWidth()*1.5), (float) (sprite.getHeight()*1.5));
-        rayon = (int) (rayon*1.5);
-        sprite.setPosition(this.getPosition().x - getRayon(), this.getPosition().y - getRayon());
+        if(!actual) {
+            this.actual = true;
+            sprite.setSize((float) (sprite.getWidth() * 1.5), (float) (sprite.getHeight() * 1.5));
+            rayon = (int) (rayon * 1.5);
+            sprite.setPosition(this.getPosition().x - getRayon(), this.getPosition().y - getRayon());
+        }else{
+            this.actual = false;
+            sprite.setSize((float) (sprite.getWidth() / 1.5), (float) (sprite.getHeight() / 1.5));
+            rayon = (int) (rayon / 1.5);
+            sprite.setPosition(this.getPosition().x - getRayon(), this.getPosition().y - getRayon());
+        }
     }
 
     public boolean isActual() {
         return actual;
+    }
+
+    public boolean isNext(Stage stage){
+        boolean res = false;
+        if(stage.equals(uniqueStage) || stage.equals(rightStage) || stage.equals(leftStage)){
+            res = true;
+        }
+        return res;
     }
 }
