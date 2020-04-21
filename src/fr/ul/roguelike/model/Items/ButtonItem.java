@@ -20,6 +20,11 @@ public class ButtonItem extends ImageButton {
         this.nomItem = i;
     }
 
+    public ButtonItem(Drawable imageUp) {
+        super(imageUp);
+        this.isClicked=false;
+    }
+
     public String getNomItem() {
         return nomItem;
     }

@@ -48,6 +48,7 @@ public abstract class Equipement extends Item{
         return equipement.magicalDamage;
     }
 
+
     public Texture getTexture() {
         return texture;
 

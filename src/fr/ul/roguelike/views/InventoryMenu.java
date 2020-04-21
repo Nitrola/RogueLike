@@ -8,14 +8,19 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import fr.ul.roguelike.model.Items.ButtonItem;
 import fr.ul.roguelike.model.Items.Equipment.Archer.ArcherPlate;
 import fr.ul.roguelike.model.Items.Equipment.Archer.BaseBow;
 import fr.ul.roguelike.model.Items.Equipment.Equipement;
 import fr.ul.roguelike.model.Items.Equipment.Warrior.DemonSword;
+import fr.ul.roguelike.model.Items.Item;
 import fr.ul.roguelike.model.Player;
 
 import java.util.ArrayList;
@@ -24,6 +29,7 @@ import java.util.ArrayList;
 public class InventoryMenu extends ScreenAdapter {
 
     private Player p;
+    private MapInterface mapInterface;
     private Stage stage;
     private ScrollPane scrollPane;
     private Texture background;
@@ -33,9 +39,12 @@ public class InventoryMenu extends ScreenAdapter {
     private Sprite armorSlot;
     private ArrayList<Button> itemsButton;
     ArrayList<Equipement> equipements;
-    public InventoryMenu(Player p) {
+    private boolean camp;
+
+    public InventoryMenu(Player p,MapInterface mapInterface) {
 
         this.p = p;
+        this.mapInterface = mapInterface;
         headSlot = new Sprite(new Texture("inventory/headSlot.png")) ;
         leftWepSlot = new Sprite(new Texture("inventory/leftWeaponSlot.png")) ;
         rightWepSlot = new Sprite(new Texture("inventory/rightWeaponSlot.png")) ;
@@ -52,29 +61,39 @@ public class InventoryMenu extends ScreenAdapter {
         Table table = new Table();
 
         equipements = new ArrayList<>();
+        equipements.add(new DemonSword());
+        equipements.add(new ArcherPlate());
+        equipements.add(new BaseBow());
+        equipements.add(new BaseBow());
+        equipements.add(new BaseBow());
+        equipements.add(new BaseBow());
+        equipements.add(new BaseBow());
+        equipements.add(new BaseBow());
+        equipements.add(new BaseBow());
+        equipements.add(new BaseBow());
+        equipements.add(new BaseBow());
+        equipements.add(new BaseBow());
+        equipements.add(new BaseBow());
+        equipements.add(new BaseBow());
+        equipements.add(new DemonSword());
 
-            equipements.add(new DemonSword());
-            equipements.add(new ArcherPlate());
-            equipements.add(new BaseBow());
-            equipements.add(new BaseBow());
-            equipements.add(new BaseBow());
-            equipements.add(new BaseBow());
-            equipements.add(new BaseBow());
-            equipements.add(new BaseBow());
-            equipements.add(new BaseBow());
-            equipements.add(new BaseBow());
-            equipements.add(new BaseBow());
-            equipements.add(new BaseBow());
-            equipements.add(new BaseBow());
-            equipements.add(new BaseBow());
-         equipements.add(new DemonSword());
+        camp = false;
 
 
         //table.setFillParent(true);
         table.align(Align.top);
-        for(Equipement e : equipements){
+        for(final Equipement e : equipements){
 
-            Button ib = new Button(new TextureRegionDrawable(e.getTexture()));
+            ButtonItem ib = new ButtonItem(new TextureRegionDrawable(e.getTexture()));
+            ib.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    if(camp){
+                        System.out.println(e.getPhysicalDamage());
+                        upgrade(e);
+                    }
+                };
+            });
 
 
             table.add(ib).width(ib.getWidth()*3f).height(ib.getHeight()*3f);
@@ -112,6 +131,17 @@ public class InventoryMenu extends ScreenAdapter {
         stage.addActor(potionTable);
         Gdx.input.setInputProcessor(stage);
     }
+
+    public void upgrade(Equipement equipement){
+        equipement.getEquipement().upgrade();
+        mapInterface.getRogueLike().setScreen(mapInterface);
+
+    }
+
+    public void toUpgrade (){
+        camp = true;
+    }
+
 
     @Override
     public void render(float delta) {

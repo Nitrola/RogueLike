@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -19,13 +18,15 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import fr.ul.roguelike.model.Items.ButtonItem;
 import fr.ul.roguelike.model.Player;
 
-import java.util.Random;
 
 public class CampMenu extends ScreenAdapter {
 
+    private MapInterface mapInterface;
+
     private Stage stage;
     private Texture texture;
-    private Button cfButton;
+    private Button cfButton, uwButton;
+
 
     private Player player;
 
@@ -40,7 +41,8 @@ public class CampMenu extends ScreenAdapter {
     private int largeurBouton = 300;
     private int hauteurBouton = 100;
 
-    public CampMenu (){
+    public CampMenu (final MapInterface mapInterface){
+        this.mapInterface = mapInterface;
         stage = new Stage();
         sr = new ShapeRenderer();
         sb = new SpriteBatch();
@@ -69,9 +71,26 @@ public class CampMenu extends ScreenAdapter {
                 player.heal(20);
                 cfButton.addAction(Actions.removeActor());
                 System.out.println(player.getHealthLeft());
+                //TODO faire un retour au menu
+            };
+        });
+
+        uwButton = new ButtonItem(drawable,"??");
+        uwButton.setSize(largeurBouton,hauteurBouton);
+        uwButton.setPosition(largeurEcran/2-largeurBouton/2,hauteurEcran/2-150);
+        uwButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                //System.out.println("upgrade weapon");
+                uwButton.addAction(Actions.removeActor());
+                InventoryMenu inventoryMenu = new InventoryMenu(player,mapInterface);
+                inventoryMenu.toUpgrade();
+                mapInterface.getRogueLike().setScreen(inventoryMenu);
+                //TODO Faire un retour au menu
             };
         });
         stage.addActor(cfButton);
+        stage.addActor(uwButton);
     }
 
     private void drawLifeBars(){
@@ -132,6 +151,7 @@ public class CampMenu extends ScreenAdapter {
     public void dispose() {
         super.dispose();
         cfButton.addAction(Actions.removeActor());
+        uwButton.addAction(Actions.removeActor());
         sb.dispose();
         sr.dispose();
     }

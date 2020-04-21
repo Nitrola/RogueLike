@@ -12,4 +12,10 @@ public class EquipementStats {
         this.armor = armor;
         this.magicResist = magicResist;
     }
+
+    public void upgrade() {
+        System.out.println(physicalDamage);
+        physicalDamage *= 1.4f;
+        magicalDamage *= 1.4f;
+    }
 }
