@@ -22,7 +22,7 @@ public class BossStage extends Stage {
 
     public void draw(SpriteBatch spriteBatch){
         spriteBatch.draw(new Texture(Gdx.files.internal("images/boss.png"))
-                , this.getPosition().x - getRayon(), this.getPosition().y - getRayon(),
+                , this.getPosition().x - getRayon(), this.getPosition().y - getRayon()/1.5f,
                 getRayon() * coeff, getRayon() * coeff);
 
     }

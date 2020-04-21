@@ -6,21 +6,21 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import fr.ul.roguelike.RogueLike;
 import fr.ul.roguelike.controllers.KeyboardListener;
 import fr.ul.roguelike.model.GameWorld;
+import fr.ul.roguelike.model.Player;
 import fr.ul.roguelike.model.stages.*;
 
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.Random;
 
 public class MapInterface extends ScreenAdapter {
+    private RogueLike rogueLike;
     private SpriteBatch spriteBatch;
     private GameWorld gameWorld;
     private Texture map;
@@ -30,11 +30,11 @@ public class MapInterface extends ScreenAdapter {
     private ShapeRenderer shapeRenderer;
     private Stage actualStage;
 
-    static boolean bool = false;
     static Stage tamponD, tamponG, tampon;
     private int coeff = 100;
 
-    public MapInterface(){
+    public MapInterface(RogueLike rogueLike){
+        this.rogueLike = rogueLike;
         spriteBatch = new SpriteBatch();
         gameWorld = new GameWorld();
         map = new Texture(Gdx.files.internal("images/map.png"));
@@ -89,8 +89,13 @@ public class MapInterface extends ScreenAdapter {
         for (Stage stage: listeStages) {
             if(stage.getSprite().getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY())){
                 if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched()) {
-                    stage.setPassed(true);
-
+                    if(stage instanceof ShopStage){
+                        rogueLike.setScreen(new ShopMenu(this));
+                    }else if(stage instanceof CombatStage){
+                        rogueLike.setScreen(new CombatMenu(new Player()));
+                    }else if(stage instanceof CampStage){
+                        rogueLike.setScreen(new CampMenu());
+                    }
                 }
 
             }
@@ -133,15 +138,6 @@ public class MapInterface extends ScreenAdapter {
                 s.setUniqueStage(stage);
             }
         }
-
-        /*for(int i = 0 ; i < listeStages.size() ; i++){
-            s = listeStages.get(i);
-            if(s.getRightStage() == null && s.getLeftStage() == null){
-                if(i+2 < listeStages.size()) {
-                   s.setRightStage(listeStages.get(i + 2), camera);
-                }
-            }
-        }*/
     }
 
 
@@ -222,21 +218,6 @@ public class MapInterface extends ScreenAdapter {
 
     }
 
-    /**
-     * Indique si un stage est déjà présent
-     * @param position du stage que l'on souhaite vérifier
-     * @return true si un stage est déjà présent
-     */
-    private boolean isStagePresent(Vector2 position){
-        boolean res = false;
-        for(Stage stage : listeStages){
-            if(stage.getPosition().equals(position)){
-                res = true;
-            }
-        }
-        return res;
-    }
-
     private void createRightStage(Stage stage){
         //Fils droit
         Stage stageD = stageAleatoire(new Vector2(stage.getPosition().x + coeff, stage.getPosition().y - coeff));
@@ -292,5 +273,9 @@ public class MapInterface extends ScreenAdapter {
      */
     public void dispose(){
         spriteBatch.dispose();
+    }
+
+    public RogueLike getRogueLike() {
+        return rogueLike;
     }
 }

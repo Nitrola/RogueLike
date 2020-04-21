@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 public class ShopMenu extends ScreenAdapter {
+    private MapInterface mapInterface;
     private Stage stage;
     private SpriteBatch spriteBatchPolice;
     private ArrayList<Item> items;
@@ -59,7 +60,8 @@ public class ShopMenu extends ScreenAdapter {
     private int tailleBouton = Gdx.graphics.getHeight()/3; //Taille des boutons
 
 
-    public ShopMenu(){
+    public ShopMenu(final MapInterface mapInterface){
+        this.mapInterface = mapInterface;
         items = new ArrayList<>();
 
         items.add(new ItemWeapon("healingPotion",20, "Rends des PV"));
@@ -117,7 +119,7 @@ public class ShopMenu extends ScreenAdapter {
         exitBouton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("quitter");
+                mapInterface.getRogueLike().setScreen(mapInterface);
             };
         });
         stage.addActor(exitBouton);
