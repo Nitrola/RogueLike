@@ -134,7 +134,7 @@ public class CombatMenu extends ScreenAdapter {
                     0,0,
                     Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
             sb.end();
-            mapInterface.getRogueLike().setScreen(mapInterface);
+            mapInterface.setScreen();
         }
 
         if(currentState == State.LOOSE){

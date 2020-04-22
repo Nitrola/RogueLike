@@ -32,6 +32,7 @@ public class MapInterface extends ScreenAdapter {
     private OrthographicCamera camera = new OrthographicCamera();
     private ShapeRenderer shapeRenderer;
     private Stage actualStage;
+    private boolean isClicking;
 
     static Stage tamponD, tamponG, tampon;
     private int coeff = Gdx.graphics.getWidth()/16;
@@ -42,6 +43,7 @@ public class MapInterface extends ScreenAdapter {
         inventoryMenu = new InventoryMenu(this);
         spriteBatch = new SpriteBatch();
         gameWorld = new GameWorld();
+        isClicking = false;
         map = new Texture(Gdx.files.internal("images/map.png"));
         keyboardListener = new KeyboardListener();
         Gdx.input.setInputProcessor(keyboardListener);
@@ -93,7 +95,8 @@ public class MapInterface extends ScreenAdapter {
         spriteBatch.begin();
         for (Stage stage: listeStages) {
             if(stage.getSprite().getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()) && actualStage.isNext(stage)){
-                if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched()) {
+                if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched() && !isClicking) {
+                    isClicking = true;
                     if(stage instanceof ShopStage){
                         rogueLike.setScreen(new ShopMenu(this));
                     }else if(stage instanceof CombatStage){
@@ -283,6 +286,11 @@ public class MapInterface extends ScreenAdapter {
      */
     public void dispose(){
         spriteBatch.dispose();
+    }
+
+    public void setScreen() {
+        rogueLike.setScreen(this);
+        isClicking = false;
     }
 
     public RogueLike getRogueLike() {

@@ -119,7 +119,7 @@ public class ShopMenu extends ScreenAdapter {
         exitBouton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mapInterface.getRogueLike().setScreen(mapInterface);
+                mapInterface.setScreen();
             };
         });
         stage.addActor(exitBouton);

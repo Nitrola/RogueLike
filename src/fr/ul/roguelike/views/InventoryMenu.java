@@ -134,7 +134,7 @@ public class InventoryMenu extends ScreenAdapter {
     public void upgrade(Equipement equipement){
         equipement.getEquipement().upgrade();
         camp = false;
-        mapInterface.getRogueLike().setScreen(mapInterface);
+        mapInterface.setScreen();
     }
 
     public void toUpgrade (){
