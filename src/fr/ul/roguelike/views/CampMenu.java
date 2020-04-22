@@ -70,7 +70,6 @@ public class CampMenu extends ScreenAdapter {
             public void clicked(InputEvent event, float x, float y) {
                 player.heal(20);
                 cfButton.addAction(Actions.removeActor());
-                mapInterface.getRogueLike().setScreen(mapInterface.getInventoryMenu());
             };
         });
 

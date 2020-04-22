@@ -15,7 +15,7 @@ public class EquipementStats {
 
     public void upgrade() {
         System.out.println(physicalDamage);
-        physicalDamage *= 1.4f;
-        magicalDamage *= 1.4f;
+        physicalDamage *= 10f;
+        magicalDamage *= 10f;
     }
 }

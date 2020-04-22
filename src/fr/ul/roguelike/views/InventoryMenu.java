@@ -114,7 +114,7 @@ public class InventoryMenu extends ScreenAdapter {
 
         Table potionTable = new Table();
         Texture manaPotion, potion;
-        manaPotion = new Texture("combat/manaPotion.png");
+        manaPotion = new Texture("combat/manapotion.png");
         potion = new Texture("combat/potion.png");
         potionTable.add(new Image(potion)).width(potion.getWidth()*2f).height(potion.getHeight()*2f);
         potionTable.add(new Label(" : 0",new Label.LabelStyle(new BitmapFont(), Color.WHITE)));

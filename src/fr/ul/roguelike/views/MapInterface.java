@@ -45,7 +45,7 @@ public class MapInterface extends ScreenAdapter {
         map = new Texture(Gdx.files.internal("images/map.png"));
         keyboardListener = new KeyboardListener();
         Gdx.input.setInputProcessor(keyboardListener);
-        camera.setToOrtho(false, 1600,900);
+        camera.setToOrtho(false, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         camera.update();
 
         listeStages = new ArrayList<Stage>();
@@ -60,7 +60,7 @@ public class MapInterface extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
-        spriteBatch.draw(map, -200, -100);
+        spriteBatch.draw(map, 0, 0,Gdx.graphics.getWidth(),       Gdx.graphics.getHeight());
         spriteBatch.end();
 
         //Dessin des traits qui relient les stages
@@ -139,7 +139,7 @@ public class MapInterface extends ScreenAdapter {
         buildMap(tampon);
 
         //Fin de la map par un boss
-        stage = new BossStage(gameWorld, new Vector2(x + 1100 , y));
+        stage = new BossStage(gameWorld, new Vector2(x + Gdx.graphics.getWidth()/1.5f , y));
         listeStages.add(stage);
         Stage s;
         for(int i = 0 ; i < listeStages.size() ; i++){
