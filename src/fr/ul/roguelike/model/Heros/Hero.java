@@ -1,4 +1,4 @@
-package fr.ul.roguelike.model;
+package fr.ul.roguelike.model.Heros;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

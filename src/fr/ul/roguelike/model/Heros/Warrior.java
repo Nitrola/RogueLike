@@ -1,11 +1,8 @@
 package fr.ul.roguelike.model.Heros;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import fr.ul.roguelike.model.Hero;
 
 public class Warrior extends Hero {
 

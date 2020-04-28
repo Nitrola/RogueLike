@@ -1,9 +1,7 @@
 package fr.ul.roguelike;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.roguelike.views.MainMenu;
-import fr.ul.roguelike.views.MapInterface;
 import fr.ul.roguelike.views.SplashScreen;
 
 import com.badlogic.gdx.utils.Timer;

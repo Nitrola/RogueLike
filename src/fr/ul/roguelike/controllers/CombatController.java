@@ -3,7 +3,6 @@ package fr.ul.roguelike.controllers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
-import fr.ul.roguelike.model.Hero;
 import fr.ul.roguelike.model.Monster.Monster;
 import fr.ul.roguelike.model.Player;
 

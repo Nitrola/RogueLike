@@ -37,9 +37,9 @@ public class MapInterface extends ScreenAdapter {
     static Stage tamponD, tamponG, tampon;
     private int coeff = Gdx.graphics.getWidth()/16;
 
-    public MapInterface(RogueLike rogueLike){
+    public MapInterface(RogueLike rogueLike, Player p){
         this.rogueLike = rogueLike;
-        player = new Player();
+        player = p;
         inventoryMenu = new InventoryMenu(this);
         spriteBatch = new SpriteBatch();
         gameWorld = new GameWorld();

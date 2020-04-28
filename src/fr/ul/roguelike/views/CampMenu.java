@@ -60,12 +60,12 @@ public class CampMenu extends ScreenAdapter {
         fond.setWidth(largeurEcran);
         fond.setHeight(hauteurEcran);
         stage.addActor(fond);
-        animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("images/feu.gif").read());
+        animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("images/animations/feu.gif").read());
         sprite = new Sprite();
         sprite.setPosition(largeurEcran/2-largeurBouton/2,hauteurEcran/2);
         sprite.setSize(largeurBouton, hauteurBouton);
 
-        player = new Player();
+        player = mapInterface.getPlayer();
         lifeBar = new Texture("combat/lifeBar.png");
         heart = new Texture("combat/heart.png");
         mana = new Texture("combat/manapotion.png");

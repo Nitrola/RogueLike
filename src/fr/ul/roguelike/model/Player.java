@@ -1,6 +1,6 @@
 package fr.ul.roguelike.model;
 
-import com.badlogic.gdx.graphics.Texture;
+import fr.ul.roguelike.model.Heros.Hero;
 import fr.ul.roguelike.model.Heros.Warrior;
 import fr.ul.roguelike.model.Items.Equipment.Equipement;
 import fr.ul.roguelike.model.Items.Item;
@@ -130,4 +130,7 @@ public class Player {
         return currentLevel;
     }
 
+    public void setPlayerCharacter(Hero playerCharacter) {
+        this.playerCharacter = playerCharacter;
+    }
 }
