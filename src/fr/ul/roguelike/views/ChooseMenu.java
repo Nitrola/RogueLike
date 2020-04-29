@@ -10,10 +10,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import fr.ul.roguelike.RogueLike;
 import fr.ul.roguelike.model.GifDecoder;
+import fr.ul.roguelike.model.Heros.Alchimist;
+import fr.ul.roguelike.model.Heros.Hero;
 import fr.ul.roguelike.model.Heros.Mage;
 import fr.ul.roguelike.model.Heros.Warrior;
 import fr.ul.roguelike.model.Player;
@@ -22,9 +22,7 @@ public class ChooseMenu extends ScreenAdapter {
     private RogueLike rogueLike;
     private Player player;
     private MapInterface mapInterface;
-    private enum classe{
-        Warrior, Mage, Alchimist;
-    }
+    private Hero hero;
 
     private SpriteBatch sb;
     private Texture background;
@@ -87,29 +85,25 @@ public class ChooseMenu extends ScreenAdapter {
     public void update(){
         if(spriteWarrior.getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY())) {
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched()) {
-                play(classe.Warrior);
+                play(new Warrior());
             }
         }
 
         if(spriteMage.getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY())) {
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched()) {
-                play(classe.Mage);
+                play(new Mage());
             }
         }
 
         if(spriteAlchimist.getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY())) {
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched()) {
-                play(classe.Alchimist);
+                play(new Alchimist());
             }
         }
     }
 
-    public void play(classe classe){
-        if (classe == ChooseMenu.classe.Warrior){
-            player.setPlayerCharacter(new Warrior());
-        }else if(classe == ChooseMenu.classe.Mage){
-            player.setPlayerCharacter(new Mage());
-        }
+    public void play(Hero h){
+        player.setPlayerCharacter(h);
 
         mapInterface = new MapInterface(rogueLike, player);
         rogueLike.setScreen(mapInterface);

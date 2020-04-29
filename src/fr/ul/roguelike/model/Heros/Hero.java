@@ -40,6 +40,9 @@ public abstract class Hero {
     private float stateTime;
     private float animeTime;
 
+    protected float width;
+    protected float height;
+
     public Hero(int hp, int mana, float mana_regen, float critic_chance, int physical_dmg, int magical_dmg, float physical_def, float magical_def,int manaRegenTime) {
         this.hp = hp;
         this.mana = mana;
@@ -66,7 +69,7 @@ public abstract class Hero {
     public void draw(SpriteBatch sb, int posX, int posY){
 
         stateTime += Gdx.graphics.getDeltaTime();
-        Texture currentFrame = new Texture("combat/Def.png");
+        Texture currentFrame = new Texture("images/combat/Def.png");
 
         if(combatState == CombatState.ATTACKING) {
             animeTime += Gdx.graphics.getDeltaTime();
@@ -80,10 +83,12 @@ public abstract class Hero {
             animeTime += Gdx.graphics.getDeltaTime();
             currentFrame = animBlock.getKeyFrame(animeTime, false);
         }
-        if(combatState == CombatState.DEAD)
-            currentFrame = animDead.getKeyFrame(stateTime,false);
+        if(combatState == CombatState.DEAD) {
+            animeTime += Gdx.graphics.getDeltaTime();
+            currentFrame = animDead.getKeyFrame(animeTime, false);
+        }
 
-        sb.draw(currentFrame,posX,posY,currentFrame.getWidth()*5,currentFrame.getHeight()*5);
+        sb.draw(currentFrame,posX,posY,width , height);
     }
 
     public boolean shouldIdle(){
@@ -148,5 +153,13 @@ public abstract class Hero {
 
     public Texture getTexture(){
         return animIdle.getKeyFrames()[0];
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
     }
 }

@@ -11,7 +11,7 @@ public class Golem extends Monster {
 
     public Golem(int hp, int mana, int attackSpeed, float criticChance, int physicalDmg, int magicalDmg, float physicalDef, float magicalDef) {
         super(hp, mana, attackSpeed, criticChance, physicalDmg, magicalDmg, physicalDef, magicalDef);
-        Texture golemSheet = new Texture("combat/golemWalk.png");
+        Texture golemSheet = new Texture("images/combat/golemWalk.png");
         TextureRegion[][] tmp = TextureRegion.split(golemSheet,golemSheet.getWidth() / 7 , golemSheet.getHeight()/1);
         TextureRegion[] walkFrames = new TextureRegion[7*1];
         int index = 0;

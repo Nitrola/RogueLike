@@ -66,9 +66,9 @@ public class CampMenu extends ScreenAdapter {
         sprite.setSize(largeurBouton, hauteurBouton);
 
         player = mapInterface.getPlayer();
-        lifeBar = new Texture("combat/lifeBar.png");
-        heart = new Texture("combat/heart.png");
-        mana = new Texture("combat/manapotion.png");
+        lifeBar = new Texture("images/combat/lifeBar.png");
+        heart = new Texture("images/combat/heart.png");
+        mana = new Texture("images/combat/manapotion.png");
 
         texture = new Texture(Gdx.files.internal("images/badlogic.jpg"));
         drawable = new TextureRegionDrawable(new TextureRegion(texture));

@@ -45,10 +45,10 @@ public class InventoryMenu extends ScreenAdapter {
 
         this.p = mapInterface.getPlayer();
         this.mapInterface = mapInterface;
-        headSlot = new Sprite(new Texture("inventory/headSlot.png")) ;
-        leftWepSlot = new Sprite(new Texture("inventory/leftWeaponSlot.png")) ;
-        rightWepSlot = new Sprite(new Texture("inventory/rightWeaponSlot.png")) ;
-        armorSlot = new Sprite(new Texture("inventory/armorSlot.png")) ;
+        headSlot = new Sprite(new Texture("images/inventory/headSlot.png")) ;
+        leftWepSlot = new Sprite(new Texture("images/inventory/leftWeaponSlot.png")) ;
+        rightWepSlot = new Sprite(new Texture("images/inventory/rightWeaponSlot.png")) ;
+        armorSlot = new Sprite(new Texture("images/inventory/armorSlot.png")) ;
 
 
         armorSlot.setPosition(Gdx.graphics.getWidth()*0.17f,Gdx.graphics.getHeight()*0.17f);
@@ -104,7 +104,7 @@ public class InventoryMenu extends ScreenAdapter {
         }
         table.align(Align.left);
 
-        background = new Texture("inventory/background.png");
+        background = new Texture("images/inventory/background.png");
 
         scrollPane = new ScrollPane(table);
         scrollPane.setScrollingDisabled(true,false);
@@ -114,8 +114,8 @@ public class InventoryMenu extends ScreenAdapter {
 
         Table potionTable = new Table();
         Texture manaPotion, potion;
-        manaPotion = new Texture("combat/manapotion.png");
-        potion = new Texture("combat/potion.png");
+        manaPotion = new Texture("images/combat/manapotion.png");
+        potion = new Texture("images/combat/potion.png");
         potionTable.add(new Image(potion)).width(potion.getWidth()*2f).height(potion.getHeight()*2f);
         potionTable.add(new Label(" : 0",new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
 
@@ -168,7 +168,7 @@ public class InventoryMenu extends ScreenAdapter {
         stage.getBatch().draw(
                 p.getPlayerCharacter().getTexture(),
                 Gdx.graphics.getWidth()*0.05f,Gdx.graphics.getHeight()*0.3f,
-                p.getPlayerCharacter().getTexture().getWidth()*5f,p.getPlayerCharacter().getTexture().getHeight()*5f
+                p.getPlayerCharacter().getWidth(),p.getPlayerCharacter().getHeight()
         );
         // slots around the character
         armorSlot.draw(stage.getBatch());

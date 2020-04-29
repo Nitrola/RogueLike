@@ -9,7 +9,7 @@ public class ArcherPlate extends Equipement {
     public ArcherPlate() {
         super("Archer plate", "The commun plate worn on the battlefield. Could easly stop any sword not corretly sharped");
         equipement = new EquipementStats(0,0,0.1f,0.1f);
-        texture = new Texture("equipment/archerPlate.png");
+        texture = new Texture("images/equipment/archerPlate.png");
         equipementType = EquipementType.ARMOR;
 
     }

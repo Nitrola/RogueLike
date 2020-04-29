@@ -42,6 +42,7 @@ public class CombatMenu extends ScreenAdapter {
     private Texture heart;
     private Texture mana;
     private ArrayList<Texture> spellsButton;
+    private boolean ended;
 
 
     private CombatController combatController;
@@ -56,6 +57,7 @@ public class CombatMenu extends ScreenAdapter {
     private State currentState;
 
     public CombatMenu(Player p, MapInterface mi) {
+        ended = false;
         mapInterface = mi;
         player = p;
         monsters = new ArrayList<>();
@@ -73,16 +75,16 @@ public class CombatMenu extends ScreenAdapter {
         sb.setProjectionMatrix(cam.combined);
 
         // loading textures
-        background = new Texture("combat/background.png");
-        attackButton = new Sprite(new Texture("combat/button_attack.png"));
-        manaPotion = new Sprite(new Texture("combat/button_manapotion.png"));
-        healthPotion = new Sprite(new Texture("combat/button_potion.png"));
-        defButton = new Sprite(new Texture("combat/button_def.png"));
-        victoryMessage = new Texture("combat/victoryMessage.png");
-        deadMessage = new Texture("combat/deadMessage.png");
-        lifeBar = new Texture("combat/lifeBar.png");
-        heart = new Texture("combat/heart.png");
-        mana = new Texture("combat/manapotion.png");
+        background = new Texture("images/combat/background.png");
+        attackButton = new Sprite(new Texture("images/combat/button_attack.png"));
+        manaPotion = new Sprite(new Texture("images/combat/button_manapotion.png"));
+        healthPotion = new Sprite(new Texture("images/combat/button_potion.png"));
+        defButton = new Sprite(new Texture("images/combat/button_def.png"));
+        victoryMessage = new Texture("images/combat/victoryMessage.png");
+        deadMessage = new Texture("images/combat/deadMessage.png");
+        lifeBar = new Texture("images/combat/lifeBar.png");
+        heart = new Texture("images/combat/heart.png");
+        mana = new Texture("images/combat/manapotion.png");
 
         // resizing buttons
         final int buttonSize = Gdx.graphics.getWidth()/15;
@@ -105,7 +107,8 @@ public class CombatMenu extends ScreenAdapter {
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
-                player.regenMana();;
+                if(!ended)
+                player.regenMana();
             }
         },0.0f,player.getPlayerCharacter().getManaRegenTime());
 
@@ -127,7 +130,7 @@ public class CombatMenu extends ScreenAdapter {
 
         if(currentState == State.WIN){
             //stop mana regeneration
-            Timer.instance().stop();
+            ended = true;
             drawCombat();
             sb.begin();
             sb.draw(victoryMessage,
@@ -139,7 +142,7 @@ public class CombatMenu extends ScreenAdapter {
 
         if(currentState == State.LOOSE){
             //stop mana regeneration
-            Timer.instance().stop();
+            ended = true;
             drawCombat();
             sb.begin();
             sb.draw(deadMessage,
@@ -152,13 +155,12 @@ public class CombatMenu extends ScreenAdapter {
     }
 
     private void drawCombat(){
-            Gdx.gl.glClearColor(0.25f, 0.25f, 0.25f, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
             sb.begin();
 
             sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-            player.getPlayerCharacter().draw(sb, Gdx.graphics.getWidth() / 6, Gdx.graphics.getHeight() / 3);
+            player.getPlayerCharacter().draw(sb, Gdx.graphics.getWidth() / 20, Gdx.graphics.getHeight() / 3);
             sb.draw(lifeBar,
                 0,Gdx.graphics.getHeight() - lifeBar.getHeight()*2,
                 lifeBar.getWidth()*2,lifeBar.getHeight()*2);

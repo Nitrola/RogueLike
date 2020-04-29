@@ -7,12 +7,19 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import fr.ul.roguelike.RogueLike;
 import fr.ul.roguelike.controllers.KeyboardListener;
 import fr.ul.roguelike.model.GameWorld;
+import fr.ul.roguelike.model.Items.ButtonItem;
 import fr.ul.roguelike.model.Player;
 import fr.ul.roguelike.model.stages.*;
 
@@ -32,26 +39,43 @@ public class MapInterface extends ScreenAdapter {
     private OrthographicCamera camera = new OrthographicCamera();
     private ShapeRenderer shapeRenderer;
     private Stage actualStage;
+
+    private com.badlogic.gdx.scenes.scene2d.Stage stage;
     private boolean isClicking;
 
     static Stage tamponD, tamponG, tampon;
     private int coeff = Gdx.graphics.getWidth()/16;
 
-    public MapInterface(RogueLike rogueLike, Player p){
+    public MapInterface(final RogueLike rogueLike, Player p){
         this.rogueLike = rogueLike;
         player = p;
         inventoryMenu = new InventoryMenu(this);
+        stage = new com.badlogic.gdx.scenes.scene2d.Stage();
+        Gdx.input.setInputProcessor(stage);
         spriteBatch = new SpriteBatch();
         gameWorld = new GameWorld();
         isClicking = false;
         map = new Texture(Gdx.files.internal("images/map.png"));
-        keyboardListener = new KeyboardListener();
-        Gdx.input.setInputProcessor(keyboardListener);
         camera.setToOrtho(false, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         camera.update();
 
         listeStages = new ArrayList<Stage>();
         generateMap();
+
+        Texture exit = new Texture(Gdx.files.internal("images/exit.png"));
+        Drawable drawableExit = new TextureRegionDrawable(new TextureRegion(exit));
+        drawableExit.setMinHeight(Gdx.graphics.getHeight()/9);
+        drawableExit.setMinWidth(Gdx.graphics.getWidth()/8);
+        ImageButton exitBouton = new ImageButton(drawableExit);
+        exitBouton.setPosition(0,Gdx.graphics.getHeight()-drawableExit.getMinHeight());
+        exitBouton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                MainMenu mainMenu = new MainMenu(rogueLike);
+                rogueLike.setScreen(mainMenu);
+            };
+        });
+        stage.addActor(exitBouton);
     }
 
     /**
@@ -60,6 +84,8 @@ public class MapInterface extends ScreenAdapter {
     @Override
     public void render (float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+        stage.draw();
+        stage.act();
         spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
         spriteBatch.draw(map, 0, 0,Gdx.graphics.getWidth(),       Gdx.graphics.getHeight());
@@ -118,15 +144,9 @@ public class MapInterface extends ScreenAdapter {
             stage.draw(spriteBatch);
         }
 
-        //DEBUGGER
-        if(keyboardListener.isDebug()) {
-            Gdx.gl.glClearColor(0.20f, 0.20f, 0.20f, 1);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            Box2DDebugRenderer box2DDebugRenderer = new Box2DDebugRenderer();
-            box2DDebugRenderer.render(gameWorld.getWorld(), camera.combined);
-        }
         spriteBatch.end();
-
+        stage.draw();
+        stage.act();
     }
 
     /**

@@ -28,6 +28,7 @@ public class MainMenu extends ScreenAdapter {
 
     private Button playButton,exitButton;
     private Texture texture;
+    private boolean clicked;
 
     private int screenWidth = Gdx.graphics.getWidth();
     private int screenHeight = Gdx.graphics.getHeight();
@@ -38,6 +39,7 @@ public class MainMenu extends ScreenAdapter {
         stage = new Stage();
         this.rogueLike = rogueLike;
         Gdx.input.setInputProcessor(stage);
+        clicked = false;
         spriteBatch = new SpriteBatch();
         Image fond = new Image(new Texture(Gdx.files.internal("images/menu.png")));
         fond.setWidth(screenWidth);
@@ -82,8 +84,11 @@ public class MainMenu extends ScreenAdapter {
     }
 
     public void play (){
-        chooseMenu = new ChooseMenu(rogueLike, new Player());
-        rogueLike.setScreen(chooseMenu);
+        if(!clicked) {
+            chooseMenu = new ChooseMenu(rogueLike, new Player());
+            rogueLike.setScreen(chooseMenu);
+            clicked = true;
+        }
     }
 
     @Override
