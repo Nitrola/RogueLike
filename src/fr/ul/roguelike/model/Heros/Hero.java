@@ -3,6 +3,7 @@ package fr.ul.roguelike.model.Heros;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -16,6 +17,7 @@ public abstract class Hero {
 
     private int physicalDmg;
     private int magicalDmg;
+    private float posX, posY;
 
     //ranged from 0 to 1
     private float physicalDef;
@@ -66,7 +68,9 @@ public abstract class Hero {
         return frames;
     }
 
-    public void draw(SpriteBatch sb, int posX, int posY){
+    public void draw(SpriteBatch sb, float posX, float posY){
+        this.posX = posX;
+        this.posY = posY;
 
         stateTime += Gdx.graphics.getDeltaTime();
         Texture currentFrame = new Texture("images/combat/Def.png");
@@ -149,6 +153,13 @@ public abstract class Hero {
 
     public float getManaRegen() {
         return manaRegen;
+    }
+
+    public boolean isClicked(){
+        Sprite sprite = new Sprite(animIdle.getKeyFrame(stateTime,true));
+        sprite.setSize(width, height);
+        sprite.setPosition(posX, posY);
+        return sprite.getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
     }
 
     public Texture getTexture(){

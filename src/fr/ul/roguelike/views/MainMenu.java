@@ -46,7 +46,7 @@ public class MainMenu extends ScreenAdapter {
         fond.setHeight(screenHeight);
         stage.addActor(fond);
 
-        texture = new Texture(Gdx.files.internal("images/woodTexture.png"));
+        texture = new Texture(Gdx.files.internal("images/jouer.png"));
         Drawable drawable = new TextureRegionDrawable(new TextureRegion(texture));
         drawable.setMinHeight(buttonHeight);
         drawable.setMinWidth(buttonWidth);
@@ -60,7 +60,7 @@ public class MainMenu extends ScreenAdapter {
             };
         });
 
-        texture = new Texture(Gdx.files.internal("images/woodTexture.png"));
+        texture = new Texture(Gdx.files.internal("images/quitter.png"));
         Drawable drawable2 = new TextureRegionDrawable(new TextureRegion(texture));
         drawable2.setMinHeight(buttonHeight);
         drawable2.setMinWidth(buttonWidth);
