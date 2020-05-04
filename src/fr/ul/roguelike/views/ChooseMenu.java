@@ -51,28 +51,28 @@ public class ChooseMenu extends ScreenAdapter {
         //Animations
         sb.begin();
         sb.draw(background, 0 ,0, screenWidth, screenHeight);
-        warrior.draw(sb, screenWidth/20f , screenHeight/5.7f);
-        mage.draw(sb, screenWidth/3f , screenHeight/8f);
-        alchimist.draw(sb, screenWidth/3f*2, screenHeight/7.2f);
+        warrior.draw(sb, screenWidth/20f-warrior.getWidth()/7f , screenHeight/5.7f);
+        mage.draw(sb, screenWidth/3f-mage.getWidth()/7f , screenHeight/8f);
+        alchimist.draw(sb, screenWidth/3f*2f-alchimist.getWidth()/4f, screenHeight/8.2f);
         sb.end();
 
         update();
     }
 
     public void update(){
-        if(warrior.isClicked()) {
+        if(Gdx.input.getX() < screenWidth/3) {
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched()) {
                 play(new Warrior());
             }
         }
 
-        if(mage.isClicked()) {
+        if(Gdx.input.getX() > screenWidth/3 &&  Gdx.input.getX() < screenWidth/3*2){
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched()) {
                 play(new Mage());
             }
         }
 
-        if(alchimist.isClicked()) {
+        if(Gdx.input.getX() > screenWidth/3*2) {
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched()) {
                 play(new Alchimist());
             }

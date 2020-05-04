@@ -16,7 +16,7 @@ public class Mage extends Hero {
         animDead = new Animation<Texture>(0.1f,loadFrames(14,"images/combat/Mage/Death/mage_death_"));
         animIdle = new Animation<Texture>(0.1f,loadFrames(11,"images/combat/Mage/Idle/mage_idle"));
 
-        width = Gdx.graphics.getWidth()/3f;
-        height = Gdx.graphics.getHeight()/2f;
+        width = Gdx.graphics.getWidth()/2f;
+        height = Gdx.graphics.getHeight()/1.5f;
     }
 }

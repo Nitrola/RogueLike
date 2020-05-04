@@ -25,8 +25,8 @@ public class Warrior extends Hero {
         animDead = new Animation<Texture>(0.1f,loadFrames(9,"images/combat/Warrior/Death/HeroKnight_Death_"));
         animIdle = new Animation<Texture>(0.1f,loadFrames(7,"images/combat/Warrior/Idle/HeroKnight_Idle_"));
 
-        width = Gdx.graphics.getWidth()/3f;
-        height = Gdx.graphics.getHeight()/3f;
+        width = Gdx.graphics.getWidth()/2f;
+        height = Gdx.graphics.getHeight()/2f;
     }
 
 }

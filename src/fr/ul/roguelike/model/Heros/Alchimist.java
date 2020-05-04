@@ -14,7 +14,7 @@ public class Alchimist extends Hero {
         animDead = new Animation<Texture>(0.1f,loadFrames(12,"images/combat/Alchimist/Death/alchimist_death_"));
         animIdle = new Animation<Texture>(0.1f,loadFrames(24,"images/combat/Alchimist/Idle/alchimist_idle_"));
 
-        width = Gdx.graphics.getWidth()/3f;
-        height = Gdx.graphics.getHeight()/2f;
+        width = Gdx.graphics.getWidth()/2f;
+        height = Gdx.graphics.getHeight()/1.5f;
     }
 }
