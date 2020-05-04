@@ -311,6 +311,21 @@ public class MapInterface extends ScreenAdapter {
     public void setScreen() {
         rogueLike.setScreen(this);
         isClicking = false;
+        Texture exit = new Texture(Gdx.files.internal("images/exit.png"));
+        Drawable drawableExit = new TextureRegionDrawable(new TextureRegion(exit));
+        drawableExit.setMinHeight(Gdx.graphics.getHeight()/9);
+        drawableExit.setMinWidth(Gdx.graphics.getWidth()/8);
+        ImageButton exitBouton = new ImageButton(drawableExit);
+        exitBouton.setPosition(0,Gdx.graphics.getHeight()-drawableExit.getMinHeight());
+        exitBouton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                MainMenu mainMenu = new MainMenu(rogueLike);
+                rogueLike.setScreen(mainMenu);
+            };
+        });
+        stage.addActor(exitBouton);
+        Gdx.input.setInputProcessor(stage);
     }
 
     public RogueLike getRogueLike() {
