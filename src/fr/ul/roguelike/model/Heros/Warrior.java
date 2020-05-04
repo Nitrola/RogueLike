@@ -9,7 +9,7 @@ public class Warrior extends Hero {
 
 
     public Warrior() {
-        super(100,100,5f,0.01f,10,1,5,5,1);
+        super(100,100,0.25f,0.01f,10,1,5,5,1);
         nb_spell_slots = 2;
         Texture warriorSheet = new Texture("images/combat/warriorWalk.png");
         TextureRegion[][] tmp = TextureRegion.split(warriorSheet,warriorSheet.getWidth() / 3 , warriorSheet.getHeight()/1);

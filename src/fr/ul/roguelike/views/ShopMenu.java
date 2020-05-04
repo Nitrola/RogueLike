@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -167,8 +166,7 @@ public class ShopMenu extends ScreenAdapter {
                         if(!popup.isPrint()){
                             popup.setItem(i);
                             popup.setPrint(true);
-                    }
-
+                        }
                 };
             });
             index++;
@@ -260,6 +258,10 @@ public class ShopMenu extends ScreenAdapter {
 
     public Stage getStage() {
         return stage;
+    }
+
+    public MapInterface getMapInterface() {
+        return mapInterface;
     }
 
     @Override

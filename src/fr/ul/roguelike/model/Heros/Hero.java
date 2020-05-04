@@ -45,6 +45,8 @@ public abstract class Hero {
     protected float width;
     protected float height;
 
+    private boolean inInventory;
+
     public Hero(int hp, int mana, float mana_regen, float critic_chance, int physical_dmg, int magical_dmg, float physical_def, float magical_def,int manaRegenTime) {
         this.hp = hp;
         this.mana = mana;
@@ -58,6 +60,7 @@ public abstract class Hero {
         this.manaRegenTime = manaRegenTime;
         combatState = CombatState.IDLE;
         animeTime = 0;
+        inInventory = false;
     }
 
     protected Texture[] loadFrames(int nb,String path){
@@ -101,6 +104,16 @@ public abstract class Hero {
             return true;
         }
         return false;
+    }
+
+    public void changeSize(){
+        if(inInventory) {
+            width = getWidth() / 1.5f;
+            height = getHeight() / 1.5f;
+        } else {
+            width = getWidth() * 1.5f;
+            height = getHeight() * 1.5f;
+        }
     }
 
     public void setAnimeTime(float animeTime) {
@@ -172,5 +185,13 @@ public abstract class Hero {
 
     public float getHeight() {
         return height;
+    }
+
+    public boolean isInInventory() {
+        return inInventory;
+    }
+    public void setInInventory(boolean inInventory) {
+        this.inInventory = inInventory;
+        changeSize();
     }
 }

@@ -10,7 +10,7 @@ public abstract class Monster {
     private int mana;
     private int currentMana;
 
-    protected int attackSpeed;
+    protected float attackSpeed;
     private float timeSincePreviousAttack;
     private float criticChance;
 
@@ -24,7 +24,7 @@ public abstract class Monster {
     protected Animation<TextureRegion> anim;
     protected float stateTime;
 
-    public Monster(int hp, int mana, int attackSpeed, float criticChance, int physicalDmg, int magicalDmg, float physicalDef, float magicalDef) {
+    public Monster(int hp, int mana, float attackSpeed, float criticChance, int physicalDmg, int magicalDmg, float physicalDef, float magicalDef) {
         this.hp = hp;
         this.currentHp = hp;
         this.mana = mana;
@@ -70,7 +70,7 @@ public abstract class Monster {
         return mana;
     }
 
-    public int getAttackSpeed() {
+    public float getAttackSpeed() {
         return attackSpeed;
     }
 

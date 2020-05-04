@@ -85,6 +85,9 @@ public class Popup {
                         if (b.getNomItem().equals(item.getName())) {
                             b.addAction(Actions.removeActor());
                             b.setClicked(true);
+                            //ajouter l'item à l'inventaire
+                            //TODO Ajouter dans la liste des items
+                            //shopMenu.getMapInterface().getPlayer().getItems().add(item);
                         }
                     }
                     shopMenu.playSound();

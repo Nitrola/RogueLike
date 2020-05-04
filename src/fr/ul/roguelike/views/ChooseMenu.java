@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -30,6 +31,8 @@ public class ChooseMenu extends ScreenAdapter {
     private Warrior warrior;
     private Alchimist alchimist;
 
+    private OrthographicCamera camera;
+
     private int screenWidth = Gdx.graphics.getWidth();
     private int screenHeight = Gdx.graphics.getHeight();
 
@@ -42,11 +45,16 @@ public class ChooseMenu extends ScreenAdapter {
         mage = new Mage();
         warrior = new Warrior();
         alchimist = new Alchimist();
+
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false,screenWidth,screenHeight);
+        camera.update();
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+        sb.setProjectionMatrix(camera.combined);
 
         //Animations
         sb.begin();
@@ -56,6 +64,7 @@ public class ChooseMenu extends ScreenAdapter {
         alchimist.draw(sb, screenWidth/3f*2f-alchimist.getWidth()/4f, screenHeight/8.2f);
         sb.end();
 
+        camera.update();
         update();
     }
 

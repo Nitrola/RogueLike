@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -38,9 +39,13 @@ public class InventoryMenu extends ScreenAdapter {
     private Sprite rightWepSlot;
     private Sprite armorSlot;
     private ArrayList<Button> itemsButton;
-    ArrayList<Equipement> equipements;
+    private ArrayList<Equipement> equipements;
     private boolean camp;
     private Table table;
+    private SpriteBatch sb;
+
+    private int screenWidth = Gdx.graphics.getWidth();
+    private int screenHeight = Gdx.graphics.getHeight();
 
     public InventoryMenu(MapInterface mapInterface) {
 
@@ -50,7 +55,7 @@ public class InventoryMenu extends ScreenAdapter {
         leftWepSlot = new Sprite(new Texture("images/inventory/leftWeaponSlot.png")) ;
         rightWepSlot = new Sprite(new Texture("images/inventory/rightWeaponSlot.png")) ;
         armorSlot = new Sprite(new Texture("images/inventory/armorSlot.png")) ;
-
+        sb = new SpriteBatch();
 
         armorSlot.setPosition(Gdx.graphics.getWidth()*0.17f,Gdx.graphics.getHeight()*0.17f);
         rightWepSlot.setPosition(Gdx.graphics.getWidth()*0.3f,Gdx.graphics.getHeight()*0.4f);
@@ -135,11 +140,13 @@ public class InventoryMenu extends ScreenAdapter {
     public void upgrade(Equipement equipement){
         equipement.getEquipement().upgrade();
         camp = false;
+        p.getPlayerCharacter().setInInventory(false);
         mapInterface.setScreen();
     }
 
     public void toUpgrade (){
         camp = true;
+        p.getPlayerCharacter().setInInventory(true);
         for(final Equipement e : equipements) {
             ButtonItem ib = new ButtonItem(new TextureRegionDrawable(e.getTexture()));
             ib.addListener(new ClickListener() {
@@ -183,16 +190,12 @@ public class InventoryMenu extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.25f, 0.25f, 0.25f, 1);
+        //Gdx.gl.glClearColor(0.25f, 0.25f, 0.25f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         stage.act(delta);
         stage.getBatch().begin();
         stage.getBatch().draw(background,0,0);
-        stage.getBatch().draw(
-                p.getPlayerCharacter().getTexture(),
-                Gdx.graphics.getWidth()*0.05f,Gdx.graphics.getHeight()*0.3f,
-                p.getPlayerCharacter().getWidth(),p.getPlayerCharacter().getHeight()
-        );
+        p.getPlayerCharacter().draw((SpriteBatch) stage.getBatch(), screenWidth*0.05f,screenHeight*0.5f - p.getPlayerCharacter().getHeight()/2 );
         // slots around the character
         armorSlot.draw(stage.getBatch());
         headSlot.draw(stage.getBatch());

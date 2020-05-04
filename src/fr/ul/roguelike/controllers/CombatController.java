@@ -30,14 +30,14 @@ public class CombatController {
 
             if (attack.contains(posX, posY) && !monsters.isEmpty()) {
                 monsters.get(0).receiveHit(player.getPlayerCharacter().getPhysicalDmg());
-                player.useMana(1);
+                player.useMana(20);
                 if (monsters.get(0).getCurrentHp() <= 0) {
                     monsters.remove(0);
                 }
             }
 
             if (block.contains(posX, posY)) {
-                player.useMana(1);
+                player.useMana(10);
                 player.parry();
             }
 
