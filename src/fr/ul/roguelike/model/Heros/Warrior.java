@@ -1,5 +1,6 @@
 package fr.ul.roguelike.model.Heros;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,8 +25,8 @@ public class Warrior extends Hero {
         animDead = new Animation<Texture>(0.1f,loadFrames(9,"images/combat/Warrior/Death/HeroKnight_Death_"));
         animIdle = new Animation<Texture>(0.1f,loadFrames(7,"images/combat/Warrior/Idle/HeroKnight_Idle_"));
 
-        width = animIdle.getKeyFrame(0,false).getWidth()*5;
-        height = animIdle.getKeyFrame(0,false).getHeight()*5;
+        width = Gdx.graphics.getWidth()/3f;
+        height = Gdx.graphics.getHeight()/3f;
     }
 
 }

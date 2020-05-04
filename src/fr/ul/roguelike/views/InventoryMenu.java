@@ -40,6 +40,7 @@ public class InventoryMenu extends ScreenAdapter {
     private ArrayList<Button> itemsButton;
     ArrayList<Equipement> equipements;
     private boolean camp;
+    private Table table;
 
     public InventoryMenu(MapInterface mapInterface) {
 
@@ -58,7 +59,7 @@ public class InventoryMenu extends ScreenAdapter {
 
         itemsButton = new ArrayList<>();
         //inventorySlot.scale(2f);
-        Table table = new Table();
+        table = new Table();
 
         equipements = new ArrayList<>();
         equipements.add(new DemonSword());
@@ -140,7 +141,6 @@ public class InventoryMenu extends ScreenAdapter {
     public void toUpgrade (){
         camp = true;
         for(final Equipement e : equipements) {
-
             ButtonItem ib = new ButtonItem(new TextureRegionDrawable(e.getTexture()));
             ib.addListener(new ClickListener() {
                 @Override
@@ -155,6 +155,29 @@ public class InventoryMenu extends ScreenAdapter {
             stage.addActor(ib);
             Gdx.input.setInputProcessor(stage);
         }
+        table.clearChildren();
+        table.align(Align.top);
+        for(final Equipement e : equipements){
+
+            ButtonItem ib = new ButtonItem(new TextureRegionDrawable(e.getTexture()));
+            ib.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    if(camp){
+                        upgrade(e);
+                    }
+                };
+            });
+
+
+            table.add(ib).width(ib.getWidth()*3f).height(ib.getHeight()*3f);
+            table.add(new Label(
+                    "Att: " + e.getPhysicalDamage() + " Mag: " + e.getMagicDamage() + " Armor: " + e.getArmor() + " MagRes: " + e.getMagicResist(),
+                    new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
+            table.row();
+            itemsButton.add(ib);
+        }
+        table.align(Align.left);
     }
 
 
@@ -190,7 +213,9 @@ public class InventoryMenu extends ScreenAdapter {
                 break;
             }
         }
+
     }
+
     @Override
     public void dispose() {
     }

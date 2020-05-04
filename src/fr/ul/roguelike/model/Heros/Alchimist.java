@@ -1,5 +1,6 @@
 package fr.ul.roguelike.model.Heros;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 
@@ -13,7 +14,7 @@ public class Alchimist extends Hero {
         animDead = new Animation<Texture>(0.1f,loadFrames(12,"images/combat/Alchimist/Death/alchimist_death_"));
         animIdle = new Animation<Texture>(0.1f,loadFrames(24,"images/combat/Alchimist/Idle/alchimist_idle_"));
 
-        width = animIdle.getKeyFrame(0,false).getWidth()/1.3f;
-        height = animIdle.getKeyFrame(0,false).getHeight()/1.3f;
+        width = Gdx.graphics.getWidth()/3f;
+        height = Gdx.graphics.getHeight()/2f;
     }
 }

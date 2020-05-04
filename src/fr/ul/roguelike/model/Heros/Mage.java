@@ -1,5 +1,6 @@
 package fr.ul.roguelike.model.Heros;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -15,7 +16,7 @@ public class Mage extends Hero {
         animDead = new Animation<Texture>(0.1f,loadFrames(14,"images/combat/Mage/Death/mage_death_"));
         animIdle = new Animation<Texture>(0.1f,loadFrames(11,"images/combat/Mage/Idle/mage_idle"));
 
-        width = animIdle.getKeyFrame(0,false).getWidth()/1.3f;
-        height = animIdle.getKeyFrame(0,false).getHeight()/1.3f;
+        width = Gdx.graphics.getWidth()/3f;
+        height = Gdx.graphics.getHeight()/2f;
     }
 }

@@ -53,7 +53,7 @@ public class ChooseMenu extends ScreenAdapter {
         sb.draw(background, 0 ,0, screenWidth, screenHeight);
         warrior.draw(sb, screenWidth/20f , screenHeight/5.7f);
         mage.draw(sb, screenWidth/3f , screenHeight/8f);
-        alchimist.draw(sb, screenWidth/3f*2, screenHeight/6.7f);
+        alchimist.draw(sb, screenWidth/3f*2, screenHeight/7.2f);
         sb.end();
 
         update();
