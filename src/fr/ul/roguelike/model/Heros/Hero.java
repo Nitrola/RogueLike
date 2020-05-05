@@ -79,6 +79,10 @@ public abstract class Hero {
         Texture currentFrame = new Texture("images/combat/Def.png");
 
         if(combatState == CombatState.ATTACKING) {
+            //CECI EST DU BRICOLAGE
+            if(this instanceof Alchimist) {
+                posX += Gdx.graphics.getWidth()/17f;
+            }
             animeTime += Gdx.graphics.getDeltaTime();
             currentFrame = animAttack.getKeyFrame(animeTime, false);
         }

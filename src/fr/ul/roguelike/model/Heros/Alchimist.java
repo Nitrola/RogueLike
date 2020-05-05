@@ -9,7 +9,7 @@ public class Alchimist extends Hero {
         super(100,100,5f,0.01f,10,1,5,5,1);
         nb_spell_slots = 2;
 
-        animAttack = new Animation<Texture>(0.075f,loadFrames(20,"images/combat/Mage/Attack/mage_attack_"));
+        animAttack = new Animation<Texture>(0.075f,loadFrames(36,"images/combat/Alchimist/Attack/alchimist_attack_"));
         animBlock = new Animation<Texture>(0.075f,loadFrames(13,"images/combat/Mage/Block/mage_block_"));
         animDead = new Animation<Texture>(0.1f,loadFrames(12,"images/combat/Alchimist/Death/alchimist_death_"));
         animIdle = new Animation<Texture>(0.1f,loadFrames(24,"images/combat/Alchimist/Idle/alchimist_idle_"));

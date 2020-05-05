@@ -1,19 +1,11 @@
 package fr.ul.roguelike.model.stages;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import fr.ul.roguelike.model.GameWorld;
 
 public abstract class Stage {
-    protected GameWorld gameWorld;
     protected Sprite sprite;
     protected Texture texture;
     protected Texture texturePassed;
@@ -27,8 +19,7 @@ public abstract class Stage {
     protected Stage uniqueStage;
 
 
-    public Stage(GameWorld gameWorld, Vector2 pos){
-        this.gameWorld = gameWorld;
+    public Stage(Vector2 pos){
         position = pos;
         sprite = new Sprite();
         passed = false;

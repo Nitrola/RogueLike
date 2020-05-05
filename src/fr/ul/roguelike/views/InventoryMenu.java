@@ -1,7 +1,6 @@
 package fr.ul.roguelike.views;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -11,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -21,10 +19,13 @@ import fr.ul.roguelike.model.Items.Equipment.Archer.ArcherPlate;
 import fr.ul.roguelike.model.Items.Equipment.Archer.BaseBow;
 import fr.ul.roguelike.model.Items.Equipment.Equipement;
 import fr.ul.roguelike.model.Items.Equipment.Warrior.DemonSword;
-import fr.ul.roguelike.model.Items.Item;
+import fr.ul.roguelike.model.Items.ItemWeapon;
 import fr.ul.roguelike.model.Player;
 
 import java.util.ArrayList;
+
+import static fr.ul.roguelike.RogueLike.screenHeight;
+import static fr.ul.roguelike.RogueLike.screenWidth;
 
 
 public class InventoryMenu extends ScreenAdapter {
@@ -32,7 +33,7 @@ public class InventoryMenu extends ScreenAdapter {
     private Player p;
     private MapInterface mapInterface;
     private Stage stage;
-    private ScrollPane scrollPane;
+    private ScrollPane scrollPane, scrollPaneItems;
     private Texture background;
     private Sprite headSlot;
     private Sprite leftWepSlot;
@@ -40,16 +41,15 @@ public class InventoryMenu extends ScreenAdapter {
     private Sprite armorSlot;
     private ArrayList<Button> itemsButton;
     private ArrayList<Equipement> equipements;
+    private ArrayList<ItemWeapon> items;
     private boolean camp;
-    private Table table;
+    private Table tableEquipment, tableItems;
     private SpriteBatch sb;
-
-    private int screenWidth = Gdx.graphics.getWidth();
-    private int screenHeight = Gdx.graphics.getHeight();
 
     public InventoryMenu(MapInterface mapInterface) {
 
         this.p = mapInterface.getPlayer();
+        items = new ArrayList<>();
         this.mapInterface = mapInterface;
         headSlot = new Sprite(new Texture("images/inventory/headSlot.png")) ;
         leftWepSlot = new Sprite(new Texture("images/inventory/leftWeaponSlot.png")) ;
@@ -64,20 +64,12 @@ public class InventoryMenu extends ScreenAdapter {
 
         itemsButton = new ArrayList<>();
         //inventorySlot.scale(2f);
-        table = new Table();
+        tableEquipment = new Table();
+        tableItems = new Table();
 
         equipements = new ArrayList<>();
         equipements.add(new DemonSword());
         equipements.add(new ArcherPlate());
-        equipements.add(new BaseBow());
-        equipements.add(new BaseBow());
-        equipements.add(new BaseBow());
-        equipements.add(new BaseBow());
-        equipements.add(new BaseBow());
-        equipements.add(new BaseBow());
-        equipements.add(new BaseBow());
-        equipements.add(new BaseBow());
-        equipements.add(new BaseBow());
         equipements.add(new BaseBow());
         equipements.add(new BaseBow());
         equipements.add(new BaseBow());
@@ -87,10 +79,11 @@ public class InventoryMenu extends ScreenAdapter {
 
 
         //table.setFillParent(true);
-        table.align(Align.top);
+        tableEquipment.align(Align.top);
         for(final Equipement e : equipements){
 
             ButtonItem ib = new ButtonItem(new TextureRegionDrawable(e.getTexture()));
+            ib.setSize(screenWidth/80f, screenHeight/45f);
             ib.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -101,22 +94,49 @@ public class InventoryMenu extends ScreenAdapter {
             });
 
 
-            table.add(ib).width(ib.getWidth()*3f).height(ib.getHeight()*3f);
-            table.add(new Label(
+            tableEquipment.add(ib).width(ib.getWidth()*3f).height(ib.getHeight()*3f);
+            tableEquipment.add(new Label(
                     "Att: " + e.getPhysicalDamage() + " Mag: " + e.getMagicDamage() + " Armor: " + e.getArmor() + " MagRes: " + e.getMagicResist(),
                     new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
-            table.row();
+            tableEquipment.row();
             itemsButton.add(ib);
         }
-        table.align(Align.left);
+        tableEquipment.align(Align.left);
+
+        tableItems.align(Align.top);
+        for(final ItemWeapon e : items){
+
+            ButtonItem ib = new ButtonItem(new TextureRegionDrawable(e.getTexture()));
+            ib.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    //Afficher description
+                };
+            });
+
+
+            tableItems.add(ib).width(ib.getWidth()*3f).height(ib.getHeight()*3f);
+            tableItems.add(new Label(e.getDescription(),
+                    new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
+            tableItems.row();
+            itemsButton.add(ib);
+        }
+        tableItems.align(Align.left);
 
         background = new Texture("images/inventory/background.png");
 
-        scrollPane = new ScrollPane(table);
+
+        scrollPane = new ScrollPane(tableEquipment);
         scrollPane.setScrollingDisabled(true,false);
 
         scrollPane.setSize(Gdx.graphics.getWidth()*0.55f,Gdx.graphics.getHeight()*0.9f);
         scrollPane.setPosition(Gdx.graphics.getWidth()*0.43f,0);
+
+
+        scrollPaneItems = new ScrollPane(tableItems);
+        scrollPaneItems.setScrollingDisabled(true,false);
+        scrollPaneItems.setSize(Gdx.graphics.getWidth()*0.55f,Gdx.graphics.getHeight()*0.9f);
+        scrollPaneItems.setPosition(Gdx.graphics.getWidth()*0.7f, scrollPane.getY());
 
         Table potionTable = new Table();
         Texture manaPotion, potion;
@@ -133,6 +153,7 @@ public class InventoryMenu extends ScreenAdapter {
 
         stage = new Stage();
         stage.addActor(scrollPane);
+        stage.addActor(scrollPaneItems);
         stage.addActor(potionTable);
         Gdx.input.setInputProcessor(stage);
     }
@@ -162,29 +183,7 @@ public class InventoryMenu extends ScreenAdapter {
             stage.addActor(ib);
             Gdx.input.setInputProcessor(stage);
         }
-        table.clearChildren();
-        table.align(Align.top);
-        for(final Equipement e : equipements){
-
-            ButtonItem ib = new ButtonItem(new TextureRegionDrawable(e.getTexture()));
-            ib.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    if(camp){
-                        upgrade(e);
-                    }
-                };
-            });
-
-
-            table.add(ib).width(ib.getWidth()*3f).height(ib.getHeight()*3f);
-            table.add(new Label(
-                    "Att: " + e.getPhysicalDamage() + " Mag: " + e.getMagicDamage() + " Armor: " + e.getArmor() + " MagRes: " + e.getMagicResist(),
-                    new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
-            table.row();
-            itemsButton.add(ib);
-        }
-        table.align(Align.left);
+        update();
     }
 
 
@@ -208,15 +207,58 @@ public class InventoryMenu extends ScreenAdapter {
     }
 
     public void update(){
-        for(int i = 0; i < itemsButton.size(); i++){
-            Button b = itemsButton.get(i);
-            if(b.isPressed()){
-                //todo
-                p.getPlayerGear().changeGear(equipements.get(i));
-                break;
-            }
-        }
+        Gdx.input.setInputProcessor(stage);
+        tableEquipment.clearChildren();
+        tableItems.clearChildren();
 
+        tableEquipment.align(Align.top);
+        for(final Equipement e : equipements){
+
+            ButtonItem ib = new ButtonItem(new TextureRegionDrawable(e.getTexture()));
+            ib.setSize(screenWidth/80f, screenHeight/45f);
+            ib.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    if(camp){
+                        upgrade(e);
+                    }
+                };
+            });
+
+
+            tableEquipment.add(ib).width(ib.getWidth()*3f).height(ib.getHeight()*3f);
+            tableEquipment.add(new Label(
+                    "Att: " + e.getPhysicalDamage() + " Mag: " + e.getMagicDamage() + " Armor: " + e.getArmor() + " MagRes: " + e.getMagicResist(),
+                    new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
+            tableEquipment.row();
+            itemsButton.add(ib);
+        }
+        tableEquipment.align(Align.left);
+
+        tableItems.align(Align.top);
+        for(final ItemWeapon e : items){
+
+            ButtonItem ib = new ButtonItem(new TextureRegionDrawable(e.getTexture()));
+            ib.setSize(screenWidth/80f, screenHeight/45f);
+            ib.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    //Afficher description
+                };
+            });
+
+
+            tableItems.add(ib).width(ib.getWidth()*3f).height(ib.getHeight()*3f);
+            tableItems.add(new Label(e.getDescription(),
+                    new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
+            tableItems.row();
+            itemsButton.add(ib);
+        }
+        tableItems.align(Align.left);
+    }
+
+    public void addItem(ItemWeapon item){
+        items.add(item);
     }
 
     @Override

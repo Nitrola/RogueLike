@@ -1,14 +1,18 @@
 package fr.ul.roguelike;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import fr.ul.roguelike.views.MainMenu;
 import fr.ul.roguelike.views.SplashScreen;
 
 import com.badlogic.gdx.utils.Timer;
 
+
+
 public class RogueLike extends Game {
 	private SplashScreen splashScreen;
-	private MainMenu mainMenu;
+    public static final int screenWidth = Gdx.graphics.getWidth();
+    public static final int screenHeight = Gdx.graphics.getHeight();
 
 	@Override
 	public void create () {
@@ -26,7 +30,7 @@ public class RogueLike extends Game {
 
     private void changeScreen(){
         splashScreen.dispose();
-        mainMenu = new MainMenu(this);
+        MainMenu mainMenu = new MainMenu(this);
         setScreen(mainMenu);
     }
 

@@ -1,10 +1,12 @@
 package fr.ul.roguelike.views;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import static fr.ul.roguelike.RogueLike.screenWidth;
+import static fr.ul.roguelike.RogueLike.screenHeight;
 
 public class SplashScreen extends ScreenAdapter {
     private SpriteBatch intro;
@@ -17,7 +19,7 @@ public class SplashScreen extends ScreenAdapter {
     public SplashScreen(){
         intro = new SpriteBatch();
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        camera.setToOrtho(false, screenWidth, screenHeight);
         camera.update();
         texture = new Texture("images/intro.png");
     }
@@ -29,7 +31,7 @@ public class SplashScreen extends ScreenAdapter {
     public void render (float delta) {
         intro.setProjectionMatrix(camera.combined);
         intro.begin();
-        intro.draw(texture, 0, 0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        intro.draw(texture, 0, 0, screenWidth, screenHeight);
         intro.end();
     }
 

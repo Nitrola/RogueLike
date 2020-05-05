@@ -7,14 +7,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import fr.ul.roguelike.model.GameWorld;
 
 public class BossStage extends Stage {
 
-    public BossStage(GameWorld gameWorld, Vector2 pos){
-        super(gameWorld, pos);
+    public BossStage(Vector2 pos){
+        super(pos);
         rayon = 100;
-        this.gameWorld = gameWorld;
         position = pos;
         passed = false;
         actual = false;

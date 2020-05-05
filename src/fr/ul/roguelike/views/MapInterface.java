@@ -10,21 +10,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import fr.ul.roguelike.RogueLike;
-import fr.ul.roguelike.controllers.KeyboardListener;
-import fr.ul.roguelike.model.GameWorld;
-import fr.ul.roguelike.model.Items.ButtonItem;
 import fr.ul.roguelike.model.Player;
 import fr.ul.roguelike.model.stages.*;
 
 import java.util.ArrayList;
 import java.util.Random;
+import static fr.ul.roguelike.RogueLike.screenWidth;
+import static fr.ul.roguelike.RogueLike.screenHeight;
+
 
 public class MapInterface extends ScreenAdapter {
     private RogueLike rogueLike;
@@ -32,73 +31,96 @@ public class MapInterface extends ScreenAdapter {
     private Player player;
 
     private SpriteBatch spriteBatch;
-    private GameWorld gameWorld;
     private Texture map;
     private ArrayList<Stage> listeStages;
-    private KeyboardListener keyboardListener;
     private OrthographicCamera camera = new OrthographicCamera();
     private ShapeRenderer shapeRenderer;
     private Stage actualStage;
 
     private com.badlogic.gdx.scenes.scene2d.Stage stage;
     private boolean isClicking;
+    private int coeff = screenWidth/16;
 
-    static Stage tamponD, tamponG, tampon;
-    private int coeff = Gdx.graphics.getWidth()/16;
-
-    public MapInterface(final RogueLike rogueLike, Player p){
+    /**
+     * Représente la vue de la map, propose le choix du prochain stage
+     * @param rogueLike le modèle
+     * @param p le joueur
+     */
+    MapInterface(final RogueLike rogueLike, Player p){
         this.rogueLike = rogueLike;
         player = p;
         inventoryMenu = new InventoryMenu(this);
         stage = new com.badlogic.gdx.scenes.scene2d.Stage();
         Gdx.input.setInputProcessor(stage);
         spriteBatch = new SpriteBatch();
-        gameWorld = new GameWorld();
+        shapeRenderer = new ShapeRenderer();
         isClicking = false;
         map = new Texture(Gdx.files.internal("images/map.png"));
-        camera.setToOrtho(false, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        camera.setToOrtho(false, screenWidth, screenHeight);
         camera.update();
 
-        listeStages = new ArrayList<Stage>();
+        listeStages = new ArrayList<>();
         generateMap();
 
+        //Bouton Exit
         Texture exit = new Texture(Gdx.files.internal("images/exit.png"));
         Drawable drawableExit = new TextureRegionDrawable(new TextureRegion(exit));
-        drawableExit.setMinHeight(Gdx.graphics.getHeight()/9);
-        drawableExit.setMinWidth(Gdx.graphics.getWidth()/8);
+        drawableExit.setMinHeight(screenHeight/9f);
+        drawableExit.setMinWidth(screenWidth/8f);
         ImageButton exitBouton = new ImageButton(drawableExit);
-        exitBouton.setPosition(0,Gdx.graphics.getHeight()-drawableExit.getMinHeight());
+        exitBouton.setPosition(0,screenHeight-drawableExit.getMinHeight());
         exitBouton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 MainMenu mainMenu = new MainMenu(rogueLike);
                 rogueLike.setScreen(mainMenu);
-            };
+            }
         });
         stage.addActor(exitBouton);
+
+        //Bouton Inventaire
+        final Texture inventory = new Texture(Gdx.files.internal("badlogic.jpg"));
+        Drawable drawableInventory = new TextureRegionDrawable(new TextureRegion(inventory));
+        drawableExit.setMinHeight(screenHeight/9f);
+        drawableExit.setMinWidth(screenWidth/8f);
+        ImageButton inventoryButton = new ImageButton(drawableInventory);
+        inventoryButton.setPosition(screenWidth - drawableExit.getMinWidth(),screenHeight - drawableExit.getMinHeight());
+        inventoryButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                player.getPlayerCharacter().setInInventory(true);
+                inventoryMenu.update();
+                rogueLike.setScreen(inventoryMenu);
+            }
+        });
+        stage.addActor(inventoryButton);
     }
 
-    /**
-     * Affiche la map
-     */
+
     @Override
     public void render (float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         stage.draw();
         stage.act();
         spriteBatch.setProjectionMatrix(camera.combined);
-        spriteBatch.begin();
-        spriteBatch.draw(map, 0, 0,Gdx.graphics.getWidth(),       Gdx.graphics.getHeight());
-        spriteBatch.end();
 
-        //Dessin des traits qui relient les stages
+        spriteBatch.begin();
+        spriteBatch.draw(map, 0, 0, screenWidth, screenHeight);
+        drawLines();
+        drawStages();
+        spriteBatch.end();
+    }
+
+    /**
+     * Dessin des traits qui relient les stages
+     */
+    private void drawLines(){
         for(Stage stage : listeStages){
             if(stage.getRightStage() != null) {
                 shapeRenderer = new ShapeRenderer();
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
                 shapeRenderer.setColor(0, 0, 0, 1);
                 shapeRenderer.line(stage.getPosition(), stage.getRightStage().getPosition());
-
                 shapeRenderer.end();
             }
             if(stage.getLeftStage() != null) {
@@ -116,11 +138,14 @@ public class MapInterface extends ScreenAdapter {
                 shapeRenderer.end();
             }
         }
+    }
 
-        //Dessin des icônes de stage
-        spriteBatch.begin();
+    /**
+     * Dessin des icônes de stage et change le stage actuel
+     */
+    private void drawStages(){
         for (Stage stage: listeStages) {
-            if(stage.getSprite().getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY()) && actualStage.isNext(stage)){
+            if(stage.getSprite().getBoundingRectangle().contains(Gdx.input.getX(), screenHeight - Gdx.input.getY()) && actualStage.isNext(stage)){
                 if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched() && !isClicking) {
                     isClicking = true;
                     if(stage instanceof ShopStage){
@@ -143,31 +168,27 @@ public class MapInterface extends ScreenAdapter {
             }
             stage.draw(spriteBatch);
         }
-
-        spriteBatch.end();
-        stage.draw();
-        stage.act();
     }
 
     /**
      * Appelle les fonctions qui génère l'arbre
      */
     private void generateMap(){
-        int x = Gdx.graphics.getWidth()/8;
-        int y = Gdx.graphics.getHeight()/2;
+        int x = screenWidth/8;
+        int y = screenHeight/2;
         Stage stage, tampon;
-        tampon = new CombatStage(gameWorld, new Vector2(x, y));
+        tampon = new CombatStage(new Vector2(x, y));
         actualStage = tampon;
         listeStages.add(tampon);
         buildMap(tampon);
 
         //Fin de la map par un boss
-        stage = new BossStage(gameWorld, new Vector2(x + Gdx.graphics.getWidth()/1.5f , y));
+        stage = new BossStage(new Vector2(x + screenWidth/1.5f , y));
         listeStages.add(stage);
         Stage s;
-        for(int i = 0 ; i < listeStages.size() ; i++){
-            s = listeStages.get(i);
-            if(s.getRightStage() == null && s.getLeftStage() == null && s.getUniqueStage() == null){
+        for (Stage listeStage : listeStages) {
+            s = listeStage;
+            if (s.getRightStage() == null && s.getLeftStage() == null && s.getUniqueStage() == null) {
                 s.setUniqueStage(stage);
             }
         }
@@ -179,6 +200,7 @@ public class MapInterface extends ScreenAdapter {
      * @param stage racine
      */
     private void buildMap(Stage stage){
+        Stage tamponD, tamponG, tampon;
         Random r = new Random();
         int rand = r.nextInt(2);
         createRightStage(stage);
@@ -251,6 +273,9 @@ public class MapInterface extends ScreenAdapter {
 
     }
 
+    /**
+     * Créée un stage aléatoire à droite du stage
+     */
     private void createRightStage(Stage stage){
         //Fils droit
         Stage stageD = stageAleatoire(new Vector2(stage.getPosition().x + coeff, stage.getPosition().y - coeff));
@@ -258,13 +283,19 @@ public class MapInterface extends ScreenAdapter {
         stage.setRightStage(stageD);
     }
 
+    /**
+     * Créée un stage aléatoire en face du stage
+     */
     private void createUniqueStage(Stage stage){
         //Fils droit
-        Stage stageU = stageAleatoire(new Vector2(stage.getPosition().x + coeff+Gdx.graphics.getWidth()/80, stage.getPosition().y));
+        Stage stageU = stageAleatoire(new Vector2(stage.getPosition().x + coeff + screenWidth/80f, stage.getPosition().y));
         listeStages.add(stageU);
         stage.setUniqueStage(stageU);
     }
 
+    /**
+     * Créée un stage aléatoire à gauche du stage
+     */
     private void createLeftStage(Stage stage){
         //Fils gauche
         Stage stageG = stageAleatoire(new Vector2(stage.getPosition().x + coeff, stage.getPosition().y + coeff));
@@ -286,16 +317,16 @@ public class MapInterface extends ScreenAdapter {
             case 0:
             case 4:
             case 5:
-                stage = new CombatStage(gameWorld, position);
+                stage = new CombatStage(position);
                 break;
             case 1:
-                stage = new ShopStage(gameWorld, position);
+                stage = new ShopStage(position);
                 break;
             case 2:
-                stage = new CampStage(gameWorld, position);
+                stage = new CampStage(position);
                 break;
             case 3:
-                stage = new MiniBossStage(gameWorld, position);
+                stage = new MiniBossStage(position);
                 break;
         }
         return stage;
@@ -308,35 +339,42 @@ public class MapInterface extends ScreenAdapter {
         spriteBatch.dispose();
     }
 
-    public void setScreen() {
+    /**
+     * Change l'écran de jeu pour mettre la map
+     */
+    void setScreen() {
         rogueLike.setScreen(this);
         isClicking = false;
         Texture exit = new Texture(Gdx.files.internal("images/exit.png"));
         Drawable drawableExit = new TextureRegionDrawable(new TextureRegion(exit));
-        drawableExit.setMinHeight(Gdx.graphics.getHeight()/9);
-        drawableExit.setMinWidth(Gdx.graphics.getWidth()/8);
+        drawableExit.setMinHeight(screenHeight/9f);
+        drawableExit.setMinWidth(screenWidth/8f);
         ImageButton exitBouton = new ImageButton(drawableExit);
-        exitBouton.setPosition(0,Gdx.graphics.getHeight()-drawableExit.getMinHeight());
+        exitBouton.setPosition(0,screenHeight - drawableExit.getMinHeight());
         exitBouton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 MainMenu mainMenu = new MainMenu(rogueLike);
                 rogueLike.setScreen(mainMenu);
-            };
+            }
         });
         stage.addActor(exitBouton);
         Gdx.input.setInputProcessor(stage);
     }
 
-    public RogueLike getRogueLike() {
+    //////////////////////////////////
+    ///////Getters and Setters///////
+    /////////////////////////////////
+
+    RogueLike getRogueLike() {
         return rogueLike;
     }
 
-    public Player getPlayer() {
+    Player getPlayer() {
         return player;
     }
 
-    public InventoryMenu getInventoryMenu() {
+    InventoryMenu getInventoryMenu() {
         return inventoryMenu;
     }
 }

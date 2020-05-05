@@ -1,9 +1,12 @@
 package fr.ul.roguelike.model.Items;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public abstract class Item {
     private String name;
     private String description;
     private int price;
+    private Texture texture;
 
     public Item(String name, int price, String d){
         this.name = name;
@@ -35,4 +38,13 @@ public abstract class Item {
     public String getDescription() {
         return description;
     }
+
+    public Texture getTexture() {
+        return texture;
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
+    }
 }
+

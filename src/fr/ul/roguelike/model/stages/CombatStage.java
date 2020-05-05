@@ -5,12 +5,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import fr.ul.roguelike.model.GameWorld;
 
 public class CombatStage extends Stage {
 
-    public CombatStage(GameWorld gameWorld, Vector2 pos){
-        super(gameWorld, pos);
+    public CombatStage(Vector2 pos){
+        super(pos);
         texture = new Texture(Gdx.files.internal("images/combat.png"));
         texturePassed = new Texture(Gdx.files.internal("images/combat_passed.png"));
         sprite = new Sprite(texture);

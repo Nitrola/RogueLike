@@ -6,23 +6,20 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import fr.ul.roguelike.RogueLike;
-import fr.ul.roguelike.model.GifDecoder;
 import fr.ul.roguelike.model.Heros.Alchimist;
 import fr.ul.roguelike.model.Heros.Hero;
 import fr.ul.roguelike.model.Heros.Mage;
 import fr.ul.roguelike.model.Heros.Warrior;
 import fr.ul.roguelike.model.Player;
 
+import static fr.ul.roguelike.RogueLike.screenWidth;
+import static fr.ul.roguelike.RogueLike.screenHeight;
+
 public class ChooseMenu extends ScreenAdapter {
     private RogueLike rogueLike;
     private Player player;
-    private MapInterface mapInterface;
 
     private SpriteBatch sb;
     private Texture background;
@@ -33,10 +30,12 @@ public class ChooseMenu extends ScreenAdapter {
 
     private OrthographicCamera camera;
 
-    private int screenWidth = Gdx.graphics.getWidth();
-    private int screenHeight = Gdx.graphics.getHeight();
-
-    public ChooseMenu(RogueLike r, Player p){
+    /**
+     * Représente le menu de choix de personnage
+     * @param r le modèle
+     * @param p le joueur
+     */
+    ChooseMenu(RogueLike r, Player p){
         rogueLike = r;
         player = p;
         sb = new SpriteBatch();
@@ -47,7 +46,7 @@ public class ChooseMenu extends ScreenAdapter {
         alchimist = new Alchimist();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false,screenWidth,screenHeight);
+        camera.setToOrtho(false,screenWidth, screenHeight);
         camera.update();
     }
 
@@ -68,7 +67,7 @@ public class ChooseMenu extends ScreenAdapter {
         update();
     }
 
-    public void update(){
+    private void update(){
         if(Gdx.input.getX() < screenWidth/3) {
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched()) {
                 play(new Warrior());
@@ -88,10 +87,10 @@ public class ChooseMenu extends ScreenAdapter {
         }
     }
 
-    public void play(Hero h){
+    private void play(Hero h){
         player.setPlayerCharacter(h);
 
-        mapInterface = new MapInterface(rogueLike, player);
+        MapInterface mapInterface = new MapInterface(rogueLike, player);
         rogueLike.setScreen(mapInterface);
     }
 }

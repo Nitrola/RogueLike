@@ -5,12 +5,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import fr.ul.roguelike.model.GameWorld;
 
 public class MiniBossStage extends Stage {
 
-    public MiniBossStage(GameWorld gameWorld, Vector2 pos){
-        super(gameWorld, pos);
+    public MiniBossStage(Vector2 pos){
+        super(pos);
         texture = new Texture(Gdx.files.internal("images/skull.png"));
         texturePassed = new Texture(Gdx.files.internal("images/skull_passed.png"));
         sprite = new Sprite(texture);
