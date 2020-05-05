@@ -11,11 +11,13 @@ import com.badlogic.gdx.utils.Timer;
 
 public class RogueLike extends Game {
 	private SplashScreen splashScreen;
-    public static final int screenWidth = Gdx.graphics.getWidth();
-    public static final int screenHeight = Gdx.graphics.getHeight();
+    public static int screenWidth;
+    public static int screenHeight;
 
 	@Override
 	public void create () {
+        screenWidth = Gdx.graphics.getWidth();
+        screenHeight = Gdx.graphics.getHeight();
         splashScreen = new SplashScreen();
         setScreen(splashScreen);
         Timer timer = new Timer();

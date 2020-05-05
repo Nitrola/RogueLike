@@ -100,15 +100,15 @@ public class MapInterface extends ScreenAdapter {
     @Override
     public void render (float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-        stage.draw();
-        stage.act();
         spriteBatch.setProjectionMatrix(camera.combined);
 
         spriteBatch.begin();
         spriteBatch.draw(map, 0, 0, screenWidth, screenHeight);
+        spriteBatch.end();
         drawLines();
         drawStages();
-        spriteBatch.end();
+        stage.draw();
+        stage.act();
     }
 
     /**
@@ -144,6 +144,7 @@ public class MapInterface extends ScreenAdapter {
      * Dessin des icônes de stage et change le stage actuel
      */
     private void drawStages(){
+        spriteBatch.begin();
         for (Stage stage: listeStages) {
             if(stage.getSprite().getBoundingRectangle().contains(Gdx.input.getX(), screenHeight - Gdx.input.getY()) && actualStage.isNext(stage)){
                 if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched() && !isClicking) {
@@ -168,6 +169,7 @@ public class MapInterface extends ScreenAdapter {
             }
             stage.draw(spriteBatch);
         }
+        spriteBatch.end();
     }
 
     /**
