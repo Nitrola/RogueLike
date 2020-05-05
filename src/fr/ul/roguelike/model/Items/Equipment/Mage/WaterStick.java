@@ -6,6 +6,11 @@ import fr.ul.roguelike.model.Items.Equipment.EquipementStats;
 
 public class WaterStick extends Equipement {
 
+    /**
+     * Baton du mage
+     * @param itemName
+     * @param itemDescription
+     */
     public WaterStick(String itemName, String itemDescription) {
         super("Water Stick", "Aqua isn't totally useless");
         equipement = new EquipementStats(1,5,0f,0f);

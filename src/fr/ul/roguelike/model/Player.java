@@ -23,6 +23,9 @@ public class Player {
     private ArrayList<Item> inventory;
     private ArrayList<Equipement> inventoryEquipements;
 
+    /**
+     * Creer un joueur
+     */
     public Player(){
 
         playerCharacter = new Warrior();
@@ -41,12 +44,10 @@ public class Player {
 
     }
 
-    public PlayerGear getPlayerGear() {
-        return playerGear;
-    }
-
+    /**
+     * Choix de l'etat du personnage
+     */
     public void updateState(){
-        //System.out.println(playerCharacter.getCombatState());
         if(healthLeft <= 0){
             playerCharacter.setCombatState(Hero.CombatState.DEAD);
         }
@@ -56,6 +57,9 @@ public class Player {
 
     }
 
+    /**
+     * Regenere la mana du personnage
+     */
     public void regenMana(){
         if(playerCharacter.getCombatState() != Hero.CombatState.DEAD) {
             if (manaLeft < playerCharacter.getMana()) {
@@ -66,10 +70,17 @@ public class Player {
         }
     }
 
+    /**
+     * Determine l'etat du personnage comme etant en train d'effectuer une parade
+     */
     public void parry(){
         playerCharacter.setAnimeTime(0.0f);
         playerCharacter.setCombatState(Hero.CombatState.BLOCKING);
     }
+
+    /**
+     * Inflige des damages au personnage
+     */
     public void receiveHit(int dmg){
         if(playerCharacter.getCombatState() != Hero.CombatState.DEAD && playerCharacter.getCombatState() != Hero.CombatState.BLOCKING){
 
@@ -104,6 +115,14 @@ public class Player {
             }
 
         }
+    }
+
+    //////////////////////////////////
+    ///////Getters and Setters///////
+    /////////////////////////////////
+
+    public PlayerGear getPlayerGear() {
+        return playerGear;
     }
 
     public Hero getPlayerCharacter() {

@@ -6,6 +6,9 @@ import fr.ul.roguelike.model.Items.Equipment.EquipementStats;
 
 public class DemonSword extends Equipement {
 
+    /**
+     * Epee du Warrior
+     */
     public DemonSword() {
         super("Demon Sword", "A sword welded by powerfull demons bathed in blood");
         equipement = new EquipementStats(10,3,0.1f,0.1f);

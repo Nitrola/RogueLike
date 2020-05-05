@@ -5,6 +5,9 @@ import fr.ul.roguelike.model.Items.Equipment.Warrior.DemonSword;
 
 public class ItemFactory {
 
+    /**
+     * Creer un Item
+     */
     public static Item create(String itemName){
         switch (itemName){
             case "BaseBow":

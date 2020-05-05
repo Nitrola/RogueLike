@@ -16,13 +16,25 @@ public abstract class Equipement extends Item{
     protected Texture texture;
     protected EquipementType equipementType;
 
+    /**
+     * Creer un equipement avec sa description
+     */
     public Equipement(String itemName, String itemDescription) {
         super(itemName, itemDescription);
     }
 
+    /**
+     * Creer un equipement avec un prix et une description
+     */
     public Equipement(String itemName, int price, String description) {
         super(itemName, price, description);
     }
+
+
+    //////////////////////////////////
+    ///////Getters and Setters///////
+    /////////////////////////////////
+
 
     public EquipementStats getEquipement() {
         return equipement;
@@ -47,7 +59,6 @@ public abstract class Equipement extends Item{
     public int getMagicDamage() {
         return equipement.magicalDamage;
     }
-
 
     public Texture getTexture() {
         return texture;

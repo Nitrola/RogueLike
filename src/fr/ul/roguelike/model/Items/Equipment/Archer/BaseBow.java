@@ -6,6 +6,9 @@ import fr.ul.roguelike.model.Items.Equipment.EquipementStats;
 
 public class BaseBow extends Equipement {
 
+    /**
+     * Arc de l'archer
+     */
     public BaseBow() {
         super("Base bow", "Every hunter have one from Daddy at 10 !");
         equipement = new EquipementStats(2, 0, 0, 0);

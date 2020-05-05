@@ -9,6 +9,7 @@ public class PlayerGear {
     private Equipement leftHand;
     private Equipement rightHand;
 
+
     public PlayerGear() {
         helmet = null;
         armor = null;
@@ -16,6 +17,9 @@ public class PlayerGear {
         rightHand = null;
     }
 
+    /**
+     * Equipements actuellement portés par le personnage
+     */
     public PlayerGear(Equipement helmet, Equipement armor, Equipement leftHand, Equipement rightHand) {
         this.helmet = helmet;
         this.armor = armor;
@@ -23,27 +27,30 @@ public class PlayerGear {
         this.rightHand = rightHand;
     }
 
+    /**
+     * Permet de changer de stuff
+     */
     public void changeGear(Equipement e){
         switch (e.getEquipementType()){
             case "BOW":
                 break;
             case "SWORD":
                 if(leftHand == null ){
-                    leftHand = e;
+                    leftHand.equals(e);
                 }
                 else if(leftHand != null && rightHand == null){
-                    rightHand = e;
+                    rightHand.equals(e);
                 }
                 break;
             case "HELMET":
-                helmet = e;
+                helmet.equals(e);
                 break;
             case "ARMOR":
-                armor = e;
+                armor.equals(e);
                 break;
             case "STAFF":
                 rightHand = null;
-                leftHand = e;
+                leftHand.equals(e);
                 break;
             default:
                 break;
@@ -51,9 +58,16 @@ public class PlayerGear {
 
     }
 
+    /**
+     * Affiche un equipement
+     */
     public void drawEquipment(Equipement e,SpriteBatch sb,int posX,int posY,float scale) {
         sb.draw(e.getTexture(),posX,posY,helmet.getTexture().getWidth() * scale,helmet.getTexture().getHeight() * scale);
     }
+
+    //////////////////////////////////
+    ///////Getters and Setters///////
+    /////////////////////////////////
 
     public Equipement getHelmet() {
         return helmet;

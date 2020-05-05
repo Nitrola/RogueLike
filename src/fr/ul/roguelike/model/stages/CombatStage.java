@@ -8,6 +8,9 @@ import com.badlogic.gdx.math.Vector2;
 
 public class CombatStage extends Stage {
 
+    /**
+     * Creer un stage de combat
+     */
     public CombatStage(Vector2 pos){
         super(pos);
         texture = new Texture(Gdx.files.internal("images/combat.png"));
@@ -17,6 +20,10 @@ public class CombatStage extends Stage {
         sprite.setSize(getRayon() * coeff, getRayon() * coeff);
     }
 
+    /**
+     * Affiche le SpriteBatch
+     * @param spriteBatch
+     */
     public void draw(SpriteBatch spriteBatch){
         if(passed) {
             sprite.setTexture(texturePassed);

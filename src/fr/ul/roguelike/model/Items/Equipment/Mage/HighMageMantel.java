@@ -6,6 +6,9 @@ import fr.ul.roguelike.model.Items.Equipment.EquipementStats;
 
 public class HighMageMantel extends Equipement {
 
+    /**
+     * Armure du mage
+     */
     public HighMageMantel() {
         super("High Mage Mantel", "A mantel worn by the best mage in the world");
         equipement = new EquipementStats(0,0,0.1f,0.1f);

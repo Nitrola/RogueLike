@@ -9,6 +9,9 @@ import com.badlogic.gdx.math.Vector2;
 
 public class CampStage extends Stage {
 
+    /**
+     * Creer un stage de feu de camp
+     */
     public CampStage(Vector2 pos){
         super(pos);
         texture = new Texture(Gdx.files.internal("images/camp.png"));
@@ -18,6 +21,9 @@ public class CampStage extends Stage {
         sprite.setSize(getRayon() * coeff, getRayon() * coeff);
     }
 
+    /**
+     * Affiche le SpriteBatch
+     */
     public void draw(SpriteBatch spriteBatch){
         if (actual) {
             coeff = 3;

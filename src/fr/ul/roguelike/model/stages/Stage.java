@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Stage {
+
+
     protected Sprite sprite;
     protected Texture texture;
     protected Texture texturePassed;
@@ -19,6 +21,9 @@ public abstract class Stage {
     protected Stage uniqueStage;
 
 
+    /**
+     * Creer un Stage (Etape du jeu)
+     */
     public Stage(Vector2 pos){
         position = pos;
         sprite = new Sprite();
@@ -26,7 +31,14 @@ public abstract class Stage {
         actual = false;
     }
 
+    /**
+     * Affiche le SpriteBatch
+     */
     public abstract void draw(SpriteBatch spriteBatch);
+
+    //////////////////////////////////
+    ///////Getters and Setters///////
+    /////////////////////////////////
 
     public Vector2 getPosition() {
         return position;
@@ -34,10 +46,6 @@ public abstract class Stage {
 
     public int getRayon() {
         return rayon;
-    }
-
-    public void setPassed(boolean passed) {
-        this.passed = passed;
     }
 
     public void setRightStage(Stage nextStage) {

@@ -8,6 +8,10 @@ import com.badlogic.gdx.math.Vector2;
 
 public class MiniBossStage extends Stage {
 
+    /**
+     * Creer un stage de mini Boss
+     * @param pos
+     */
     public MiniBossStage(Vector2 pos){
         super(pos);
         texture = new Texture(Gdx.files.internal("images/skull.png"));
@@ -17,6 +21,9 @@ public class MiniBossStage extends Stage {
         sprite.setSize(getRayon() * coeff, getRayon() * coeff);
     }
 
+    /**
+     * Affiche le SpriteBatch
+     */
     public void draw(SpriteBatch spriteBatch){
         if (actual) {
             coeff = 3;

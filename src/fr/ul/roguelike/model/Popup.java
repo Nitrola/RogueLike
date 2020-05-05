@@ -23,25 +23,19 @@ import static fr.ul.roguelike.RogueLike.screenWidth;
 import static fr.ul.roguelike.RogueLike.screenHeight;
 
 public class Popup {
-    private ShopMenu shopMenu;
     private boolean isPrint;
     private Stage stage;
     private Item item;
-    private Texture textureBackground;
-    private Texture textureButtonYes;
-    private Texture textureButtonNo;
 
     private ButtonItem buttonYes;
     private ButtonItem buttonNo;
 
     private Image image;
     private TextArea textArea;
-    private BitmapFont police;
-    private TextField.TextFieldStyle textField;
-
 
     /**
      * ATTENTION CONSTRUCTEUR UNIQUEMENT VALABLE POUR SHOPMENU
+     * Creer un popup pour la classe ShopMenu
      */
     public Popup(final ShopMenu shopMenu){
         isPrint = false;
@@ -51,17 +45,16 @@ public class Popup {
         inputMultiplexer.addProcessor(stage);
         Gdx.input.setInputProcessor(inputMultiplexer);
 
-        this.shopMenu = shopMenu;
-        textureBackground = new Texture(Gdx.files.internal("images/parchemin_popup.png"));
+        Texture textureBackground = new Texture(Gdx.files.internal("images/parchemin_popup.png"));
 
         image = new Image(textureBackground);
         stage.addActor(image);
         image.setHeight(screenHeight /1.25f);
         image.setWidth(screenWidth /2.5f);
-        image.setPosition(screenWidth /2-image.getWidth()/2, screenHeight /10);
+        image.setPosition(screenWidth /2f -image.getWidth()/2, screenHeight /10);
 
-        textureButtonYes = new Texture(Gdx.files.internal("images/sceau_yes.png"));
-        textureButtonNo = new Texture(Gdx.files.internal("images/sceau_no.png"));
+        Texture textureButtonYes = new Texture(Gdx.files.internal("images/sceau_yes.png"));
+        Texture textureButtonNo = new Texture(Gdx.files.internal("images/sceau_no.png"));
         Drawable drawable = new TextureRegionDrawable(new TextureRegion(textureButtonYes));
         drawable.setMinHeight(image.getHeight()/4);
         drawable.setMinWidth(image.getWidth()/4);
@@ -118,14 +111,17 @@ public class Popup {
         fontCarac.shadowOffsetX = 2;
         fontCarac.shadowOffsetY = 2;
 
-        police = fontGen.generateFont(fontCarac);
+        BitmapFont police = fontGen.generateFont(fontCarac);
         fontGen.dispose();
 
-        textField = new TextField.TextFieldStyle(police, Color.BLACK, null, null, null);
+        TextField.TextFieldStyle textField = new TextField.TextFieldStyle(police, Color.BLACK, null, null, null);
         textArea = new TextArea("", textField);
         textArea.setDisabled(true);
     }
 
+    /**
+     * Affiche les elements
+     */
     public void draw(){
         stage.addActor(image);
         stage.addActor(buttonYes);
@@ -136,6 +132,9 @@ public class Popup {
         stage.draw();
     }
 
+    /**
+     * Supprime les elements
+     */
     public void dispose(){
         buttonYes.addAction(Actions.removeActor());
         buttonNo.addAction(Actions.removeActor());
@@ -144,22 +143,30 @@ public class Popup {
         setPrint(false);
     }
 
-    public boolean isPrint() {
-        return isPrint;
-    }
 
-    public void setPrint(boolean print) {
-        isPrint = print;
-    }
-
+    /**
+     * Attribut un Item au popup
+     * @param item à attribuer
+     */
     public void setItem(Item item) {
         this.item = item;
-
         textArea.setText(item.getDescription());
         textArea.setX(image.getX()+image.getWidth()/13);
         textArea.setY(image.getY()+buttonYes.getHeight());
         textArea.setWidth(image.getWidth()-image.getWidth()/10);
         textArea.setHeight(image.getHeight()-buttonYes.getHeight()-image.getHeight()/6);
         stage.addActor(textArea);
+    }
+
+    //////////////////////////////////
+    ///////Getters and Setters///////
+    /////////////////////////////////
+
+    public boolean isPrint() {
+        return isPrint;
+    }
+
+    public void setPrint(boolean print) {
+        isPrint = print;
     }
 }

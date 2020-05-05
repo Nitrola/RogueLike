@@ -24,6 +24,17 @@ public abstract class Monster {
     protected Animation<TextureRegion> anim;
     protected float stateTime;
 
+    /**
+     * Creer Monstre
+     * @param hp Vie du monstre
+     * @param mana Mana du monstre
+     * @param attackSpeed Vitesse d'attaque du monstre
+     * @param criticChance Taux de coup critique du monstre
+     * @param physicalDmg Dommage physique du monstre
+     * @param magicalDmg Dommage magique du monstre
+     * @param physicalDef Defense physique du monstre
+     * @param magicalDef Defense magique du monstre
+     */
     public Monster(int hp, int mana, float attackSpeed, float criticChance, int physicalDmg, int magicalDmg, float physicalDef, float magicalDef) {
         this.hp = hp;
         this.currentHp = hp;
@@ -38,21 +49,37 @@ public abstract class Monster {
         this.timeSincePreviousAttack = 0.0f;
     }
 
-    public void draw(SpriteBatch sb, int posX, int posY){
-        return;
-    }
+    /**
+     * Affiche le monstre
+     */
+    public abstract void draw(SpriteBatch sb, int posX, int posY);
+
+    /**
+     * Retire de la vie au monstre
+     */
     public void receiveHit(int hitpoint){
         currentHp -= hitpoint;
     }
+
+    /**
+     * Calcul le ration de point de vie restant
+     */
     public float hpLeftRatio(){
         return 1.f* currentHp/hp;
     }
+
+    //////////////////////////////////
+    ///////Getters and Setters///////
+    /////////////////////////////////
+
     public void updateLastAttackTimer(float newTime){
         timeSincePreviousAttack = newTime;
     }
+
     public float getTimeSincePreviousAttack() {
         return timeSincePreviousAttack;
     }
+
 
     public int getCurrentHp() {
         return currentHp;
