@@ -5,7 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
+import static fr.ul.roguelike.RogueLike.screenWidth;
+import static fr.ul.roguelike.RogueLike.screenHeight;
 
 public abstract class Hero {
     private int hp;
@@ -81,7 +83,7 @@ public abstract class Hero {
         if(combatState == CombatState.ATTACKING) {
             //CECI EST DU BRICOLAGE
             if(this instanceof Alchimist) {
-                posX += Gdx.graphics.getWidth()/17f;
+                posX += screenWidth/17f;
             }
             animeTime += Gdx.graphics.getDeltaTime();
             currentFrame = animAttack.getKeyFrame(animeTime, false);
@@ -176,7 +178,7 @@ public abstract class Hero {
         Sprite sprite = new Sprite(animIdle.getKeyFrame(stateTime,true));
         sprite.setSize(width, height);
         sprite.setPosition(posX, posY);
-        return sprite.getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+        return sprite.getBoundingRectangle().contains(Gdx.input.getX(), screenHeight - Gdx.input.getY());
     }
 
     public Texture getTexture(){

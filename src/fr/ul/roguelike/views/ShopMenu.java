@@ -46,7 +46,7 @@ public class ShopMenu extends ScreenAdapter {
 
     private Texture coin;
     private int taillePolice = screenHeight/23; //Taille de la police d'ecriture
-    private int tailleBouton = screenWidth/3; //Taille des boutons
+    private int tailleBouton = screenHeight/3; //Taille des boutons
 
 
     /**

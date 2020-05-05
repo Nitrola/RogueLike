@@ -33,7 +33,6 @@ public class InventoryMenu extends ScreenAdapter {
     private Player p;
     private MapInterface mapInterface;
     private Stage stage;
-    private ScrollPane scrollPane, scrollPaneItems;
     private Texture background;
     private Sprite headSlot;
     private Sprite leftWepSlot;
@@ -44,9 +43,11 @@ public class InventoryMenu extends ScreenAdapter {
     private ArrayList<ItemWeapon> items;
     private boolean camp;
     private Table tableEquipment, tableItems;
-    private SpriteBatch sb;
 
-    public InventoryMenu(MapInterface mapInterface) {
+    /**
+     * Représente l'inventaire du joueur contenant ses équipements et objets
+     */
+    InventoryMenu(MapInterface mapInterface) {
 
         this.p = mapInterface.getPlayer();
         items = new ArrayList<>();
@@ -55,12 +56,11 @@ public class InventoryMenu extends ScreenAdapter {
         leftWepSlot = new Sprite(new Texture("images/inventory/leftWeaponSlot.png")) ;
         rightWepSlot = new Sprite(new Texture("images/inventory/rightWeaponSlot.png")) ;
         armorSlot = new Sprite(new Texture("images/inventory/armorSlot.png")) ;
-        sb = new SpriteBatch();
 
-        armorSlot.setPosition(Gdx.graphics.getWidth()*0.17f,Gdx.graphics.getHeight()*0.17f);
-        rightWepSlot.setPosition(Gdx.graphics.getWidth()*0.3f,Gdx.graphics.getHeight()*0.4f);
-        leftWepSlot.setPosition(Gdx.graphics.getWidth()*0.04f,Gdx.graphics.getHeight()*0.4f);
-        headSlot.setPosition(Gdx.graphics.getWidth()*0.17f,Gdx.graphics.getHeight()*0.6f);
+        armorSlot.setPosition(screenWidth*0.17f,screenHeight*0.17f);
+        rightWepSlot.setPosition(screenWidth*0.3f,screenHeight*0.4f);
+        leftWepSlot.setPosition(screenWidth*0.04f,screenHeight*0.4f);
+        headSlot.setPosition(screenWidth*0.17f,screenHeight*0.6f);
 
         itemsButton = new ArrayList<>();
         //inventorySlot.scale(2f);
@@ -90,7 +90,7 @@ public class InventoryMenu extends ScreenAdapter {
                     if(camp){
                         upgrade(e);
                     }
-                };
+                }
             });
 
 
@@ -111,7 +111,7 @@ public class InventoryMenu extends ScreenAdapter {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     //Afficher description
-                };
+                }
             });
 
 
@@ -126,17 +126,17 @@ public class InventoryMenu extends ScreenAdapter {
         background = new Texture("images/inventory/background.png");
 
 
-        scrollPane = new ScrollPane(tableEquipment);
+        ScrollPane scrollPane = new ScrollPane(tableEquipment);
         scrollPane.setScrollingDisabled(true,false);
 
-        scrollPane.setSize(Gdx.graphics.getWidth()*0.55f,Gdx.graphics.getHeight()*0.9f);
-        scrollPane.setPosition(Gdx.graphics.getWidth()*0.43f,0);
+        scrollPane.setSize(screenWidth*0.55f,screenHeight*0.9f);
+        scrollPane.setPosition(screenWidth*0.43f,0);
 
 
-        scrollPaneItems = new ScrollPane(tableItems);
+        ScrollPane scrollPaneItems = new ScrollPane(tableItems);
         scrollPaneItems.setScrollingDisabled(true,false);
-        scrollPaneItems.setSize(Gdx.graphics.getWidth()*0.55f,Gdx.graphics.getHeight()*0.9f);
-        scrollPaneItems.setPosition(Gdx.graphics.getWidth()*0.7f, scrollPane.getY());
+        scrollPaneItems.setSize(screenWidth*0.55f,screenHeight*0.9f);
+        scrollPaneItems.setPosition(screenWidth*0.7f, scrollPane.getY());
 
         Table potionTable = new Table();
         Texture manaPotion, potion;
@@ -149,7 +149,7 @@ public class InventoryMenu extends ScreenAdapter {
         potionTable.add(new Image(manaPotion)).width(manaPotion.getWidth()*2f).height(manaPotion.getHeight()*2f);
         potionTable.add(new Label(" : 0",new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
 
-        potionTable.setPosition(Gdx.graphics.getWidth()*0.87f,Gdx.graphics.getHeight()*0.96f);
+        potionTable.setPosition(screenWidth*0.87f,screenHeight*0.96f);
 
         stage = new Stage();
         stage.addActor(scrollPane);
@@ -158,14 +158,21 @@ public class InventoryMenu extends ScreenAdapter {
         Gdx.input.setInputProcessor(stage);
     }
 
-    public void upgrade(Equipement equipement){
+    /**
+     * Pour améliorer un équipement
+     * @param equipement à améliorer
+     */
+    private void upgrade(Equipement equipement){
         equipement.getEquipement().upgrade();
         camp = false;
         p.getPlayerCharacter().setInInventory(false);
         mapInterface.setScreen();
     }
 
-    public void toUpgrade (){
+    /**
+     * Lance l'inventaire spécialement conçu pour le feu de camp dans le but d'améliorer le premier equipement cliqué
+     */
+    void toUpgrade(){
         camp = true;
         p.getPlayerCharacter().setInInventory(true);
         for(final Equipement e : equipements) {
@@ -177,8 +184,6 @@ public class InventoryMenu extends ScreenAdapter {
                         upgrade(e);
                     }
                 }
-
-                ;
             });
             stage.addActor(ib);
             Gdx.input.setInputProcessor(stage);
@@ -206,7 +211,7 @@ public class InventoryMenu extends ScreenAdapter {
 
     }
 
-    public void update(){
+    void update(){
         Gdx.input.setInputProcessor(stage);
         tableEquipment.clearChildren();
         tableItems.clearChildren();
@@ -222,7 +227,7 @@ public class InventoryMenu extends ScreenAdapter {
                     if(camp){
                         upgrade(e);
                     }
-                };
+                }
             });
 
 
@@ -244,7 +249,7 @@ public class InventoryMenu extends ScreenAdapter {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     //Afficher description
-                };
+                }
             });
 
 
@@ -257,7 +262,7 @@ public class InventoryMenu extends ScreenAdapter {
         tableItems.align(Align.left);
     }
 
-    public void addItem(ItemWeapon item){
+    void addItem(ItemWeapon item){
         items.add(item);
     }
 

@@ -19,6 +19,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import fr.ul.roguelike.model.Items.ButtonItem;
 import fr.ul.roguelike.model.Items.Item;
 import fr.ul.roguelike.views.ShopMenu;
+import static fr.ul.roguelike.RogueLike.screenWidth;
+import static fr.ul.roguelike.RogueLike.screenHeight;
 
 public class Popup {
     private ShopMenu shopMenu;
@@ -37,8 +39,6 @@ public class Popup {
     private BitmapFont police;
     private TextField.TextFieldStyle textField;
 
-    private int largeurEcran = Gdx.graphics.getWidth(); //Largeur de l'ecran
-    private int hauteurEcran = Gdx.graphics.getHeight(); //Hauteur de l'ecran
 
     /**
      * ATTENTION CONSTRUCTEUR UNIQUEMENT VALABLE POUR SHOPMENU
@@ -56,9 +56,9 @@ public class Popup {
 
         image = new Image(textureBackground);
         stage.addActor(image);
-        image.setHeight(hauteurEcran/1.25f);
-        image.setWidth(largeurEcran/2.5f);
-        image.setPosition(largeurEcran/2-image.getWidth()/2, hauteurEcran/10);
+        image.setHeight(screenHeight /1.25f);
+        image.setWidth(screenWidth /2.5f);
+        image.setPosition(screenWidth /2-image.getWidth()/2, screenHeight /10);
 
         textureButtonYes = new Texture(Gdx.files.internal("images/sceau_yes.png"));
         textureButtonNo = new Texture(Gdx.files.internal("images/sceau_no.png"));

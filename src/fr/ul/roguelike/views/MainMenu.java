@@ -18,23 +18,22 @@ import fr.ul.roguelike.RogueLike;
 import fr.ul.roguelike.model.Items.ButtonItem;
 import fr.ul.roguelike.model.Player;
 
+import static fr.ul.roguelike.RogueLike.screenWidth;
+import static fr.ul.roguelike.RogueLike.screenHeight;
+
 public class MainMenu extends ScreenAdapter {
 
-    private ChooseMenu chooseMenu;
     private SpriteBatch spriteBatch;
     private Stage stage;
     private OrthographicCamera camera;
     private RogueLike rogueLike;
 
-    private Button playButton,exitButton;
-    private Texture texture;
     private boolean clicked;
 
-    private int screenWidth = Gdx.graphics.getWidth();
-    private int screenHeight = Gdx.graphics.getHeight();
-    private int buttonWidth = Gdx.graphics.getWidth()/5;
-    private int buttonHeight = Gdx.graphics.getWidth()/9;
-
+    /**
+     * Représente le menu principal
+     * @param rogueLike modèle
+     */
     public MainMenu(final RogueLike rogueLike){
         stage = new Stage();
         this.rogueLike = rogueLike;
@@ -46,32 +45,36 @@ public class MainMenu extends ScreenAdapter {
         fond.setHeight(screenHeight);
         stage.addActor(fond);
 
-        texture = new Texture(Gdx.files.internal("images/jouer.png"));
+        //Bouton pour jouer
+        Texture texture = new Texture(Gdx.files.internal("images/jouer.png"));
         Drawable drawable = new TextureRegionDrawable(new TextureRegion(texture));
+        int buttonHeight = screenWidth / 9;
         drawable.setMinHeight(buttonHeight);
+        int buttonWidth = screenWidth / 5;
         drawable.setMinWidth(buttonWidth);
-        playButton = new ButtonItem(drawable);
+        Button playButton = new ButtonItem(drawable);
         playButton.setSize(buttonWidth, buttonHeight);
-        playButton.setPosition(screenWidth /2- buttonWidth /2, screenHeight /2);
+        playButton.setPosition(screenWidth /2f- buttonWidth /2f, screenHeight /2f);
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 play();
-            };
+            }
         });
 
+        //Bouton quitter
         texture = new Texture(Gdx.files.internal("images/quitter.png"));
         Drawable drawable2 = new TextureRegionDrawable(new TextureRegion(texture));
         drawable2.setMinHeight(buttonHeight);
         drawable2.setMinWidth(buttonWidth);
-        exitButton = new ButtonItem(drawable2);
+        Button exitButton = new ButtonItem(drawable2);
         exitButton.setSize(buttonWidth, buttonHeight);
-        exitButton.setPosition(screenWidth /2- buttonWidth /2, screenHeight /2- screenHeight /4);
+        exitButton.setPosition(screenWidth /2f- buttonWidth /2f, screenHeight /2f- screenHeight /4f);
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.exit();
-            };
+            }
         });
 
 
@@ -83,9 +86,12 @@ public class MainMenu extends ScreenAdapter {
         camera.update();
     }
 
-    public void play (){
+    /**
+     * Lance le menu de choix du personnage
+     */
+    private void play(){
         if(!clicked) {
-            chooseMenu = new ChooseMenu(rogueLike, new Player());
+            ChooseMenu chooseMenu = new ChooseMenu(rogueLike, new Player());
             rogueLike.setScreen(chooseMenu);
             clicked = true;
         }

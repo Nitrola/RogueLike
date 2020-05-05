@@ -6,6 +6,9 @@ import com.badlogic.gdx.math.Rectangle;
 import fr.ul.roguelike.model.Monster.Monster;
 import fr.ul.roguelike.model.Player;
 
+import static fr.ul.roguelike.RogueLike.screenWidth;
+import static fr.ul.roguelike.RogueLike.screenHeight;
+
 import java.util.ArrayList;
 
 public class CombatController {
@@ -26,7 +29,7 @@ public class CombatController {
     public void checkInput() {
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) ) {
             int posX = Gdx.input.getX();
-            int posY = Gdx.graphics.getHeight() - Gdx.input.getY();
+            int posY = screenHeight - Gdx.input.getY();
 
             if (attack.contains(posX, posY) && !monsters.isEmpty()) {
                 monsters.get(0).receiveHit(player.getPlayerCharacter().getPhysicalDmg());

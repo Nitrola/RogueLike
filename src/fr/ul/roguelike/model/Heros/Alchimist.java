@@ -3,6 +3,8 @@ package fr.ul.roguelike.model.Heros;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import static fr.ul.roguelike.RogueLike.screenWidth;
+import static fr.ul.roguelike.RogueLike.screenHeight;
 
 public class Alchimist extends Hero {
     public Alchimist() {
@@ -14,7 +16,7 @@ public class Alchimist extends Hero {
         animDead = new Animation<Texture>(0.1f,loadFrames(12,"images/combat/Alchimist/Death/alchimist_death_"));
         animIdle = new Animation<Texture>(0.1f,loadFrames(24,"images/combat/Alchimist/Idle/alchimist_idle_"));
 
-        width = Gdx.graphics.getWidth()/2f;
-        height = Gdx.graphics.getHeight()/1.5f;
+        width = screenWidth/2f;
+        height = screenHeight/1.5f;
     }
 }

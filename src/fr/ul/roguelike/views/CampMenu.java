@@ -22,6 +22,8 @@ import fr.ul.roguelike.RogueLike;
 import fr.ul.roguelike.model.GifDecoder;
 import fr.ul.roguelike.model.Items.ButtonItem;
 import fr.ul.roguelike.model.Player;
+import static fr.ul.roguelike.RogueLike.screenWidth;
+import static fr.ul.roguelike.RogueLike.screenHeight;
 
 
 public class CampMenu extends ScreenAdapter {
@@ -91,10 +93,10 @@ public class CampMenu extends ScreenAdapter {
         sb.begin();
 
         sb.draw(lifeBar,
-                0,Gdx.graphics.getHeight() - lifeBar.getHeight()*2,
+                0,screenHeight - lifeBar.getHeight()*2,
                 lifeBar.getWidth()*2,lifeBar.getHeight()*2);
         sb.draw(lifeBar,
-                0,Gdx.graphics.getHeight() - lifeBar.getHeight()*4,
+                0,screenHeight - lifeBar.getHeight()*4,
                 lifeBar.getWidth()*2,lifeBar.getHeight()*2);
         sb.end();
 
@@ -104,7 +106,7 @@ public class CampMenu extends ScreenAdapter {
         //player life bar
         float playerHpLeftRate =1.0f * player.getHealthLeft() / player.getPlayerCharacter().getHp();
         sr.rect(
-                4.0f,Gdx.graphics.getHeight() + 3f- lifeBar.getHeight()*2,
+                4.0f,screenHeight + 3f- lifeBar.getHeight()*2,
                 (playerHpLeftRate *lifeBar.getWidth()*2)-7.f,(lifeBar.getHeight()*2)-6f );
 
 
@@ -112,7 +114,7 @@ public class CampMenu extends ScreenAdapter {
         float playerManaLeftRate =1.0f * player.getManaLeft() / player.getPlayerCharacter().getMana();
         sr.setColor(0f,0.4f,1f,1f);
         sr.rect(
-                4.0f,Gdx.graphics.getHeight() + 3f- lifeBar.getHeight()*4,
+                4.0f,screenHeight + 3f- lifeBar.getHeight()*4,
                 (playerManaLeftRate *lifeBar.getWidth()*2)-7.f,(lifeBar.getHeight()*2)-6f );
 
 
@@ -120,11 +122,11 @@ public class CampMenu extends ScreenAdapter {
 
         sb.begin();
         sb.draw(heart,
-                lifeBar.getWidth()*2 - heart.getWidth()*2, Gdx.graphics.getHeight() - heart.getHeight()*4,
+                lifeBar.getWidth()*2 - heart.getWidth()*2, screenHeight - heart.getHeight()*4,
                 heart.getHeight()*4,heart.getHeight()*4
         );
         sb.draw(mana,
-                lifeBar.getWidth()*2 - mana.getWidth(), Gdx.graphics.getHeight() - mana.getHeight()*4,
+                lifeBar.getWidth()*2 - mana.getWidth(), screenHeight - mana.getHeight()*4,
                 mana.getHeight()*1.9f,mana.getHeight()*1.9f);
         sb.end();
     }
@@ -147,7 +149,7 @@ public class CampMenu extends ScreenAdapter {
 
         drawLifeBars();
 
-        if(sprite.getBoundingRectangle().contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY())) {
+        if(sprite.getBoundingRectangle().contains(Gdx.input.getX(), screenHeight - Gdx.input.getY())) {
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched()) {
                 player.heal(20);
                 mapInterface.setScreen();

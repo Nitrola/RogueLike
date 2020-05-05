@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import static fr.ul.roguelike.RogueLike.screenWidth;
+import static fr.ul.roguelike.RogueLike.screenHeight;
 
 public class Warrior extends Hero {
 
@@ -25,8 +27,8 @@ public class Warrior extends Hero {
         animDead = new Animation<Texture>(0.1f,loadFrames(9,"images/combat/Warrior/Death/HeroKnight_Death_"));
         animIdle = new Animation<Texture>(0.1f,loadFrames(7,"images/combat/Warrior/Idle/HeroKnight_Idle_"));
 
-        width = Gdx.graphics.getWidth()/2f;
-        height = Gdx.graphics.getHeight()/2f;
+        width = screenWidth/2f;
+        height = screenHeight/2f;
     }
 
 }
