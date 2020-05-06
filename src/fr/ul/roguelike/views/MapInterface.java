@@ -158,6 +158,9 @@ public class MapInterface extends ScreenAdapter {
                     }else if(stage instanceof MiniBossStage){
                         //TODO faire combat plus dur
                         rogueLike.setScreen(new CombatMenu(player, this));
+                    }else if(stage instanceof BossStage){
+                        //TODO faire combat plus dur
+                        rogueLike.setScreen(new CombatMenu(player, this));
                     }
                     actualStage.setActual();
                     actualStage = stage;

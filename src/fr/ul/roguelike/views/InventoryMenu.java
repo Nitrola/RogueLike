@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import fr.ul.roguelike.model.Heros.Hero;
 import fr.ul.roguelike.model.Items.ButtonItem;
 import fr.ul.roguelike.model.Items.Equipment.Archer.ArcherPlate;
 import fr.ul.roguelike.model.Items.Equipment.Archer.BaseBow;
@@ -43,6 +44,7 @@ public class InventoryMenu extends ScreenAdapter {
     private ArrayList<ItemWeapon> items;
     private boolean camp;
     private Table tableEquipment, tableItems;
+    private Label labelHealthPotion,labelManaPotion;
 
     /**
      * Représente l'inventaire du joueur contenant ses équipements et objets
@@ -143,11 +145,11 @@ public class InventoryMenu extends ScreenAdapter {
         manaPotion = new Texture("images/combat/manapotion.png");
         potion = new Texture("images/combat/potion.png");
         potionTable.add(new Image(potion)).width(potion.getWidth()*2f).height(potion.getHeight()*2f);
-        potionTable.add(new Label(" : 0",new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
+        potionTable.add(labelHealthPotion = new Label(Integer.toString(p.getNbPotionHealth()),new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
 
 
         potionTable.add(new Image(manaPotion)).width(manaPotion.getWidth()*2f).height(manaPotion.getHeight()*2f);
-        potionTable.add(new Label(" : 0",new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
+        potionTable.add(labelManaPotion = new Label(Integer.toString(p.getNbPotionMana()),new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
 
         potionTable.setPosition(screenWidth*0.87f,screenHeight*0.96f);
 
@@ -185,7 +187,6 @@ public class InventoryMenu extends ScreenAdapter {
                     }
                 }
             });
-            stage.addActor(ib);
             Gdx.input.setInputProcessor(stage);
         }
         update();
@@ -205,6 +206,10 @@ public class InventoryMenu extends ScreenAdapter {
         headSlot.draw(stage.getBatch());
         leftWepSlot.draw(stage.getBatch());
         rightWepSlot.draw(stage.getBatch());
+
+        labelHealthPotion.setText(p.getNbPotionHealth());
+        labelManaPotion.setText(p.getNbPotionMana());
+
         stage.getBatch().end();
 
         stage.draw();
@@ -213,6 +218,7 @@ public class InventoryMenu extends ScreenAdapter {
 
     void update(){
         Gdx.input.setInputProcessor(stage);
+        p.getPlayerCharacter().setCombatState(Hero.CombatState.IDLE); //Pour réinitialiser l'animation
         tableEquipment.clearChildren();
         tableItems.clearChildren();
 

@@ -116,8 +116,7 @@ public class CombatMenu extends ScreenAdapter {
         fontCarac.shadowOffsetX = 2;
         fontCarac.shadowOffsetY = 2;
 
-        BitmapFont police = new BitmapFont();
-        police = fontGen.generateFont(fontCarac);
+        BitmapFont police = fontGen.generateFont(fontCarac);
 
 
         labelHealthPotion = new Label(Integer.toString(player.getNbPotionHealth()),new Label.LabelStyle(police, fontCarac.color));
