@@ -40,8 +40,8 @@ public class ShopMenu extends ScreenAdapter {
     private ArrayList<ButtonItem> buttons;
     private OrthographicCamera camera;
     private OrthographicCamera cameraPolice;
-    private int money;
     private Popup popup;
+    private MapInterface mapInterface;
 
     private BitmapFont police;
 
@@ -58,6 +58,7 @@ public class ShopMenu extends ScreenAdapter {
      */
     ShopMenu(final MapInterface mapInterface){
         ArrayList<Item> items = new ArrayList<>();
+        this.mapInterface = mapInterface;
 
         items.add(new HealthPotion("healingPotion",20, "Rends des PV"));
         items.add(new ManaPotion("manaPotion",20, "Donne de l'attaque pour un moment"));
@@ -80,7 +81,6 @@ public class ShopMenu extends ScreenAdapter {
         buttons = new ArrayList<>();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-        money = 999;
         popup = new Popup(this);
 
         FreeTypeFontGenerator fontGen = new FreeTypeFontGenerator(Gdx.files.internal(("fonts/comicSansMS.ttf")));
@@ -164,16 +164,6 @@ public class ShopMenu extends ScreenAdapter {
                             popup.setItem(i);
                             popup.setPrint(true);
                         }
-                        if(i instanceof ItemWeapon) {
-                            mapInterface.getInventoryMenu().addItem((ItemWeapon) i);
-                        }
-                        if(i.isPotion()){
-                            if(((ItemPotion)i).isHealthPotion()){
-                                mapInterface.getPlayer().receivePotionHealth();
-                            } if(((ItemPotion)i).isManaPotion()){
-                                mapInterface.getPlayer().receivePotionMana();
-                            }
-                        }
                 }
             });
             index++;
@@ -191,7 +181,7 @@ public class ShopMenu extends ScreenAdapter {
                 stage.addActor(b);
             }
         }
-        String message = " " + money + " ";
+        String message = " " + mapInterface.getPlayer().getCurrentGold() + " ";
         stage.draw();
         stage.act();
         spriteBatchPolice.begin();
@@ -240,14 +230,6 @@ public class ShopMenu extends ScreenAdapter {
     /////////////////////////////////
 
 
-    public int getMoney() {
-        return money;
-    }
-
-    public void setMoney(int money) {
-        this.money = money;
-    }
-
     public void playSound() {
         sound.play(1.0f);
     }
@@ -272,5 +254,9 @@ public class ShopMenu extends ScreenAdapter {
     public void dispose() {
         super.dispose();
 
+    }
+
+    public MapInterface getMapInterface() {
+        return mapInterface;
     }
 }

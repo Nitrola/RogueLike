@@ -268,7 +268,7 @@ public class InventoryMenu extends ScreenAdapter {
         tableItems.align(Align.left);
     }
 
-    void addItem(ItemWeapon item){
+    public void addItem(ItemWeapon item){
         items.add(item);
     }
 

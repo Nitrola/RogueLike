@@ -163,6 +163,7 @@ public class CombatMenu extends ScreenAdapter {
                     0,0,
                     screenWidth,screenHeight);
             sb.end();
+            player.giveMoney(20);
             if(mapInterface.isBoss()){
                 if(mapInterface.isEnded()){
                     mapInterface.getRogueLike().changeScreen();

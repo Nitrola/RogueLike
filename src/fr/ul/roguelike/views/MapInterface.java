@@ -377,15 +377,15 @@ public class MapInterface extends ScreenAdapter {
     ///////Getters and Setters///////
     /////////////////////////////////
 
-    RogueLike getRogueLike() {
+    public RogueLike getRogueLike() {
         return rogueLike;
     }
 
-    Player getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 
-    InventoryMenu getInventoryMenu() {
+    public InventoryMenu getInventoryMenu() {
         return inventoryMenu;
     }
 

@@ -7,6 +7,7 @@ import fr.ul.roguelike.model.Items.Item;
 import fr.ul.roguelike.model.Spells.Spell;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Player {
     private Hero playerCharacter;
@@ -37,7 +38,7 @@ public class Player {
         manaLeft = 0.0f;
 
         currentLevel = 0;
-        currentGold = 0;
+        currentGold = 999;
 
         inventory = new ArrayList<>();
         inventoryEquipements = new ArrayList<>();
@@ -195,5 +196,17 @@ public class Player {
 
     public void resetMana() {
         manaLeft=0;
+    }
+    public int getCurrentGold() {
+        return currentGold;
+    }
+    public void setCurrentGold(int currentGold) {
+        this.currentGold = currentGold;
+    }
+
+    public void giveMoney(int nb) {
+        Random randomGenerator = new Random();
+        int randomInt = randomGenerator.nextInt((int) (nb*1.20) - (int)(nb*0.80)) + (int)(nb*0.80);
+        this.currentGold += randomInt;
     }
 }

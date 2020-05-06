@@ -17,7 +17,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import fr.ul.roguelike.model.Items.ButtonItem;
+import fr.ul.roguelike.model.Items.Equipment.Potions.ItemPotion;
 import fr.ul.roguelike.model.Items.Item;
+import fr.ul.roguelike.model.Items.ItemWeapon;
 import fr.ul.roguelike.views.ShopMenu;
 import static fr.ul.roguelike.RogueLike.screenWidth;
 import static fr.ul.roguelike.RogueLike.screenHeight;
@@ -71,13 +73,24 @@ public class Popup {
         buttonYes.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(shopMenu.getMoney() - item.getPrice() >=0) {
-                    shopMenu.setMoney(shopMenu.getMoney() - item.getPrice());
+                if(shopMenu.getMapInterface().getPlayer().getCurrentGold() - item.getPrice() >=0) {
+                    //shopMenu.setMoney(shopMenu.getMoney() - item.getPrice());
+                    shopMenu.getMapInterface().getPlayer().setCurrentGold(shopMenu.getMapInterface().getPlayer().getCurrentGold() - item.getPrice());
                     shopMenu.getShop().remove(item);
                     for (ButtonItem b : shopMenu.getButtons()) {
                         if (b.getNomItem().equals(item.getName())) {
                             b.addAction(Actions.removeActor());
                             b.setClicked(true);
+                        }
+                    }
+                    if(item instanceof ItemWeapon) {
+                        shopMenu.getMapInterface().getInventoryMenu().addItem((ItemWeapon) item);
+                    }
+                    if(item.isPotion()){
+                        if(((ItemPotion)item).isHealthPotion()){
+                            shopMenu.getMapInterface().getPlayer().receivePotionHealth();
+                        } if(((ItemPotion)item).isManaPotion()){
+                            shopMenu.getMapInterface().getPlayer().receivePotionMana();
                         }
                     }
                     shopMenu.playSound();
