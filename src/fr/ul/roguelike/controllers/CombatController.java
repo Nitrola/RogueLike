@@ -45,11 +45,17 @@ public class CombatController {
             }
 
             if (healthPotion.contains(posX, posY)) {
-                player.receiveHit(-10);
+                if(player.getNbPotionHealth() > 0) {
+                    player.heal(10);
+                    player.usePotionHealth();
+                }
             }
 
             if (manaPotion.contains(posX, posY)) {
-                player.regenMana();
+                if(player.getNbPotionMana() > 0) {
+                    player.regenMana(10f);
+                    player.usePotionMana();
+                }
             }
         }
     }

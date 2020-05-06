@@ -21,13 +21,13 @@ public class Player {
     private PlayerGear playerGear;
 
     private ArrayList<Item> inventory;
+    private int[] potionsTable; //Premiere case: potion de soin - Seconde case: potion de mana
     private ArrayList<Equipement> inventoryEquipements;
 
     /**
      * Creer un joueur
      */
     public Player(){
-
         playerCharacter = new Warrior();
         playerGear = new PlayerGear();
         spells = new ArrayList<>(playerCharacter.getNb_spell_slots());
@@ -41,6 +41,9 @@ public class Player {
 
         inventory = new ArrayList<>();
         inventoryEquipements = new ArrayList<>();
+        potionsTable = new int[2];
+        potionsTable[0] = 100; //Ca va degager
+        potionsTable[1] = 100; //Ca va degager
 
     }
 
@@ -64,6 +67,19 @@ public class Player {
         if(playerCharacter.getCombatState() != Hero.CombatState.DEAD) {
             if (manaLeft < playerCharacter.getMana()) {
                 manaLeft += playerCharacter.getManaRegen();
+            } else {
+                manaLeft = playerCharacter.getMana();
+            }
+        }
+    }
+
+    /**
+     * Regenere la mana du personnage
+     */
+    public void regenMana(float mana){
+        if(playerCharacter.getCombatState() != Hero.CombatState.DEAD) {
+            if (manaLeft + mana < playerCharacter.getMana()) {
+                manaLeft += mana;
             } else {
                 manaLeft = playerCharacter.getMana();
             }
@@ -151,5 +167,33 @@ public class Player {
 
     public void setPlayerCharacter(Hero playerCharacter) {
         this.playerCharacter = playerCharacter;
+    }
+
+    public int getNbPotionHealth(){
+        return potionsTable[0];
+    }
+
+    public int getNbPotionMana(){
+        return potionsTable[1];
+    }
+
+    public void receivePotionHealth(){
+        potionsTable[0]++;
+    }
+
+    public void usePotionHealth(){
+        potionsTable[0]--;
+    }
+
+    public void receivePotionMana(){
+        potionsTable[1]++;
+    }
+
+    public void usePotionMana(){
+        potionsTable[1]--;
+    }
+
+    public void resetMana() {
+        manaLeft=0;
     }
 }

@@ -3,12 +3,16 @@ package fr.ul.roguelike.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Timer;
 import fr.ul.roguelike.controllers.CombatController;
 import fr.ul.roguelike.model.Monster.Monster;
@@ -41,6 +45,8 @@ public class CombatMenu extends ScreenAdapter {
     private Texture mana;
     private boolean ended;
 
+    private Label labelHealthPotion,labelManaPotion;
+
     private CombatController combatController;
 
     private enum State{
@@ -59,6 +65,7 @@ public class CombatMenu extends ScreenAdapter {
         ended = false;
         mapInterface = mi;
         player = p;
+        player.resetMana();
         monsters = new ArrayList<>();
         monsters.add(MonsterFactory.create("golem"));
         gen_monsters(p.getCurrentLevel());
@@ -98,6 +105,28 @@ public class CombatMenu extends ScreenAdapter {
         healthPotion.setPosition(attackButton.getX() * 5 , attackButton.getY());
         manaPotion.setPosition(attackButton.getX() * 7 , attackButton.getY());
 
+        // Number of potions
+        FreeTypeFontGenerator fontGen = new FreeTypeFontGenerator(Gdx.files.internal(("fonts/comicSansMS.ttf")));
+        FreeTypeFontGenerator.FreeTypeFontParameter fontCarac = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        fontCarac.size = buttonSize/2;
+        fontCarac.color = new Color(0.9490f,0.0862f,0.1568f,1.0f);
+        fontCarac.borderColor = Color.BLACK;
+        fontCarac.borderWidth = 0.5f;
+        fontCarac.shadowColor = new Color(0,0,0,0.50f);
+        fontCarac.shadowOffsetX = 2;
+        fontCarac.shadowOffsetY = 2;
+
+        BitmapFont police = new BitmapFont();
+        police = fontGen.generateFont(fontCarac);
+
+
+        labelHealthPotion = new Label(Integer.toString(player.getNbPotionHealth()),new Label.LabelStyle(police, fontCarac.color));
+        fontCarac.color = new Color(0.0784f,0.4745f,0.9490f,1.0f); // <-- Ceci est un float
+        police = fontGen.generateFont(fontCarac);
+        labelManaPotion = new Label(Integer.toString(player.getNbPotionMana()),new Label.LabelStyle(police, fontCarac.color));
+        labelHealthPotion.setPosition(healthPotion.getX()+3*buttonSize/4f,healthPotion.getY()-screenHeight/36f);
+        labelManaPotion.setPosition(manaPotion.getX()+3*buttonSize/4f,manaPotion.getY()-screenHeight/36f);
+        fontGen.dispose();
         sr = new ShapeRenderer();
         sr.setProjectionMatrix(cam.combined);
 
@@ -153,40 +182,38 @@ public class CombatMenu extends ScreenAdapter {
     }
 
     private void drawCombat(){
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
-            sb.begin();
+        sb.begin();
 
-            sb.draw(background, 0, 0, screenWidth, screenHeight);
-            player.getPlayerCharacter().draw(sb, screenWidth / 20f, screenHeight / 3f);
-            sb.draw(lifeBar,
-                0,screenHeight - lifeBar.getHeight()*2,
-                lifeBar.getWidth()*2,lifeBar.getHeight()*2);
-            sb.draw(lifeBar,
-                0,screenHeight - lifeBar.getHeight()*4,
-                lifeBar.getWidth()*2,lifeBar.getHeight()*2);
+        sb.draw(background, 0, 0, screenWidth, screenHeight);
+        player.getPlayerCharacter().draw(sb, screenWidth / 20f, screenHeight / 3f);
+        sb.draw(lifeBar, 0,screenHeight - lifeBar.getHeight()*2, lifeBar.getWidth()*2,lifeBar.getHeight()*2);
+        sb.draw(lifeBar, 0,screenHeight - lifeBar.getHeight()*4, lifeBar.getWidth()*2,lifeBar.getHeight()*2);
 
+        if (!monsters.isEmpty()) {
+            monsters.get(0).draw(sb, screenWidth / 2, screenHeight / 3);
+        }
 
-            if (!monsters.isEmpty()) {
-                monsters.get(0).draw(sb, screenWidth / 2, screenHeight / 3);
-            }
+        //update les labels
+        labelHealthPotion.setText(player.getNbPotionHealth());
+        labelManaPotion.setText(player.getNbPotionMana());
 
-            attackButton.draw(sb);
-            defButton.draw(sb);
-            healthPotion.draw(sb);
-            manaPotion.draw(sb);
-            sb.end();
-            drawLifeBars();
+        //Dessin des boutons
+        attackButton.draw(sb);
+        defButton.draw(sb);
+        healthPotion.draw(sb);
+        manaPotion.draw(sb);
 
-            sb.begin();
-            sb.draw(heart,
-                    lifeBar.getWidth()*2 - heart.getWidth()*2, screenHeight - heart.getHeight()*4,
-                    heart.getHeight()*4,heart.getHeight()*4
-            );
-            sb.draw(mana,
-                    lifeBar.getWidth()*2 - mana.getWidth(), screenHeight - mana.getHeight()*4,
-                    mana.getHeight()*1.9f,mana.getHeight()*1.9f);
-            sb.end();
+        labelHealthPotion.draw(sb,1);
+        labelManaPotion.draw(sb,1);
+        sb.end();
+        drawLifeBars();
+
+        sb.begin();
+        sb.draw(heart, lifeBar.getWidth()*2 - heart.getWidth()*2, screenHeight - heart.getHeight()*4, heart.getHeight()*4,heart.getHeight()*4);
+        sb.draw(mana, lifeBar.getWidth()*2 - mana.getWidth(), screenHeight - mana.getHeight()*4, mana.getHeight()*1.9f,mana.getHeight()*1.9f);
+        sb.end();
     }
 
     private void drawLifeBars(){

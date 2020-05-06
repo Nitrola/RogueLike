@@ -9,7 +9,7 @@ import static fr.ul.roguelike.RogueLike.screenHeight;
 
 public class Mage extends Hero {
     public Mage() {
-        super(100,100,5f,0.01f,10,1,5,5,1);
+        super(100,100,5f,0.01f,10,1,5,5,1f);
         nb_spell_slots = 2;
 
 

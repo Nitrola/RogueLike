@@ -13,7 +13,7 @@ public abstract class Hero {
     private int hp;
     private int mana;
 
-    private int manaRegenTime;
+    private float manaRegenTime;
     private float manaRegen;
     private float criticChance;
 
@@ -25,7 +25,7 @@ public abstract class Hero {
     private float physicalDef;
     private float magicalDef;
 
-    protected int nb_spell_slots;
+    int nb_spell_slots;
 
     public enum CombatState{
         ATTACKING,
@@ -37,19 +37,19 @@ public abstract class Hero {
 
     private CombatState combatState;
 
-    protected Animation<Texture> animIdle;
-    protected Animation<Texture> animBlock;
-    protected Animation<Texture> animAttack;
-    protected Animation<Texture> animDead;
+    Animation<Texture> animIdle;
+    Animation<Texture> animBlock;
+    Animation<Texture> animAttack;
+    Animation<Texture> animDead;
     private float stateTime;
     private float animeTime;
 
-    protected float width;
-    protected float height;
+    float width;
+    float height;
 
     private boolean inInventory;
 
-    public Hero(int hp, int mana, float mana_regen, float critic_chance, int physical_dmg, int magical_dmg, float physical_def, float magical_def,int manaRegenTime) {
+    public Hero(int hp, int mana, float mana_regen, float critic_chance, int physical_dmg, int magical_dmg, float physical_def, float magical_def, float manaRegenTime) {
         this.hp = hp;
         this.mana = mana;
         this.manaRegen = mana_regen;
@@ -65,7 +65,7 @@ public abstract class Hero {
         inInventory = false;
     }
 
-    protected Texture[] loadFrames(int nb,String path){
+    Texture[] loadFrames(int nb,String path){
         Texture[] frames = new Texture[nb];
         for(int i = 0; i < nb; i++) {
             frames[i] = new Texture(path + i + ".png");
@@ -112,7 +112,7 @@ public abstract class Hero {
         return false;
     }
 
-    public void changeSize(){
+    private void changeSize(){
         if(inInventory) {
             width = getWidth() / 1.5f;
             height = getHeight() / 1.5f;
@@ -166,7 +166,7 @@ public abstract class Hero {
         return nb_spell_slots;
     }
 
-    public int getManaRegenTime() {
+    public float getManaRegenTime() {
         return manaRegenTime;
     }
 
