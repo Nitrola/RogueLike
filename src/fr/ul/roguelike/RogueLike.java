@@ -30,8 +30,7 @@ public class RogueLike extends Game {
         timer.scheduleTask(task, 3);
 	}
 
-    private void changeScreen(){
-        splashScreen.dispose();
+    public void changeScreen(){
         MainMenu mainMenu = new MainMenu(this);
         setScreen(mainMenu);
     }

@@ -149,6 +149,9 @@ public class MapInterface extends ScreenAdapter {
      * Dessin des icônes de stage et change le stage actuel
      */
     private void drawStages(){
+        if(mapGenerated.isEmpty() && actualStage instanceof BossStage){
+            rogueLike.changeScreen();
+        }
         spriteBatch.begin();
         for (Stage stage: listeStages) {
             if(stage.getSprite().getBoundingRectangle().contains(Gdx.input.getX(), screenHeight - Gdx.input.getY()) && actualStage.isNext(stage)){
@@ -167,10 +170,8 @@ public class MapInterface extends ScreenAdapter {
                         //TODO faire combat plus dur
                         rogueLike.setScreen(new CombatMenu(player, this));
                     }
-                    if(!(actualStage instanceof BossStage)) {
-                        actualStage.setActual();
-                        actualStage = stage;
-                    }
+                    actualStage.setActual();
+                    actualStage = stage;
                 }
 
             }
@@ -187,8 +188,8 @@ public class MapInterface extends ScreenAdapter {
      */
     public void generateMap(){
         listeStages.clear();
-        int x = screenWidth/8;
-        int y = screenHeight/2;
+        int x = screenWidth / 8;
+        int y = screenHeight / 2;
         Stage stage, tampon;
         tampon = new CombatStage(new Vector2(x, y));
         actualStage = tampon;
@@ -196,7 +197,7 @@ public class MapInterface extends ScreenAdapter {
         buildMap(tampon);
 
         //Fin de la map par un boss
-        stage = new BossStage(new Vector2(x + screenWidth/1.5f , y));
+        stage = new BossStage(new Vector2(x + screenWidth / 1.5f, y));
         listeStages.add(stage);
         Stage s;
         for (Stage listeStage : listeStages) {
@@ -215,75 +216,77 @@ public class MapInterface extends ScreenAdapter {
     private void buildMap(Stage stage){
         Stage tamponD, tamponG, tampon;
         Random r = new Random();
-        int rand = r.nextInt(mapGenerated.size());
-        createRightStage(stage);
-        createLeftStage(stage);
-        switch(mapGenerated.get(rand)){
-            //Première map
-            case 0:
-                tamponD = stage.getRightStage();
-                tamponG = stage.getLeftStage();
-                createRightStage(tamponD);
-                createLeftStage(tamponD);
+        System.out.println(mapGenerated);
+            int rand = r.nextInt(mapGenerated.size());
+            createRightStage(stage);
+            createLeftStage(stage);
+            switch (mapGenerated.get(rand)) {
+                //Première map
+                case 0:
+                    tamponD = stage.getRightStage();
+                    tamponG = stage.getLeftStage();
+                    createRightStage(tamponD);
+                    createLeftStage(tamponD);
 
-                tamponG.setRightStage(tamponD.getLeftStage());
-                createLeftStage(tamponG);
-                createUniqueStage(tamponG.getRightStage());
-                createUniqueStage(tamponG.getRightStage().getUniqueStage());
-                tamponG = tamponG.getRightStage().getUniqueStage().getUniqueStage();
-                tamponD = tamponD.getRightStage();
-                createUniqueStage(tamponD);
-                createUniqueStage(tamponD.getUniqueStage());
-                createUniqueStage(tamponD.getUniqueStage().getUniqueStage());
-                tampon = tamponD.getUniqueStage().getUniqueStage();
-                tamponD = tampon.getUniqueStage();
-                createUniqueStage(stage.getLeftStage().getLeftStage());
-                createUniqueStage(stage.getLeftStage().getLeftStage().getUniqueStage());
-                tampon = stage.getLeftStage().getLeftStage().getUniqueStage().getUniqueStage();
-                createRightStage(tampon);
-                tamponG.setLeftStage(tampon.getRightStage());
-                createRightStage(tampon.getRightStage());
-                createLeftStage(tampon.getRightStage().getRightStage());
-                createRightStage(tampon.getRightStage().getRightStage());
-                createUniqueStage(tampon.getRightStage().getRightStage().getRightStage());
-                tamponD.setLeftStage(tampon.getRightStage().getRightStage());
-                createUniqueStage(tampon.getRightStage().getRightStage().getLeftStage());
-                break;
-            case 1:
-                createUniqueStage(stage);
-                createUniqueStage(stage.getUniqueStage());
-                tamponD = stage.getRightStage();
-                tamponG = stage.getLeftStage();
-                createRightStage(tamponD);
-                createLeftStage(tamponG);
-                tampon = stage.getUniqueStage().getUniqueStage();
+                    tamponG.setRightStage(tamponD.getLeftStage());
+                    createLeftStage(tamponG);
+                    createUniqueStage(tamponG.getRightStage());
+                    createUniqueStage(tamponG.getRightStage().getUniqueStage());
+                    tamponG = tamponG.getRightStage().getUniqueStage().getUniqueStage();
+                    tamponD = tamponD.getRightStage();
+                    createUniqueStage(tamponD);
+                    createUniqueStage(tamponD.getUniqueStage());
+                    createUniqueStage(tamponD.getUniqueStage().getUniqueStage());
+                    tampon = tamponD.getUniqueStage().getUniqueStage();
+                    tamponD = tampon.getUniqueStage();
+                    createUniqueStage(stage.getLeftStage().getLeftStage());
+                    createUniqueStage(stage.getLeftStage().getLeftStage().getUniqueStage());
+                    tampon = stage.getLeftStage().getLeftStage().getUniqueStage().getUniqueStage();
+                    createRightStage(tampon);
+                    tamponG.setLeftStage(tampon.getRightStage());
+                    createRightStage(tampon.getRightStage());
+                    createLeftStage(tampon.getRightStage().getRightStage());
+                    createRightStage(tampon.getRightStage().getRightStage());
+                    createUniqueStage(tampon.getRightStage().getRightStage().getRightStage());
+                    tamponD.setLeftStage(tampon.getRightStage().getRightStage());
+                    createUniqueStage(tampon.getRightStage().getRightStage().getLeftStage());
+                    break;
+                case 1:
+                    createUniqueStage(stage);
+                    createUniqueStage(stage.getUniqueStage());
+                    tamponD = stage.getRightStage();
+                    tamponG = stage.getLeftStage();
+                    createRightStage(tamponD);
+                    createLeftStage(tamponG);
+                    tampon = stage.getUniqueStage().getUniqueStage();
 
-                createUniqueStage(tamponD.getRightStage());
-                createUniqueStage(tamponG.getLeftStage());
-                createUniqueStage(tampon);
-                createUniqueStage(tampon.getUniqueStage());
-                tampon = tampon.getUniqueStage().getUniqueStage();
-                tamponD.getRightStage().getUniqueStage().setLeftStage(tampon);
-                tamponG.getLeftStage().getUniqueStage().setRightStage(tampon);
+                    createUniqueStage(tamponD.getRightStage());
+                    createUniqueStage(tamponG.getLeftStage());
+                    createUniqueStage(tampon);
+                    createUniqueStage(tampon.getUniqueStage());
+                    tampon = tampon.getUniqueStage().getUniqueStage();
+                    tamponD.getRightStage().getUniqueStage().setLeftStage(tampon);
+                    tamponG.getLeftStage().getUniqueStage().setRightStage(tampon);
 
-                createUniqueStage(tampon);
-                createLeftStage(tampon);
-                createRightStage(tampon);
+                    createUniqueStage(tampon);
+                    createLeftStage(tampon);
+                    createRightStage(tampon);
 
-                createUniqueStage(tampon.getUniqueStage());
-                createUniqueStage(tampon.getRightStage());
-                createUniqueStage(tampon.getLeftStage());
+                    createUniqueStage(tampon.getUniqueStage());
+                    createUniqueStage(tampon.getRightStage());
+                    createUniqueStage(tampon.getLeftStage());
 
-                tamponD = tampon.getUniqueStage().getUniqueStage();
-                createUniqueStage(tamponD);
-                tampon.getRightStage().getUniqueStage().setLeftStage(tamponD.getUniqueStage());
-                tampon.getLeftStage().getUniqueStage().setRightStage(tamponD.getUniqueStage());
+                    tamponD = tampon.getUniqueStage().getUniqueStage();
+                    createUniqueStage(tamponD);
+                    tampon.getRightStage().getUniqueStage().setLeftStage(tamponD.getUniqueStage());
+                    tampon.getLeftStage().getUniqueStage().setRightStage(tamponD.getUniqueStage());
 
-                createUniqueStage(tamponD.getUniqueStage());
-                break;
+                    createUniqueStage(tamponD.getUniqueStage());
+                    break;
 
-        }
-        mapGenerated.remove(rand);
+            }
+            mapGenerated.remove(rand);
+
     }
 
     /**
