@@ -164,9 +164,17 @@ public class CombatMenu extends ScreenAdapter {
                     screenWidth,screenHeight);
             sb.end();
             if(mapInterface.isBoss()){
-                mapInterface.generateMap();
+                if(mapInterface.isEnded()){
+                    mapInterface.getRogueLike().changeScreen();
+                }else {
+                    mapInterface.generateMap();
+                    mapInterface.setScreen();
+                }
+            }else{
+                if (!mapInterface.isEnded() || !mapInterface.isBoss()) {
+                    mapInterface.setScreen();
+                }
             }
-            mapInterface.setScreen();
         }
 
         if(currentState == State.LOOSE){
