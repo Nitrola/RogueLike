@@ -53,5 +53,7 @@ public abstract class Item {
     public void setTexture(Texture texture) {
         this.texture = texture;
     }
+
+    public abstract boolean isPotion();
 }
 

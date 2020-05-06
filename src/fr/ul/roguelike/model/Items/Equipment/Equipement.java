@@ -64,4 +64,9 @@ public abstract class Equipement extends Item{
         return texture;
 
     }
+
+    @Override
+    public boolean isPotion() {
+        return false;
+    }
 }

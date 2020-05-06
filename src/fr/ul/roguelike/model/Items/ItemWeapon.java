@@ -9,4 +9,9 @@ public class ItemWeapon extends Item {
         super(name,price,descr);
     }
 
+    @Override
+    public boolean isPotion() {
+        return false;
+    }
+
 }

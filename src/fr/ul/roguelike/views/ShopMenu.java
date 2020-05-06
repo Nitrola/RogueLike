@@ -20,7 +20,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import fr.ul.roguelike.model.Items.ButtonItem;
+import fr.ul.roguelike.model.Items.Equipment.Potions.HealthPotion;
+import fr.ul.roguelike.model.Items.Equipment.Potions.ManaPotion;
 import fr.ul.roguelike.model.Items.Item;
+import fr.ul.roguelike.model.Items.Equipment.Potions.ItemPotion;
 import fr.ul.roguelike.model.Items.ItemWeapon;
 import fr.ul.roguelike.model.Popup;
 
@@ -54,10 +57,10 @@ public class ShopMenu extends ScreenAdapter {
      * @param mapInterface la map où revenir après avoir acheté
      */
     ShopMenu(final MapInterface mapInterface){
-        ArrayList<ItemWeapon> items = new ArrayList<>();
+        ArrayList<Item> items = new ArrayList<>();
 
-        items.add(new ItemWeapon("healingPotion",20, "Rends des PV"));
-        items.add(new ItemWeapon("strengthPotion",20, "Donne de l'attaque pour un moment"));
+        items.add(new HealthPotion("healingPotion",20, "Rends des PV"));
+        items.add(new ManaPotion("manaPotion",20, "Donne de l'attaque pour un moment"));
         items.add(new ItemWeapon("sword",75, "Arme tranchante de corps à corps"));
         items.add(new ItemWeapon("bow",65, "Il est beau mon bow"));
         items.add(new ItemWeapon("shield",70, "Permet de se protéger"));
@@ -163,6 +166,13 @@ public class ShopMenu extends ScreenAdapter {
                         }
                         if(i instanceof ItemWeapon) {
                             mapInterface.getInventoryMenu().addItem((ItemWeapon) i);
+                        }
+                        if(i.isPotion()){
+                            if(((ItemPotion)i).isHealthPotion()){
+                                mapInterface.getPlayer().receivePotionHealth();
+                            } if(((ItemPotion)i).isManaPotion()){
+                                mapInterface.getPlayer().receivePotionMana();
+                            }
                         }
                 }
             });
