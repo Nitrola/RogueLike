@@ -40,6 +40,7 @@ public class MapInterface extends ScreenAdapter {
     private com.badlogic.gdx.scenes.scene2d.Stage stage;
     private boolean isClicking;
     private int coeff = screenWidth/16;
+    private ArrayList<Integer> mapGenerated;
 
     /**
      * Représente la vue de la map, propose le choix du prochain stage
@@ -60,6 +61,10 @@ public class MapInterface extends ScreenAdapter {
         camera.update();
 
         listeStages = new ArrayList<>();
+        mapGenerated = new ArrayList<>();
+        for(int i=0; i<2; i++){
+            mapGenerated.add(i);
+        }
         generateMap();
 
         //Bouton Exit
@@ -162,8 +167,10 @@ public class MapInterface extends ScreenAdapter {
                         //TODO faire combat plus dur
                         rogueLike.setScreen(new CombatMenu(player, this));
                     }
-                    actualStage.setActual();
-                    actualStage = stage;
+                    if(!(actualStage instanceof BossStage)) {
+                        actualStage.setActual();
+                        actualStage = stage;
+                    }
                 }
 
             }
@@ -178,7 +185,8 @@ public class MapInterface extends ScreenAdapter {
     /**
      * Appelle les fonctions qui génère l'arbre
      */
-    private void generateMap(){
+    public void generateMap(){
+        listeStages.clear();
         int x = screenWidth/8;
         int y = screenHeight/2;
         Stage stage, tampon;
@@ -193,7 +201,7 @@ public class MapInterface extends ScreenAdapter {
         Stage s;
         for (Stage listeStage : listeStages) {
             s = listeStage;
-            if (s.getRightStage() == null && s.getLeftStage() == null && s.getUniqueStage() == null) {
+            if (s.getRightStage() == null && s.getLeftStage() == null && s.getUniqueStage() == null && !(s instanceof BossStage)) {
                 s.setUniqueStage(stage);
             }
         }
@@ -207,10 +215,10 @@ public class MapInterface extends ScreenAdapter {
     private void buildMap(Stage stage){
         Stage tamponD, tamponG, tampon;
         Random r = new Random();
-        int rand = r.nextInt(2);
+        int rand = r.nextInt(mapGenerated.size());
         createRightStage(stage);
         createLeftStage(stage);
-        switch(rand){
+        switch(mapGenerated.get(rand)){
             //Première map
             case 0:
                 tamponD = stage.getRightStage();
@@ -275,7 +283,7 @@ public class MapInterface extends ScreenAdapter {
                 break;
 
         }
-
+        mapGenerated.remove(rand);
     }
 
     /**
@@ -381,5 +389,9 @@ public class MapInterface extends ScreenAdapter {
 
     InventoryMenu getInventoryMenu() {
         return inventoryMenu;
+    }
+
+    public boolean isBoss(){
+        return actualStage instanceof BossStage;
     }
 }

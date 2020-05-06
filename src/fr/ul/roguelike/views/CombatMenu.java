@@ -163,6 +163,9 @@ public class CombatMenu extends ScreenAdapter {
                     0,0,
                     screenWidth,screenHeight);
             sb.end();
+            if(mapInterface.isBoss()){
+                mapInterface.generateMap();
+            }
             mapInterface.setScreen();
         }
 
