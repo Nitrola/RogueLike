@@ -3,6 +3,8 @@ package fr.ul.roguelike.controllers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
+import fr.ul.roguelike.model.Heros.Hero;
+import fr.ul.roguelike.model.Monster.Golem;
 import fr.ul.roguelike.model.Monster.Monster;
 import fr.ul.roguelike.model.Player;
 
@@ -35,7 +37,10 @@ public class CombatController {
                 monsters.get(0).receiveHit(player.getPlayerCharacter().getPhysicalDmg());
                 player.useMana(20);
                 if (monsters.get(0).getCurrentHp() <= 0) {
-                    monsters.remove(0);
+                    monsters.get(0).setCombatState(Hero.CombatState.DEAD);
+                    if(monsters.get(0) instanceof Golem){
+                        monsters.remove(0);
+                    }
                 }
             }
 

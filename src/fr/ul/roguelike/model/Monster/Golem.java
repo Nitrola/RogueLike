@@ -28,7 +28,7 @@ public class Golem extends Monster {
         for(int i = 0; i < 7; i++){
             walkFrames[index++] = tmp[0][i];
         }
-        anim = new Animation<TextureRegion>(0.1f*this.attackSpeed,walkFrames);
+        animIdleMonster = new Animation<TextureRegion>(0.1f*this.attackSpeed,walkFrames);
     }
 
     /**
@@ -37,10 +37,8 @@ public class Golem extends Monster {
     @Override
     public void draw(SpriteBatch sb,int posX,int posY){
         stateTime += Gdx.graphics.getDeltaTime();
-        TextureRegion currentFrame = this.anim.getKeyFrame(stateTime,true);
+        TextureRegion currentFrame = this.animIdleMonster.getKeyFrame(stateTime,true);
 
-        //sb.begin();
         sb.draw(currentFrame,posX,posY,currentFrame.getRegionWidth()*6,currentFrame.getRegionHeight()*6);
-        //sb.end();
     }
 }

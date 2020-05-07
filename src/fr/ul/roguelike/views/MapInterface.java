@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import fr.ul.roguelike.RogueLike;
+import fr.ul.roguelike.model.Monster.Monster;
 import fr.ul.roguelike.model.Player;
 import fr.ul.roguelike.model.stages.*;
 
@@ -151,21 +152,20 @@ public class MapInterface extends ScreenAdapter {
     private void drawStages(){
         spriteBatch.begin();
         for (Stage stage: listeStages) {
-            if(stage.getSprite().getBoundingRectangle().contains(Gdx.input.getX(), screenHeight - Gdx.input.getY()) && actualStage.isNext(stage)){
+            if(stage.getSprite().getBoundingRectangle().contains(Gdx.input.getX(), screenHeight - Gdx.input.getY())){
                 if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched() && !isClicking) {
                     isClicking = true;
                     if(stage instanceof ShopStage){
                         rogueLike.setScreen(new ShopMenu(this));
                     }else if(stage instanceof CombatStage){
-                        rogueLike.setScreen(new CombatMenu(player, this));
+                        rogueLike.setScreen(new CombatMenu(player, this, false));
                     }else if(stage instanceof CampStage){
                         rogueLike.setScreen(new CampMenu(this));
                     }else if(stage instanceof MiniBossStage){
                         //TODO faire combat plus dur
-                        rogueLike.setScreen(new CombatMenu(player, this));
+                        rogueLike.setScreen(new CombatMenu(player, this, false));
                     }else if(stage instanceof BossStage){
-                        //TODO faire combat plus dur
-                        rogueLike.setScreen(new CombatMenu(player, this));
+                        rogueLike.setScreen(new CombatMenu(player, this, true));
                     }
                     actualStage.setActual();
                     actualStage = stage;

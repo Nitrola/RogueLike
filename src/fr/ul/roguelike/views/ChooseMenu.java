@@ -58,7 +58,7 @@ public class ChooseMenu extends ScreenAdapter {
         //Animations
         sb.begin();
         sb.draw(background, 0 ,0, screenWidth, screenHeight);
-        warrior.draw(sb, screenWidth/20f-warrior.getWidth()/7f , screenHeight/5.7f);
+        warrior.draw(sb, screenWidth/20f-warrior.getWidth()/12f , screenHeight/5.7f);
         mage.draw(sb, screenWidth/3f-mage.getWidth()/7f , screenHeight/8f);
         alchimist.draw(sb, screenWidth/3f*2f-alchimist.getWidth()/4f, screenHeight/8.2f);
         sb.end();

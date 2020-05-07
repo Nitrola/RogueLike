@@ -2,7 +2,6 @@ package fr.ul.roguelike.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -15,6 +14,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Timer;
 import fr.ul.roguelike.controllers.CombatController;
+import fr.ul.roguelike.model.Heros.Hero;
 import fr.ul.roguelike.model.Monster.Monster;
 import fr.ul.roguelike.model.Monster.MonsterFactory;
 import fr.ul.roguelike.model.Player;
@@ -61,13 +61,17 @@ public class CombatMenu extends ScreenAdapter {
      * @param p le joueur
      * @param mi la map à remettre après le combat
      */
-    CombatMenu(Player p, MapInterface mi) {
+    CombatMenu(Player p, MapInterface mi, boolean boss) {
         ended = false;
         mapInterface = mi;
         player = p;
         player.resetMana();
         monsters = new ArrayList<>();
-        monsters.add(MonsterFactory.create("golem"));
+        if(!boss){
+            monsters.add(MonsterFactory.create("golem"));
+        }else{
+            monsters.add(MonsterFactory.create("arachnoide"));
+        }
         gen_monsters(p.getCurrentLevel());
 
         OrthographicCamera cam = new OrthographicCamera();
@@ -154,14 +158,18 @@ public class CombatMenu extends ScreenAdapter {
             drawCombat();
         }
 
+        if(!monsters.isEmpty()){
+            if(monsters.get(0).getCombatState() == Hero.CombatState.WIN){
+                currentState = State.WIN;
+            }
+        }
+
         if(currentState == State.WIN){
             //stop mana regeneration
             ended = true;
             drawCombat();
             sb.begin();
-            sb.draw(victoryMessage,
-                    0,0,
-                    screenWidth,screenHeight);
+            sb.draw(victoryMessage, 0,0, screenWidth,screenHeight);
             sb.end();
             player.giveMoney(20);
             if(mapInterface.isBoss()){
@@ -183,9 +191,7 @@ public class CombatMenu extends ScreenAdapter {
             ended = true;
             drawCombat();
             sb.begin();
-            sb.draw(deadMessage,
-                    0,0,
-                    screenWidth,screenHeight);
+            sb.draw(deadMessage, 0,0, screenWidth,screenHeight);
             sb.end();
         }
 
@@ -205,6 +211,7 @@ public class CombatMenu extends ScreenAdapter {
         if (!monsters.isEmpty()) {
             monsters.get(0).draw(sb, screenWidth / 2, screenHeight / 3);
         }
+
 
         //update les labels
         labelHealthPotion.setText(player.getNbPotionHealth());
@@ -228,7 +235,6 @@ public class CombatMenu extends ScreenAdapter {
     }
 
     private void drawLifeBars(){
-
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.setColor(.85f,0f,0f,0.1f);
 
@@ -241,8 +247,8 @@ public class CombatMenu extends ScreenAdapter {
         //monster health bar
         if(!monsters.isEmpty()) {
             sr.rect(
-                    screenWidth / 2f, (screenHeight / 3f) + monsters.get(0).getAnim().getKeyFrames()[0].getRegionHeight() * 6,
-                    monsters.get(0).hpLeftRatio() * monsters.get(0).getAnim().getKeyFrames()[0].getRegionWidth() * 6f, screenHeight / 40f);
+                    screenWidth - monsters.get(0).hpLeftRatio() * monsters.get(0).getAnimIdle().getKeyFrames()[0].getRegionWidth() * 6f, screenHeight - screenHeight / 40f,
+                    monsters.get(0).hpLeftRatio() * monsters.get(0).getAnimIdle().getKeyFrames()[0].getRegionWidth() * 6f, screenHeight / 40f);
         }
 
         //player Mana
@@ -268,7 +274,10 @@ public class CombatMenu extends ScreenAdapter {
             }
             else{
                 m.updateLastAttackTimer(0);
-                player.receiveHit(m.getPhysicalDmg());
+                if(monsters.get(0).getCombatState() != Hero.CombatState.DEAD) {
+                    monsters.get(0).setCombatState(Hero.CombatState.ATTACKING);
+                    player.receiveHit(m.getPhysicalDmg());
+                }
             }
         }
         if(currentState == State.COMBAT)

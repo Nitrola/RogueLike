@@ -27,8 +27,8 @@ public class Warrior extends Hero {
         animDead = new Animation<Texture>(0.1f,loadFrames(9,"images/combat/Warrior/Death/HeroKnight_Death_"));
         animIdle = new Animation<Texture>(0.1f,loadFrames(7,"images/combat/Warrior/Idle/HeroKnight_Idle_"));
 
-        width = screenWidth/2f;
-        height = screenHeight/2f;
+        width = screenWidth/2.5f;
+        height = screenHeight/2.5f;
     }
 
 }

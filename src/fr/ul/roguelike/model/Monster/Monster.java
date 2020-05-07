@@ -1,8 +1,10 @@
 package fr.ul.roguelike.model.Monster;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import fr.ul.roguelike.model.Heros.Hero;
 
 public abstract class Monster {
     private int hp;
@@ -21,8 +23,17 @@ public abstract class Monster {
     private float physicalDef;
     private float magicalDef;
 
-    protected Animation<TextureRegion> anim;
+    protected Animation<TextureRegion> animIdleMonster;
+    protected Animation<Texture> animIdle;
+    protected Animation<Texture> animAttack;
+    protected Animation<Texture> animDead;
+    protected Animation<Texture> animBlock;
     protected float stateTime;
+
+    protected float posX, posY, height, width;
+    protected float animeTime;
+
+    protected Hero.CombatState combatState;
 
     /**
      * Creer Monstre
@@ -66,6 +77,14 @@ public abstract class Monster {
      */
     public float hpLeftRatio(){
         return 1.f* currentHp/hp;
+    }
+
+    Texture[] loadFrames(int nb,String path){
+        Texture[] frames = new Texture[nb];
+        for(int i = 0; i < nb; i++) {
+            frames[i] = new Texture(path + i + ".png");
+        }
+        return frames;
     }
 
     //////////////////////////////////
@@ -121,7 +140,35 @@ public abstract class Monster {
         return magicalDef;
     }
 
-    public Animation<TextureRegion> getAnim() {
-        return anim;
+    public Animation<TextureRegion> getAnimIdle() {
+        return animIdleMonster;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public float getPosX() {
+        return posX;
+    }
+
+    public float getPosY() {
+        return posY;
+    }
+
+    public void setCombatState(Hero.CombatState combatState) {
+        this.combatState = combatState;
+    }
+
+    public boolean shouldIdle(){
+        if( combatState != Hero.CombatState.IDLE && animAttack.isAnimationFinished(animeTime) && animBlock.isAnimationFinished(animeTime)){
+            animeTime = 0.0f;
+            return true;
+        }
+        return false;
+    }
+
+    public Hero.CombatState getCombatState() {
+        return combatState;
     }
 }
