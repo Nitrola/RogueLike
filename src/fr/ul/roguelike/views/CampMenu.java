@@ -3,6 +3,7 @@ package fr.ul.roguelike.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -34,7 +35,8 @@ public class CampMenu extends ScreenAdapter {
     private Button upgradeButton;
 
     private Player player;
-    private Texture lifeBar, heart, mana;
+    private Texture lifeBarBackground, heart, mana, life, manaBa;
+    private TextureRegion lifeBar, manaBar;
 
     private SpriteBatch sb;
     private ShapeRenderer sr;
@@ -64,9 +66,13 @@ public class CampMenu extends ScreenAdapter {
         sprite.setSize(buttonWidth, buttonHeight);
 
         player = mapInterface.getPlayer();
-        lifeBar = new Texture("images/combat/lifeBar.png");
+        lifeBarBackground = new Texture("images/combat/lifeBar.png");
         heart = new Texture("images/combat/heart.png");
         mana = new Texture("images/combat/manapotion.png");
+        life = new Texture("images/lifebar.png");
+        lifeBar = new TextureRegion(life, (int)((20 * lifeBarBackground.getWidth()*2)-7.f), (int)((lifeBarBackground.getHeight()*2)-6f ));
+        manaBa = new Texture("images/manabar.png");
+        manaBar = new TextureRegion(manaBa, (int)((20 * lifeBarBackground.getWidth()*2)-7.f), (int)((lifeBarBackground.getHeight()*2)-6f ));
 
         //Bouton upgrade
         Texture texture = new Texture(Gdx.files.internal("images/badlogic.jpg"));
@@ -92,41 +98,36 @@ public class CampMenu extends ScreenAdapter {
 
         sb.begin();
 
-        sb.draw(lifeBar,
-                0,screenHeight - lifeBar.getHeight()*2,
-                lifeBar.getWidth()*2,lifeBar.getHeight()*2);
-        sb.draw(lifeBar,
-                0,screenHeight - lifeBar.getHeight()*4,
-                lifeBar.getWidth()*2,lifeBar.getHeight()*2);
+        sb.draw(lifeBarBackground,
+                0,screenHeight - lifeBarBackground.getHeight()*2,
+                lifeBarBackground.getWidth()*2,lifeBarBackground.getHeight()*2);
+        sb.draw(lifeBarBackground,
+                0,screenHeight - lifeBarBackground.getHeight()*4,
+                lifeBarBackground.getWidth()*2,lifeBarBackground.getHeight()*2);
         sb.end();
 
-        sr.begin(ShapeRenderer.ShapeType.Filled);
-        sr.setColor(.85f,0f,0f,0.1f);
-
         //player life bar
-        float playerHpLeftRate =1.0f * player.getHealthLeft() / player.getPlayerCharacter().getHp();
-        sr.rect(
-                4.0f,screenHeight + 3f- lifeBar.getHeight()*2,
-                (playerHpLeftRate *lifeBar.getWidth()*2)-7.f,(lifeBar.getHeight()*2)-6f );
+        float playerHpLeftRate = 1.0f * player.getHealthLeft() / player.getPlayerCharacter().getHp();
 
+        lifeBar.setRegionWidth((int)((playerHpLeftRate * lifeBarBackground.getWidth()*2)-7.f));
+        sb.begin();
+        sb.draw(lifeBar,4.0f,screenHeight + 3f- lifeBarBackground.getHeight()*2);
+        sb.end();
 
         //player Mana
         float playerManaLeftRate =1.0f * player.getManaLeft() / player.getPlayerCharacter().getMana();
-        sr.setColor(0f,0.4f,1f,1f);
-        sr.rect(
-                4.0f,screenHeight + 3f- lifeBar.getHeight()*4,
-                (playerManaLeftRate *lifeBar.getWidth()*2)-7.f,(lifeBar.getHeight()*2)-6f );
-
-
-        sr.end();
+        manaBar.setRegionWidth((int)((playerManaLeftRate * lifeBarBackground.getWidth()*2)-7.f));
+        sb.begin();
+        sb.draw(manaBar,4.0f,screenHeight + 3f - lifeBarBackground.getHeight()*4);
+        sb.end();
 
         sb.begin();
         sb.draw(heart,
-                lifeBar.getWidth()*2 - heart.getWidth()*2, screenHeight - heart.getHeight()*4,
+                lifeBarBackground.getWidth()*2 - heart.getWidth()*2, screenHeight - heart.getHeight()*4,
                 heart.getHeight()*4,heart.getHeight()*4
         );
         sb.draw(mana,
-                lifeBar.getWidth()*2 - mana.getWidth(), screenHeight - mana.getHeight()*4,
+                lifeBarBackground.getWidth()*2 - mana.getWidth(), screenHeight - mana.getHeight()*4,
                 mana.getHeight()*1.9f,mana.getHeight()*1.9f);
         sb.end();
     }
