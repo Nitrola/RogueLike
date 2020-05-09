@@ -25,6 +25,8 @@ public class Player {
     private int[] potionsTable; //Premiere case: potion de soin - Seconde case: potion de mana
     private ArrayList<Equipement> inventoryEquipements;
 
+    public int cpt = 1;
+
     /**
      * Creer un joueur
      */

@@ -152,7 +152,7 @@ public class MapInterface extends ScreenAdapter {
     private void drawStages(){
         spriteBatch.begin();
         for (Stage stage: listeStages) {
-            if(stage.getSprite().getBoundingRectangle().contains(Gdx.input.getX(), screenHeight - Gdx.input.getY()) && actualStage.isNext(stage)){
+            if(stage.getSprite().getBoundingRectangle().contains(Gdx.input.getX(), screenHeight - Gdx.input.getY())){
                 if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched() && !isClicking) {
                     isClicking = true;
                     if(stage instanceof ShopStage){

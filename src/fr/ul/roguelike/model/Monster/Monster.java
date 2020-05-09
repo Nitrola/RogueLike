@@ -27,13 +27,14 @@ public abstract class Monster {
     protected Animation<Texture> animIdle;
     protected Animation<Texture> animAttack;
     protected Animation<Texture> animDead;
-    protected Animation<Texture> animBlock;
     protected float stateTime;
 
     protected float posX, posY, height, width;
     protected float animeTime;
 
     protected Hero.CombatState combatState;
+    protected boolean degat;
+    protected boolean hasAttack;
 
     /**
      * Creer Monstre
@@ -58,6 +59,8 @@ public abstract class Monster {
         this.physicalDef = physicalDef;
         this.magicalDef = magicalDef;
         this.timeSincePreviousAttack = 0.0f;
+        degat = false;
+        hasAttack = false;
     }
 
     /**
@@ -79,7 +82,7 @@ public abstract class Monster {
         return 1.f* currentHp/hp;
     }
 
-    Texture[] loadFrames(int nb,String path){
+    protected Texture[] loadFrames(int nb, String path){
         Texture[] frames = new Texture[nb];
         for(int i = 0; i < nb; i++) {
             frames[i] = new Texture(path + i + ".png");
@@ -160,15 +163,20 @@ public abstract class Monster {
         this.combatState = combatState;
     }
 
-    public boolean shouldIdle(){
-        if( combatState != Hero.CombatState.IDLE && animAttack.isAnimationFinished(animeTime) && animBlock.isAnimationFinished(animeTime)){
-            animeTime = 0.0f;
-            return true;
-        }
-        return false;
-    }
-
     public Hero.CombatState getCombatState() {
         return combatState;
+    }
+
+
+    public boolean isDegat() {
+        return degat;
+    }
+
+    public void setDegat(boolean degat) {
+        this.degat = degat;
+    }
+
+    public void setHasAttack(boolean hasAttack) {
+        this.hasAttack = hasAttack;
     }
 }

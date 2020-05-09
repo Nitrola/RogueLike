@@ -1,20 +1,24 @@
-package fr.ul.roguelike.model.Monster;
+package fr.ul.roguelike.model.Monster.Boss;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import fr.ul.roguelike.model.Heros.Alchimist;
+import fr.ul.roguelike.RogueLike;
 import fr.ul.roguelike.model.Heros.Hero;
+import fr.ul.roguelike.model.Monster.Monster;
 
-import static fr.ul.roguelike.RogueLike.screenHeight;
-import static fr.ul.roguelike.RogueLike.screenWidth;
+import java.util.Random;
 
-public class Arachnoide extends Monster {
+public abstract class Boss extends Monster {
+    Animation<Texture> animBlock;
+    Animation<Texture> animAttack0;
+    Animation<Texture> animAttack1;
+    float dodgeChance;
+
 
     /**
-     * Creer Monstre
+     * Creer Boss de fin de niveau
      *
      * @param hp           Vie du monstre
      * @param mana         Mana du monstre
@@ -24,33 +28,22 @@ public class Arachnoide extends Monster {
      * @param magicalDmg   Dommage magique du monstre
      * @param physicalDef  Defense physique du monstre
      * @param magicalDef   Defense magique du monstre
+     * @param dodge        Pourcentage de chance que le boss dodge ou parer
      */
-    public Arachnoide(int hp, int mana, float attackSpeed, float criticChance, int physicalDmg, int magicalDmg, float physicalDef, float magicalDef) {
+    public Boss(int hp, int mana, float attackSpeed, float criticChance, int physicalDmg, int magicalDmg, float physicalDef, float magicalDef, float dodge) {
         super(hp, mana, attackSpeed, criticChance, physicalDmg, magicalDmg, physicalDef, magicalDef);
-        Texture golemSheet = new Texture("images/combat/golemWalk.png");
-        TextureRegion[][] tmp = TextureRegion.split(golemSheet,golemSheet.getWidth() / 7 , golemSheet.getHeight());
-        TextureRegion[] walkFrames = new TextureRegion[7];
-        int index = 0;
-        for(int i = 0; i < 7; i++){
-            walkFrames[index++] = tmp[0][i];
-        }
-        animIdleMonster = new Animation<TextureRegion>(0.1f*this.attackSpeed, walkFrames);
-
-        animIdle = new Animation<Texture>(0.1f, loadFrames(6,"images/combat/Arachnoide/Idle/arachnoide_idle_"));
-        animAttack = new Animation<Texture>(0.1f, loadFrames(15,"images/combat/Arachnoide/Attack/arachnoide_attack_"));
-        animBlock = new Animation<Texture>(0.1f, loadFrames(15,"images/combat/Arachnoide/Block/arachnoide_block_"));
-        animDead = new Animation<Texture>(0.1f, loadFrames(9,"images/combat/Arachnoide/Death/arachnoide_death_"));
-
-
-        combatState = Hero.CombatState.IDLE;
-        width = screenWidth/2f;
-        height = screenHeight/1.5f;
+        dodgeChance = dodge;
     }
+
 
     @Override
     public void draw(SpriteBatch sb, int posX, int posY) {
         this.posX = posX;
         this.posY = posY;
+
+        if(this instanceof Griffin){
+            posY -= RogueLike.screenHeight/10;
+        }
 
         posX -= width/4;
         stateTime += Gdx.graphics.getDeltaTime();
@@ -59,6 +52,10 @@ public class Arachnoide extends Monster {
         if(combatState == Hero.CombatState.ATTACKING) {
             animeTime += Gdx.graphics.getDeltaTime();
             currentFrame = animAttack.getKeyFrame(animeTime, false);
+            if(animAttack.getKeyFrameIndex(animeTime) == (int)((animAttack.getAnimationDuration()/animAttack.getFrameDuration())/1.75) && !hasAttack){
+                degat = true;
+                hasAttack = true;
+            }
         }
 
         if(combatState == Hero.CombatState.IDLE) {
@@ -77,15 +74,37 @@ public class Arachnoide extends Monster {
         if(combatState != Hero.CombatState.WIN) {
             sb.draw(currentFrame, posX, posY, width, height);
         }
+
         update();
     }
 
     private void update(){
-        if(shouldIdle() && combatState == Hero.CombatState.DEAD){
+        boolean res = shouldIdle();
+        if(res && combatState == Hero.CombatState.DEAD){
             combatState = Hero.CombatState.WIN;
+        }else {
+            if (res) {
+                combatState = Hero.CombatState.IDLE;
+            }
         }
-        if(shouldIdle()){
-            combatState = Hero.CombatState.IDLE;
+    }
+
+    private boolean shouldIdle(){
+        if(combatState != Hero.CombatState.IDLE && animAttack.isAnimationFinished(animeTime) && animDead.isAnimationFinished(animeTime)){
+            animeTime = 0.0f;
+            return true;
         }
+        return false;
+    }
+
+    public void selectRandomAttack(){
+        Random r = new Random();
+        int res = r.nextInt(2);
+        if(res == 0){
+            animAttack = animAttack0;
+        }else{
+            animAttack = animAttack1;
+        }
+
     }
 }

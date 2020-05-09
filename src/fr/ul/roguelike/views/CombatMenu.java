@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Timer;
 import fr.ul.roguelike.controllers.CombatController;
 import fr.ul.roguelike.model.Heros.Hero;
+import fr.ul.roguelike.model.Monster.Boss.Boss;
 import fr.ul.roguelike.model.Monster.Monster;
 import fr.ul.roguelike.model.Monster.MonsterFactory;
 import fr.ul.roguelike.model.Player;
@@ -75,7 +76,12 @@ public class CombatMenu extends ScreenAdapter {
         if(!boss){
             monsters.add(MonsterFactory.create("golem"));
         }else{
-            monsters.add(MonsterFactory.create("arachnoide"));
+            if(player.cpt == 1){
+                monsters.add(MonsterFactory.create("griffin"));
+            }if(player.cpt == 2){
+                monsters.add(MonsterFactory.create("arachnoide"));
+            }
+
         }
         gen_monsters(p.getCurrentLevel());
 
@@ -186,6 +192,7 @@ public class CombatMenu extends ScreenAdapter {
                     mapInterface.getRogueLike().changeScreen();
                 }else {
                     mapInterface.generateMap();
+                    player.cpt++;
                     mapInterface.setScreen();
                 }
             }else{
@@ -256,7 +263,7 @@ public class CombatMenu extends ScreenAdapter {
         if(!monsters.isEmpty()) {
             sr.begin(ShapeRenderer.ShapeType.Filled);
             sr.setColor(Color.RED);
-            sr.rect(screenWidth - monsters.get(0).hpLeftRatio() * monsters.get(0).getAnimIdle().getKeyFrames()[0].getRegionWidth() * 6f, screenHeight - screenHeight / 40f, monsters.get(0).hpLeftRatio() * monsters.get(0).getAnimIdle().getKeyFrames()[0].getRegionWidth() * 6f, screenHeight / 40f);
+            sr.rect(screenWidth - monsters.get(0).hpLeftRatio() * screenWidth/23f * 6f, screenHeight - screenHeight / 40f, monsters.get(0).hpLeftRatio() * screenWidth/23f * 6f, screenHeight / 40f);
             sr.end();
         }
 
@@ -279,17 +286,24 @@ public class CombatMenu extends ScreenAdapter {
         for(Monster m : monsters){
             if(m.getTimeSincePreviousAttack() < m.getAttackSpeed()){
                 m.updateLastAttackTimer( (m.getTimeSincePreviousAttack() + delta));
-            }
-            else{
+            }else{
                 m.updateLastAttackTimer(0);
                 if(monsters.get(0).getCombatState() != Hero.CombatState.DEAD) {
                     monsters.get(0).setCombatState(Hero.CombatState.ATTACKING);
-                    player.receiveHit(m.getPhysicalDmg());
+                    if(monsters.get(0) instanceof Boss){
+                        ((Boss) monsters.get(0)).selectRandomAttack();
+                    }
+                    monsters.get(0).setHasAttack(false);
                 }
             }
         }
-        if(currentState == State.COMBAT)
+        if(currentState == State.COMBAT) {
             combatController.checkInput();
+        }
+        if(monsters.get(0).isDegat()){
+            player.receiveHit(monsters.get(0).getPhysicalDmg());
+            monsters.get(0).setDegat(false);
+        }
     }
 
     @Override

@@ -174,13 +174,6 @@ public abstract class Hero {
         return manaRegen;
     }
 
-    public boolean isClicked(){
-        Sprite sprite = new Sprite(animIdle.getKeyFrame(stateTime,true));
-        sprite.setSize(width, height);
-        sprite.setPosition(posX, posY);
-        return sprite.getBoundingRectangle().contains(Gdx.input.getX(), screenHeight - Gdx.input.getY());
-    }
-
     public Texture getTexture(){
         return animIdle.getKeyFrames()[0];
     }
@@ -196,6 +189,7 @@ public abstract class Hero {
     public boolean isInInventory() {
         return inInventory;
     }
+
     public void setInInventory(boolean inInventory) {
         this.inInventory = inInventory;
         changeSize();

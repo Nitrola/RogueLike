@@ -20,7 +20,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import fr.ul.roguelike.RogueLike;
-import fr.ul.roguelike.model.GifDecoder;
 import fr.ul.roguelike.model.Items.ButtonItem;
 import fr.ul.roguelike.model.Player;
 import static fr.ul.roguelike.RogueLike.screenWidth;
@@ -40,7 +39,7 @@ public class CampMenu extends ScreenAdapter {
 
     private SpriteBatch sb;
     private ShapeRenderer sr;
-    private Animation<TextureRegion> animation;
+    private Animation<Texture> animation;
     private float elapsed;
     private Sprite sprite;
 
@@ -58,7 +57,7 @@ public class CampMenu extends ScreenAdapter {
         fond.setWidth(RogueLike.screenWidth);
         fond.setHeight(RogueLike.screenHeight);
         stage.addActor(fond);
-        animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("images/animations/feu.gif").read());
+        animation = new Animation<Texture>(0.1f, loadFrames(8,"images/Fire/fire_"));
         sprite = new Sprite();
         int buttonWidth = 100;
         sprite.setPosition(RogueLike.screenWidth/2f - buttonWidth /2f ,RogueLike.screenHeight/2f);
@@ -89,6 +88,39 @@ public class CampMenu extends ScreenAdapter {
             }
         });
         stage.addActor(upgradeButton);
+    }
+
+    private Texture[] loadFrames(int nb, String path){
+        Texture[] frames = new Texture[nb];
+        for(int i = 0; i < nb; i++) {
+            frames[i] = new Texture(path + i + ".png");
+        }
+        return frames;
+    }
+
+
+
+    @Override
+    public void render(float delta) {
+        elapsed += Gdx.graphics.getDeltaTime();
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+        stage.draw();
+        stage.act();
+
+        //Animation
+        sb.begin();
+        sprite.setRegion(animation.getKeyFrame(elapsed, true));
+        sb.draw(sprite, sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
+        sb.end();
+
+        drawLifeBars();
+
+        if(sprite.getBoundingRectangle().contains(Gdx.input.getX(), screenHeight - Gdx.input.getY())) {
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched()) {
+                player.heal(20);
+                mapInterface.setScreen();
+            }
+        }
     }
 
     /**
@@ -130,32 +162,6 @@ public class CampMenu extends ScreenAdapter {
                 lifeBarBackground.getWidth()*2 - mana.getWidth(), screenHeight - mana.getHeight()*4,
                 mana.getHeight()*1.9f,mana.getHeight()*1.9f);
         sb.end();
-    }
-
-
-
-
-    @Override
-    public void render(float delta) {
-        elapsed += Gdx.graphics.getDeltaTime();
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-        stage.draw();
-        stage.act();
-
-        //Animation
-        sb.begin();
-        sprite.setRegion(animation.getKeyFrame(elapsed));
-        sb.draw(sprite, sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
-        sb.end();
-
-        drawLifeBars();
-
-        if(sprite.getBoundingRectangle().contains(Gdx.input.getX(), screenHeight - Gdx.input.getY())) {
-            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched()) {
-                player.heal(20);
-                mapInterface.setScreen();
-            }
-        }
     }
 
     @Override
