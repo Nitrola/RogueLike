@@ -16,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import fr.ul.roguelike.RogueLike;
-import fr.ul.roguelike.model.Monster.Monster;
 import fr.ul.roguelike.model.Player;
 import fr.ul.roguelike.model.stages.*;
 

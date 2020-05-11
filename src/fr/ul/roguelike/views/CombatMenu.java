@@ -25,6 +25,8 @@ import fr.ul.roguelike.model.stages.MiniBossStage;
 import fr.ul.roguelike.model.stages.Stage;
 
 import java.util.ArrayList;
+import java.util.Random;
+
 import static fr.ul.roguelike.RogueLike.screenWidth;
 import static fr.ul.roguelike.RogueLike.screenHeight;
 
@@ -57,6 +59,7 @@ public class CombatMenu extends ScreenAdapter {
     private Label labelHealthPotion,labelManaPotion;
 
     private CombatController combatController;
+    private Stage stage;
 
     private enum State{
         WIN,
@@ -70,14 +73,38 @@ public class CombatMenu extends ScreenAdapter {
      * @param p le joueur
      * @param mi la map à remettre après le combat
      */
-    CombatMenu(Player p, MapInterface mi, Stage stage) {
+    CombatMenu(Player p, MapInterface mi, Stage s) {
         ended = false;
         mapInterface = mi;
         player = p;
         player.resetMana();
+        stage = s;
+        createMonster();
+
+        gen_monsters(p.getCurrentLevel());
+        textureInit();
+    }
+
+    private void gen_monsters(int playerLevel){
+
+    }
+
+    private void createMonster(){
         monsters = new ArrayList<>();
+        Random r = new Random();
+        int random = r.nextInt(3);
         if(stage instanceof CombatStage){
-            monsters.add(MonsterFactory.create("knight"));
+            switch (random) {
+                case 0 :
+                    monsters.add(MonsterFactory.create("knight"));
+                    break;
+                case 1:
+                    monsters.add(MonsterFactory.create("dragon"));
+                    break;
+                case 2:
+                    monsters.add(MonsterFactory.create("skeleton"));
+                    break;
+            }
         }else if(stage instanceof MiniBossStage){
             monsters.add(MonsterFactory.create("vampire"));
         }else{
@@ -86,15 +113,14 @@ public class CombatMenu extends ScreenAdapter {
             }if(player.cpt == 2){
                 monsters.add(MonsterFactory.create("arachnoide"));
             }
-
         }
-        gen_monsters(p.getCurrentLevel());
+    }
 
+    private void textureInit(){
         OrthographicCamera cam = new OrthographicCamera();
 
         cam.setToOrtho(false, screenWidth, screenHeight);
         cam.update();
-
         //Sprite batch init
         sb = new SpriteBatch();
         sb.setProjectionMatrix(cam.combined);
@@ -158,16 +184,12 @@ public class CombatMenu extends ScreenAdapter {
             @Override
             public void run() {
                 if(!ended)
-                player.regenMana();
+                    player.regenMana();
             }
         },0.0f,player.getPlayerCharacter().getManaRegenTime());
 
         combatController = new CombatController(attackButton.getBoundingRectangle(),defButton.getBoundingRectangle(),healthPotion.getBoundingRectangle(),manaPotion.getBoundingRectangle(),player,monsters);
         currentState = State.COMBAT;
-    }
-
-    private void gen_monsters(int playerLevel){
-
     }
 
     @Override

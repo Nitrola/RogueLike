@@ -122,6 +122,10 @@ public abstract class Hero {
         }
     }
 
+    public boolean hasFinishedAttack() {
+        return animAttack.isAnimationFinished(animeTime);
+    }
+
     public void setAnimeTime(float animeTime) {
         this.animeTime = animeTime;
     }
