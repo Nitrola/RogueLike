@@ -4,11 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
 import fr.ul.roguelike.model.Heros.Hero;
-import fr.ul.roguelike.model.Monster.Golem;
+import fr.ul.roguelike.model.Monster.Mob.Golem;
 import fr.ul.roguelike.model.Monster.Monster;
 import fr.ul.roguelike.model.Player;
 
-import static fr.ul.roguelike.RogueLike.screenWidth;
 import static fr.ul.roguelike.RogueLike.screenHeight;
 
 import java.util.ArrayList;

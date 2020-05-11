@@ -20,6 +20,9 @@ import fr.ul.roguelike.model.Monster.Boss.Boss;
 import fr.ul.roguelike.model.Monster.Monster;
 import fr.ul.roguelike.model.Monster.MonsterFactory;
 import fr.ul.roguelike.model.Player;
+import fr.ul.roguelike.model.stages.CombatStage;
+import fr.ul.roguelike.model.stages.MiniBossStage;
+import fr.ul.roguelike.model.stages.Stage;
 
 import java.util.ArrayList;
 import static fr.ul.roguelike.RogueLike.screenWidth;
@@ -67,14 +70,16 @@ public class CombatMenu extends ScreenAdapter {
      * @param p le joueur
      * @param mi la map à remettre après le combat
      */
-    CombatMenu(Player p, MapInterface mi, boolean boss) {
+    CombatMenu(Player p, MapInterface mi, Stage stage) {
         ended = false;
         mapInterface = mi;
         player = p;
         player.resetMana();
         monsters = new ArrayList<>();
-        if(!boss){
-            monsters.add(MonsterFactory.create("golem"));
+        if(stage instanceof CombatStage){
+            monsters.add(MonsterFactory.create("knight"));
+        }else if(stage instanceof MiniBossStage){
+            monsters.add(MonsterFactory.create("vampire"));
         }else{
             if(player.cpt == 1){
                 monsters.add(MonsterFactory.create("griffin"));

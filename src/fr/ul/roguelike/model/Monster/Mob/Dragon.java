@@ -1,4 +1,4 @@
-package fr.ul.roguelike.model.Monster.Boss;
+package fr.ul.roguelike.model.Monster.Mob;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -6,19 +6,14 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.roguelike.RogueLike;
 import fr.ul.roguelike.model.Heros.Hero;
-import fr.ul.roguelike.model.Monster.Monster;
 
-import java.util.Random;
+import static fr.ul.roguelike.RogueLike.screenHeight;
+import static fr.ul.roguelike.RogueLike.screenWidth;
 
-public abstract class Boss extends Monster {
-    protected Animation<Texture> animBlock;
-    protected Animation<Texture> animAttack0;
-    protected Animation<Texture> animAttack1;
-    float dodgeChance;
-
+public class Dragon extends Mob {
 
     /**
-     * Creer Boss de fin de niveau
+     * Creer Monstre
      *
      * @param hp           Vie du monstre
      * @param mana         Mana du monstre
@@ -28,22 +23,26 @@ public abstract class Boss extends Monster {
      * @param magicalDmg   Dommage magique du monstre
      * @param physicalDef  Defense physique du monstre
      * @param magicalDef   Defense magique du monstre
-     * @param dodge        Pourcentage de chance que le boss dodge ou parer
      */
-    public Boss(int hp, int mana, float attackSpeed, float criticChance, int physicalDmg, int magicalDmg, float physicalDef, float magicalDef, float dodge) {
+    public Dragon(int hp, int mana, float attackSpeed, float criticChance, int physicalDmg, int magicalDmg, float physicalDef, float magicalDef) {
         super(hp, mana, attackSpeed, criticChance, physicalDmg, magicalDmg, physicalDef, magicalDef);
-        dodgeChance = dodge;
-    }
 
+        animIdle = new Animation<Texture>(0.1f, loadFrames(14,"images/combat/Dragon/Idle/dragon_idle_"));
+        animAttack = new Animation<Texture>(0.1f, loadFrames(22,"images/combat/Dragon/Attack/dragon_attack_"));
+
+
+        combatState = Hero.CombatState.IDLE;
+        width = screenWidth/7f*3;
+        height = screenHeight/4.5f*3;
+    }
 
     @Override
     public void draw(SpriteBatch sb, int posX, int posY) {
         this.posX = posX;
         this.posY = posY;
 
-        if(this instanceof Griffin){
-            posY -= RogueLike.screenHeight/10;
-        }
+        posX += RogueLike.screenWidth/10;
+        posY -= RogueLike.screenHeight/12;
 
         posX -= width/4;
         stateTime += Gdx.graphics.getDeltaTime();
@@ -56,16 +55,19 @@ public abstract class Boss extends Monster {
                 degat = true;
                 hasAttack = true;
             }
+            if(animAttack.getKeyFrameIndex(animeTime) == 12){
+                hasAttack = false;
+            }
+            if(animAttack.getKeyFrameIndex(animeTime) == getHitFrame2() && !hasAttack){
+                degat = true;
+                hasAttack = true;
+            }
         }
 
         if(combatState == Hero.CombatState.IDLE) {
             currentFrame = animIdle.getKeyFrame(stateTime, true);
         }
 
-        if(combatState == Hero.CombatState.BLOCKING) {
-            animeTime += Gdx.graphics.getDeltaTime();
-            currentFrame = animBlock.getKeyFrame(animeTime, false);
-        }
         if(combatState == Hero.CombatState.DEAD) {
             animeTime += Gdx.graphics.getDeltaTime();
             currentFrame = animDead.getKeyFrame(animeTime, false);
@@ -78,32 +80,12 @@ public abstract class Boss extends Monster {
         update();
     }
 
-    private void update(){
-        boolean res = shouldIdle();
-        if(res && combatState == Hero.CombatState.DEAD){
-            combatState = Hero.CombatState.WIN;
-        }else {
-            if (res) {
-                combatState = Hero.CombatState.IDLE;
-            }
-        }
+    @Override
+    public int getHitFrame() {
+        return 9;
     }
 
-    private boolean shouldIdle(){
-        if(combatState != Hero.CombatState.IDLE && animAttack.isAnimationFinished(animeTime) && animDead.isAnimationFinished(animeTime)){
-            animeTime = 0.0f;
-            return true;
-        }
-        return false;
-    }
-
-    public void selectRandomAttack(){
-        Random r = new Random();
-        int res = r.nextInt(2);
-        if(res == 0){
-            animAttack = animAttack0;
-        }else{
-            animAttack = animAttack1;
-        }
+    public int getHitFrame2() {
+        return 17;
     }
 }
