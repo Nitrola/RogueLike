@@ -307,7 +307,7 @@ public class CombatMenu extends ScreenAdapter {
         }
         if(!monsters.isEmpty()) {
             if (monsters.get(0).isDegat()) {
-                player.receiveHit(monsters.get(0).getPhysicalDmg());
+                player.receiveHit((int)(monsters.get(0).getPhysicalDmg()* (1-player.getPlayerCharacter().getPhysicalDef()) + monsters.get(0).getMagicalDmg()*(1-player.getPlayerCharacter().getMagicalDef())));
                 monsters.get(0).setDegat(false);
             }
         }

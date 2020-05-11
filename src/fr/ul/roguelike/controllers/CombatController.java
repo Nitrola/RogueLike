@@ -32,6 +32,7 @@ public class CombatController {
             int posX = Gdx.input.getX();
             int posY = screenHeight - Gdx.input.getY();
 
+            //attaque
             if (attack.contains(posX, posY) && !monsters.isEmpty()) {
                 monsters.get(0).receiveHit(player.getPlayerCharacter().getPhysicalDmg());
                 player.useMana(20);
@@ -43,11 +44,13 @@ public class CombatController {
                 }
             }
 
+            //parade
             if (block.contains(posX, posY)) {
                 player.useMana(10);
                 player.parry();
             }
 
+            //Potion de soin
             if (healthPotion.contains(posX, posY)) {
                 if(player.getNbPotionHealth() > 0) {
                     player.heal(10);
@@ -55,6 +58,7 @@ public class CombatController {
                 }
             }
 
+            //Potion de mana
             if (manaPotion.contains(posX, posY)) {
                 if(player.getNbPotionMana() > 0) {
                     player.regenMana(10f);

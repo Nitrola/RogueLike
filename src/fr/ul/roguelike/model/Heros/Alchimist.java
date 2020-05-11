@@ -8,7 +8,7 @@ import static fr.ul.roguelike.RogueLike.screenHeight;
 
 public class Alchimist extends Hero {
     public Alchimist() {
-        super(100,100,5f,0.01f,10,1,5,5,1f);
+        super(100,100,1f,0.01f,10,1,0.5f,0.5f);
         nb_spell_slots = 2;
 
         animAttack = new Animation<Texture>(0.075f,loadFrames(36,"images/combat/Alchimist/Attack/alchimist_attack_"));

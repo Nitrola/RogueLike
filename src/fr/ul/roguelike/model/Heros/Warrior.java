@@ -1,6 +1,5 @@
 package fr.ul.roguelike.model.Heros;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,7 +10,7 @@ public class Warrior extends Hero {
 
 
     public Warrior() {
-        super(100,100,0.5f,0.01f,50,1,5,5, 0.05f); //Damage = 10
+        super(100,100,0.5f,0.01f,50,1,0.1f,0.1f); //Damage = 10
         nb_spell_slots = 2;
         Texture warriorSheet = new Texture("images/combat/warriorWalk.png");
         TextureRegion[][] tmp = TextureRegion.split(warriorSheet,warriorSheet.getWidth() / 3 , warriorSheet.getHeight()/1);

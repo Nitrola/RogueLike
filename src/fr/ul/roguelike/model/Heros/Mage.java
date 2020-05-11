@@ -1,17 +1,15 @@
 package fr.ul.roguelike.model.Heros;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import static fr.ul.roguelike.RogueLike.screenWidth;
 import static fr.ul.roguelike.RogueLike.screenHeight;
 
 public class Mage extends Hero {
-    public Mage() {
-        super(100,100,5f,0.01f,10,1,5,5,1f);
-        nb_spell_slots = 2;
 
+    public Mage() {
+        super(100,100,1f,0.01f,10,1,0.5f,0.05f);
+        nb_spell_slots = 2;
 
         animAttack = new Animation<Texture>(0.075f,loadFrames(20,"images/combat/Mage/Attack/mage_attack_"));
         animBlock = new Animation<Texture>(0.075f,loadFrames(13,"images/combat/Mage/Block/mage_block_"));

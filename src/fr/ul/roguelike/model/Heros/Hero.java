@@ -3,17 +3,13 @@ package fr.ul.roguelike.model.Heros;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import static fr.ul.roguelike.RogueLike.screenWidth;
-import static fr.ul.roguelike.RogueLike.screenHeight;
 
 public abstract class Hero {
     private int hp;
     private int mana;
-
-    private float manaRegenTime;
     private float manaRegen;
     private float criticChance;
 
@@ -49,7 +45,19 @@ public abstract class Hero {
 
     private boolean inInventory;
 
-    public Hero(int hp, int mana, float mana_regen, float critic_chance, int physical_dmg, int magical_dmg, float physical_def, float magical_def, float manaRegenTime) {
+
+    /**
+     * Creer un heros
+     * @param hp Point de vie du joueur
+     * @param mana Point de mana du joueur
+     * @param mana_regen Regeneration de mana toutes les 50 ms
+     * @param critic_chance Taux de coup critique
+     * @param physical_dmg Degat physique
+     * @param magical_dmg Degat magique
+     * @param physical_def pourcentage de reduction des attaques physiques
+     * @param magical_def pourcentage de reduction des attaques magiques
+     */
+    public Hero(int hp, int mana, float mana_regen, float critic_chance, int physical_dmg, int magical_dmg, float physical_def, float magical_def) {
         this.hp = hp;
         this.mana = mana;
         this.manaRegen = mana_regen;
@@ -59,7 +67,6 @@ public abstract class Hero {
         this.physicalDef = physical_def;
         this.magicalDef = magical_def;
         this.nb_spell_slots = 0;
-        this.manaRegenTime = manaRegenTime;
         combatState = CombatState.IDLE;
         animeTime = 0;
         inInventory = false;
@@ -167,7 +174,7 @@ public abstract class Hero {
     }
 
     public float getManaRegenTime() {
-        return manaRegenTime;
+        return 0.05f;
     }
 
     public float getManaRegen() {

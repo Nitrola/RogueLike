@@ -11,6 +11,7 @@ import static fr.ul.roguelike.RogueLike.screenHeight;
 import static fr.ul.roguelike.RogueLike.screenWidth;
 
 public class Knight extends Mob {
+    private boolean havehit;
 
     /**
      * Creer Monstre
@@ -26,6 +27,7 @@ public class Knight extends Mob {
      */
     public Knight(int hp, int mana, float attackSpeed, float criticChance, int physicalDmg, int magicalDmg, float physicalDef, float magicalDef) {
         super(hp, mana, attackSpeed, criticChance, physicalDmg, magicalDmg, physicalDef, magicalDef);
+        this.havehit = false;
 
         animIdle = new Animation<Texture>(0.1f, loadFrames(18,"images/combat/Knight/Idle/knight_idle_"));
         animAttack = new Animation<Texture>(0.1f, loadFrames(37,"images/combat/Knight/Attack/knight_attack_"));
@@ -52,8 +54,13 @@ public class Knight extends Mob {
             animeTime += Gdx.graphics.getDeltaTime();
             currentFrame = animAttack.getKeyFrame(animeTime, false);
             if(animAttack.getKeyFrameIndex(animeTime) >= getHitFrame() && animAttack.getKeyFrameIndex(animeTime) <= getHitFrame2()){
-                degat = true;
-                hasAttack = true;
+                if(havehit) {
+                    degat = true;
+                    hasAttack = true;
+                    havehit = false;
+                } else {
+                    havehit = true;
+                }
             }
         }
 

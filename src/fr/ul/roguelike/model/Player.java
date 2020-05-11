@@ -136,6 +136,16 @@ public class Player {
         }
     }
 
+    /**
+     * Donne une somme aléatoire d'argent
+     * @param nb
+     */
+    public void giveMoney(int nb) {
+        Random randomGenerator = new Random();
+        int randomInt = randomGenerator.nextInt((int) (nb*1.20) - (int)(nb*0.80)) + (int)(nb*0.80);
+        this.currentGold += randomInt;
+    }
+
     //////////////////////////////////
     ///////Getters and Setters///////
     /////////////////////////////////
@@ -204,11 +214,5 @@ public class Player {
     }
     public void setCurrentGold(int currentGold) {
         this.currentGold = currentGold;
-    }
-
-    public void giveMoney(int nb) {
-        Random randomGenerator = new Random();
-        int randomInt = randomGenerator.nextInt((int) (nb*1.20) - (int)(nb*0.80)) + (int)(nb*0.80);
-        this.currentGold += randomInt;
     }
 }
