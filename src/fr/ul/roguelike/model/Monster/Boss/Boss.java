@@ -90,7 +90,7 @@ public abstract class Boss extends Monster {
     }
 
     private boolean shouldIdle(){
-        if(combatState != Hero.CombatState.IDLE && animAttack.isAnimationFinished(animeTime) && animDead.isAnimationFinished(animeTime)){
+        if(combatState != Hero.CombatState.IDLE && animAttack.isAnimationFinished(animeTime) && animDead.isAnimationFinished(animeTime) && animBlock.isAnimationFinished(animeTime)){
             animeTime = 0.0f;
             return true;
         }
@@ -105,5 +105,18 @@ public abstract class Boss extends Monster {
         }else{
             animAttack = animAttack1;
         }
+    }
+
+    public boolean isBlocking(){
+        Random random = new Random();
+        int alea = random.nextInt(100);
+        if(alea > dodgeChance){
+            dodgeChance += 10;
+            return false;
+        }else{
+            combatState = Hero.CombatState.BLOCKING;
+            dodgeChance = 20;
+        }
+        return true;
     }
 }

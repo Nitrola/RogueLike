@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import fr.ul.roguelike.model.Heros.Hero;
 
+import java.util.Random;
+
 public abstract class Monster {
     private int hp;
     private int currentHp;
@@ -160,6 +162,7 @@ public abstract class Monster {
     }
 
     public void setCombatState(Hero.CombatState combatState) {
+        animeTime = 0;
         this.combatState = combatState;
     }
 
@@ -184,4 +187,8 @@ public abstract class Monster {
      * @return la frame à laquelle le monstre frappe
      */
     public abstract int getHitFrame();
+
+    public boolean isBlocking(){
+        return false;
+    }
 }
