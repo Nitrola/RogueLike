@@ -1,17 +1,17 @@
-package fr.ul.roguelike.model.Monster.Boss;
+package fr.ul.roguelike.model.Monster;
+
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import fr.ul.roguelike.model.Heros.Hero;
 
 import static fr.ul.roguelike.RogueLike.screenHeight;
 import static fr.ul.roguelike.RogueLike.screenWidth;
 
-public class Griffin extends Boss{
+public class Skeleton extends Mob{
+
     /**
-     * Creer Boss de fin de niveau
+     * Creer Monstre
      *
      * @param hp           Vie du monstre
      * @param mana         Mana du monstre
@@ -21,16 +21,11 @@ public class Griffin extends Boss{
      * @param magicalDmg   Dommage magique du monstre
      * @param physicalDef  Defense physique du monstre
      * @param magicalDef   Defense magique du monstre
-     * @param dodge        Pourcentage de chance que le boss dodge ou parer
      */
-    public Griffin(int hp, int mana, float attackSpeed, float criticChance, int physicalDmg, int magicalDmg, float physicalDef, float magicalDef, float dodge) {
-        super(hp, mana, attackSpeed, criticChance, physicalDmg, magicalDmg, physicalDef, magicalDef, dodge);
-
+    public Skeleton(int hp, int mana, float attackSpeed, float criticChance, int physicalDmg, int magicalDmg, float physicalDef, float magicalDef) {
+        super(hp, mana, attackSpeed, criticChance, physicalDmg, magicalDmg, physicalDef, magicalDef);
         animIdle = new Animation<Texture>(0.1f, loadFrames(15,"images/combat/Griffin/Idle/griffin_idle_"));
         animAttack = new Animation<Texture>(0.1f, loadFrames(13,"images/combat/Griffin/Attack/griffin_attack_"));
-        animAttack0 = new Animation<Texture>(0.1f, loadFrames(13,"images/combat/Griffin/Attack/griffin_attack_"));
-        animAttack1 = new Animation<Texture>(0.1f, loadFrames(13,"images/combat/Griffin/Attack/griffin_attack_"));
-        animBlock = new Animation<Texture>(0.1f, loadFrames(34,"images/combat/Griffin/Dodge/griffin_dodge_"));
         animDead = new Animation<Texture>(0.1f, loadFrames(13,"images/combat/Griffin/Death/griffin_death_"));
 
 
@@ -41,6 +36,6 @@ public class Griffin extends Boss{
 
     @Override
     public int getHitFrame() {
-        return (int)((animAttack.getAnimationDuration()/animAttack.getFrameDuration())/1.75);
+        return 0;
     }
 }

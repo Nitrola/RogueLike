@@ -179,4 +179,9 @@ public abstract class Monster {
     public void setHasAttack(boolean hasAttack) {
         this.hasAttack = hasAttack;
     }
+
+    /**
+     * @return la frame à laquelle le monstre frappe
+     */
+    public abstract int getHitFrame();
 }

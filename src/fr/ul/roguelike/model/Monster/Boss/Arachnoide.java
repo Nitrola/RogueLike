@@ -37,4 +37,9 @@ public class Arachnoide extends Boss {
         width = screenWidth/2f;
         height = screenHeight/1.5f;
     }
+
+    @Override
+    public int getHitFrame() {
+        return (int)((animAttack.getAnimationDuration()/animAttack.getFrameDuration())/1.75);
+    }
 }

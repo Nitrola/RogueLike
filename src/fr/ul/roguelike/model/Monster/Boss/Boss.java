@@ -52,7 +52,7 @@ public abstract class Boss extends Monster {
         if(combatState == Hero.CombatState.ATTACKING) {
             animeTime += Gdx.graphics.getDeltaTime();
             currentFrame = animAttack.getKeyFrame(animeTime, false);
-            if(animAttack.getKeyFrameIndex(animeTime) == (int)((animAttack.getAnimationDuration()/animAttack.getFrameDuration())/1.75) && !hasAttack){
+            if(animAttack.getKeyFrameIndex(animeTime) == getHitFrame() && !hasAttack){
                 degat = true;
                 hasAttack = true;
             }

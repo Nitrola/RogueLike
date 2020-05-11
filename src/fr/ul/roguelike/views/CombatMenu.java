@@ -300,9 +300,11 @@ public class CombatMenu extends ScreenAdapter {
         if(currentState == State.COMBAT) {
             combatController.checkInput();
         }
-        if(monsters.get(0).isDegat()){
-            player.receiveHit(monsters.get(0).getPhysicalDmg());
-            monsters.get(0).setDegat(false);
+        if(!monsters.isEmpty()) {
+            if (monsters.get(0).isDegat()) {
+                player.receiveHit(monsters.get(0).getPhysicalDmg());
+                monsters.get(0).setDegat(false);
+            }
         }
     }
 

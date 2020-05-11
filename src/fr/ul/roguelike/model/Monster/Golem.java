@@ -41,4 +41,9 @@ public class Golem extends Monster {
 
         sb.draw(currentFrame,posX,posY,currentFrame.getRegionWidth()*6,currentFrame.getRegionHeight()*6);
     }
+
+    @Override
+    public int getHitFrame() {
+        return (int)((animAttack.getAnimationDuration()/animAttack.getFrameDuration())/1.75);
+    }
 }

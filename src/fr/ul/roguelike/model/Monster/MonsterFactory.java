@@ -18,6 +18,9 @@ public class MonsterFactory {
         if(monsterName.equals("griffin")){
             return new Griffin(100, 0, 3f, 0.0f, 10, 0, 0.2f, 0.5f, 0.2f);
         }
+        if(monsterName.equals("skeleton")){
+            return new Skeleton(100, 0, 2.5f, 0.0f, 5, 0, 0.2f, 0.5f);
+        }
             return null;
     }
 }
