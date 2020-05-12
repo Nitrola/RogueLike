@@ -400,7 +400,7 @@ public class InventoryMenu extends ScreenAdapter {
         for(final ItemRune e : items){
 
             ButtonItem ib = new ButtonItem(new TextureRegionDrawable(e.getTexture()), e, buttonWidth, buttonHeight);
-            ib.setSize(buttonWidth, buttonHeight);
+            ib.setSize(buttonWidth/2f, buttonHeight/2f);
             ib.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {

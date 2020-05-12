@@ -49,8 +49,6 @@ public class CombatMenu extends ScreenAdapter {
     private Sprite defButton;
     private Sprite manaPotion;
     private Sprite healthPotion;
-    private Texture victoryMessage;
-    private Texture deadMessage;
     private Texture lifeBarBackground;
     private Texture heart;
     private Texture mana;
@@ -131,8 +129,6 @@ public class CombatMenu extends ScreenAdapter {
         manaPotion = new Sprite(new Texture("images/combat/button_manapotion.png"));
         healthPotion = new Sprite(new Texture("images/combat/button_potion.png"));
         defButton = new Sprite(new Texture("images/combat/button_def.png"));
-        victoryMessage = new Texture("images/combat/victoryMessage.png");
-        deadMessage = new Texture("images/combat/deadMessage.png");
         lifeBarBackground = new Texture("images/combat/lifeBar.png");
         heart = new Texture("images/combat/heart.png");
         mana = new Texture("images/combat/manapotion.png");
@@ -210,9 +206,6 @@ public class CombatMenu extends ScreenAdapter {
             //stop mana regeneration
             ended = true;
             drawCombat();
-            sb.begin();
-            sb.draw(victoryMessage, 0,0, screenWidth,screenHeight);
-            sb.end();
             player.giveMoney(20);
             if(mapInterface.isBoss()){
                 if(mapInterface.isEnded()){
@@ -233,9 +226,6 @@ public class CombatMenu extends ScreenAdapter {
             //stop mana regeneration
             ended = true;
             drawCombat();
-            sb.begin();
-            sb.draw(deadMessage, 0,0, screenWidth,screenHeight);
-            sb.end();
         }
 
         update(delta);
@@ -340,8 +330,6 @@ public class CombatMenu extends ScreenAdapter {
         super.dispose();
 
         background.dispose();
-        victoryMessage.dispose();
-        deadMessage.dispose();
 
         attackButton.getTexture().dispose();
         manaPotion.getTexture().dispose();
