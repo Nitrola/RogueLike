@@ -38,7 +38,7 @@ public class MapInterface extends ScreenAdapter {
     private Stage actualStage;
 
     private com.badlogic.gdx.scenes.scene2d.Stage stage;
-    private boolean isClicking;
+    private boolean isClicking, print;
     private int coeff = screenWidth/16;
     private ArrayList<Integer> mapGenerated;
 
@@ -129,21 +129,18 @@ public class MapInterface extends ScreenAdapter {
     private void drawLines(){
         for(Stage stage : listeStages){
             if(stage.getRightStage() != null) {
-                shapeRenderer = new ShapeRenderer();
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
                 shapeRenderer.setColor(0, 0, 0, 1);
                 shapeRenderer.line(stage.getPosition(), stage.getRightStage().getPosition());
                 shapeRenderer.end();
             }
             if(stage.getLeftStage() != null) {
-                shapeRenderer = new ShapeRenderer();
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
                 shapeRenderer.setColor(0, 0, 0, 1);
                 shapeRenderer.line(stage.getPosition(), stage.getLeftStage().getPosition());
                 shapeRenderer.end();
             }
             if(stage.getUniqueStage() != null) {
-                shapeRenderer = new ShapeRenderer();
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
                 shapeRenderer.setColor(0, 0, 0, 1);
                 shapeRenderer.line(stage.getPosition(), stage.getUniqueStage().getPosition());
@@ -354,6 +351,8 @@ public class MapInterface extends ScreenAdapter {
      */
     public void dispose(){
         spriteBatch.dispose();
+        shapeRenderer.dispose();
+        map.dispose();
     }
 
     /**
