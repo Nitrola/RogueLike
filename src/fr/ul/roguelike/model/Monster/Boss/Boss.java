@@ -10,6 +10,8 @@ import fr.ul.roguelike.model.Monster.Monster;
 
 import java.util.Random;
 
+import static fr.ul.roguelike.model.Heros.Hero.CombatState.DEAD;
+
 public abstract class Boss extends Monster {
     protected Animation<Texture> animBlock;
     protected Animation<Texture> animAttack0;
@@ -66,7 +68,7 @@ public abstract class Boss extends Monster {
             animeTime += Gdx.graphics.getDeltaTime();
             currentFrame = animBlock.getKeyFrame(animeTime, false);
         }
-        if(combatState == Hero.CombatState.DEAD) {
+        if(combatState == DEAD) {
             animeTime += Gdx.graphics.getDeltaTime();
             currentFrame = animDead.getKeyFrame(animeTime, false);
         }
@@ -80,7 +82,7 @@ public abstract class Boss extends Monster {
 
     private void update(){
         boolean res = shouldIdle();
-        if(res && combatState == Hero.CombatState.DEAD){
+        if(res && combatState == DEAD){
             combatState = Hero.CombatState.WIN;
         }else {
             if (res) {
@@ -90,7 +92,7 @@ public abstract class Boss extends Monster {
     }
 
     private boolean shouldIdle(){
-        if(combatState != Hero.CombatState.IDLE && animAttack.isAnimationFinished(animeTime) && animDead.isAnimationFinished(animeTime) && animBlock.isAnimationFinished(animeTime)){
+        if(combatState != Hero.CombatState.IDLE && animAttack.isAnimationFinished(animeTime) && animBlock.isAnimationFinished(animeTime)){
             animeTime = 0.0f;
             return true;
         }
@@ -110,6 +112,9 @@ public abstract class Boss extends Monster {
     public boolean isBlocking(){
         Random random = new Random();
         int alea = random.nextInt(100);
+        if(this.combatState == DEAD){
+            return false;
+        }
         if(alea > dodgeChance){
             dodgeChance += 10;
             return false;

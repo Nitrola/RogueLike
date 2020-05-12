@@ -28,37 +28,6 @@ public class PlayerGear {
     }
 
     /**
-     * Permet de changer de stuff
-     */
-    public void changeGear(Equipement e){
-        switch (e.getEquipementType()){
-            case "BOW":
-                break;
-            case "SWORD":
-                if(leftHand == null ){
-                    leftHand.equals(e);
-                }
-                else if(leftHand != null && rightHand == null){
-                    rightHand.equals(e);
-                }
-                break;
-            case "HELMET":
-                helmet.equals(e);
-                break;
-            case "ARMOR":
-                armor.equals(e);
-                break;
-            case "STAFF":
-                rightHand = null;
-                leftHand.equals(e);
-                break;
-            default:
-                break;
-        }
-
-    }
-
-    /**
      * Affiche un equipement
      */
     public void drawEquipment(Equipement e,SpriteBatch sb,int posX,int posY,float scale) {

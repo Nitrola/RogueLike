@@ -1,22 +1,19 @@
-package fr.ul.roguelike.model.Items.Equipment.Warrior;
+package fr.ul.roguelike.model.Items.Equipment.Weapons;
 
 import com.badlogic.gdx.graphics.Texture;
 import fr.ul.roguelike.model.Items.Equipment.Equipement;
 import fr.ul.roguelike.model.Items.Equipment.EquipementStats;
 
-public class WariorHeadset extends Equipement {
-
+public class DemonSword extends Equipement {
 
     /**
-     *
+     * Epee du Warrior
      */
-    public WariorHeadset() {
-        super("Warior Headset", "The cheapest helmet in the capital !");
+    public DemonSword() {
+        super("Demon Sword", "A sword welded by powerfull demons bathed in blood");
         equipement = new EquipementStats(10,3,0.1f,0.1f);
         texture = new Texture("images/equipment/demonSword.png");
-        equipementType = EquipementType.HELMET;
+        equipementType = EquipementType.WEAPON;
 
     }
 }
-
-

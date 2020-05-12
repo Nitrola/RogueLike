@@ -1,11 +1,11 @@
 package fr.ul.roguelike.model.Items;
 
-public class ItemWeapon extends Item {
+public class ItemRune extends Item {
 
     /**
      * Creer un Item de type Arme
      */
-    public ItemWeapon(String name, int price, String descr){
+    public ItemRune(String name, int price, String descr){
         super(name,price,descr);
     }
 

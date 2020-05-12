@@ -5,12 +5,10 @@ import fr.ul.roguelike.model.Items.Item;
 
 public abstract class Equipement extends Item{
 
-    protected enum EquipementType{
-        BOW,
-        SWORD,
-        STAFF,
-        ARMOR,
-        HELMET
+    public enum EquipementType{
+        WEAPON,
+        HEAD,
+        PLATE
     }
     protected EquipementStats equipement;
     protected Texture texture;
@@ -40,8 +38,8 @@ public abstract class Equipement extends Item{
         return equipement;
     }
 
-    public String getEquipementType() {
-        return equipementType.toString();
+    public EquipementType getEquipementType() {
+        return equipementType;
     }
 
     public float getArmor() {

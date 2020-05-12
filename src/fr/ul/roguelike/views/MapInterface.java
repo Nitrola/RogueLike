@@ -67,6 +67,13 @@ public class MapInterface extends ScreenAdapter {
         }
         generateMap();
 
+        initStage();
+    }
+
+    /**
+     * Initialise les boutons
+     */
+    private void initStage() {
         //Bouton Exit
         Texture exit = new Texture(Gdx.files.internal("images/exit.png"));
         Drawable drawableExit = new TextureRegionDrawable(new TextureRegion(exit));
@@ -398,5 +405,9 @@ public class MapInterface extends ScreenAdapter {
             res = true;
         }
         return res;
+    }
+
+    public void setInputProcessor() {
+        Gdx.input.setInputProcessor(stage);
     }
 }

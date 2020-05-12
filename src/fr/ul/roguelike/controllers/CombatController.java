@@ -41,10 +41,8 @@ public class CombatController {
                 }
                 player.useMana(20);
                 if (monsters.get(0).getCurrentHp() <= 0 && monsters.get(0).getCombatState() != Hero.CombatState.DEAD) {
+                    System.out.println(monsters.get(0).getCombatState());
                     monsters.get(0).setCombatState(Hero.CombatState.DEAD);
-                    if(monsters.get(0) instanceof Golem){
-                        monsters.remove(0);
-                    }
                 }
             }
 

@@ -23,7 +23,7 @@ public class Player {
 
     private ArrayList<Item> inventory;
     private int[] potionsTable; //Premiere case: potion de soin - Seconde case: potion de mana
-    private ArrayList<Equipement> inventoryEquipements;
+    private Equipement[] inventoryEquipements;
 
     public int cpt = 1;
 
@@ -35,6 +35,8 @@ public class Player {
         playerGear = new PlayerGear();
         spells = new ArrayList<>(playerCharacter.getNb_spell_slots());
         items = new ArrayList<>();
+        //0 = head, 1 = right arm, 2 = left arm, 3 = plate
+        inventoryEquipements = new Equipement[4];
 
         healthLeft = playerCharacter.getHp();
         manaLeft = 0.0f;
@@ -43,7 +45,6 @@ public class Player {
         currentGold = 999;
 
         inventory = new ArrayList<>();
-        inventoryEquipements = new ArrayList<>();
         potionsTable = new int[2];
         potionsTable[0] = 100; //Ca va degager
         potionsTable[1] = 100; //Ca va degager
@@ -144,6 +145,19 @@ public class Player {
         Random randomGenerator = new Random();
         int randomInt = randomGenerator.nextInt((int) (nb*1.20) - (int)(nb*0.80)) + (int)(nb*0.80);
         this.currentGold += randomInt;
+    }
+
+    /**
+     * Remplit les slots
+     * @param cpt le slot à remplir
+     * @param equipement l'équipement à équiper
+     */
+    public void fillInventary(int cpt, Equipement equipement){
+        inventoryEquipements[cpt] = equipement;
+    }
+
+    public Equipement getEquipement(int cpt){
+        return inventoryEquipements[cpt];
     }
 
     //////////////////////////////////

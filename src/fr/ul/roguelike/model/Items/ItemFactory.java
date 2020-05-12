@@ -1,7 +1,7 @@
 package fr.ul.roguelike.model.Items;
 
-import fr.ul.roguelike.model.Items.Equipment.Archer.BaseBow;
-import fr.ul.roguelike.model.Items.Equipment.Warrior.DemonSword;
+import fr.ul.roguelike.model.Items.Equipment.Weapons.BaseBow;
+import fr.ul.roguelike.model.Items.Equipment.Weapons.DemonSword;
 
 public class ItemFactory {
 

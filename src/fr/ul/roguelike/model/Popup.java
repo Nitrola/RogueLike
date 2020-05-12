@@ -19,7 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import fr.ul.roguelike.model.Items.ButtonItem;
 import fr.ul.roguelike.model.Items.Equipment.Potions.ItemPotion;
 import fr.ul.roguelike.model.Items.Item;
-import fr.ul.roguelike.model.Items.ItemWeapon;
+import fr.ul.roguelike.model.Items.ItemRune;
 import fr.ul.roguelike.views.ShopMenu;
 import static fr.ul.roguelike.RogueLike.screenWidth;
 import static fr.ul.roguelike.RogueLike.screenHeight;
@@ -83,8 +83,8 @@ public class Popup {
                             b.setClicked(true);
                         }
                     }
-                    if(item instanceof ItemWeapon) {
-                        shopMenu.getMapInterface().getInventoryMenu().addItem((ItemWeapon) item);
+                    if(item instanceof ItemRune) {
+                        shopMenu.getMapInterface().getInventoryMenu().addItem((ItemRune) item);
                     }
                     if(item.isPotion()){
                         if(((ItemPotion)item).isHealthPotion()){

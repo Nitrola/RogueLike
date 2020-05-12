@@ -23,8 +23,7 @@ import fr.ul.roguelike.model.Items.ButtonItem;
 import fr.ul.roguelike.model.Items.Equipment.Potions.HealthPotion;
 import fr.ul.roguelike.model.Items.Equipment.Potions.ManaPotion;
 import fr.ul.roguelike.model.Items.Item;
-import fr.ul.roguelike.model.Items.Equipment.Potions.ItemPotion;
-import fr.ul.roguelike.model.Items.ItemWeapon;
+import fr.ul.roguelike.model.Items.ItemRune;
 import fr.ul.roguelike.model.Popup;
 
 import java.util.ArrayList;
@@ -62,20 +61,20 @@ public class ShopMenu extends ScreenAdapter {
 
         items.add(new HealthPotion("healingPotion",20, "Rends des PV"));
         items.add(new ManaPotion("manaPotion",20, "Donne de l'attaque pour un moment"));
-        items.add(new ItemWeapon("sword",75, "Arme tranchante de corps à corps"));
-        items.add(new ItemWeapon("bow",65, "Il est beau mon bow"));
-        items.add(new ItemWeapon("shield",70, "Permet de se protéger"));
-        items.add(new ItemWeapon("spatule",100000, "Trouvez en deux pour avoir un personnage en plus !"));
-        items.add(new ItemWeapon("aiguisoir",100, "Bah... il aiguise quoi frère"));
-        items.add(new ItemWeapon("axe",50, "Coupe du bois ou coupe tes ennemis, ton choix"));
-        items.add(new ItemWeapon("book",20, "Qu'est-ce que tu veux foutre d'un bouquin en combat ?"));
-        items.add(new ItemWeapon("cape",88, "Rends invi... heu non attenez c'est pas ça"));
-        items.add(new ItemWeapon("boots",30, "Parce que marcher pied nu, ça n'est pas très pratique"));
-        items.add(new ItemWeapon("parchemin",99, "Un parchemin sur un parchemin"));
-        items.add(new ItemWeapon("pierre de protection",144, "Pierre vous protègera à l'avenir"));
-        items.add(new ItemWeapon("pierre",45, "Une pierre. Si si, oui je sais, elle coûte cher"));
-        items.add(new ItemWeapon("plastron",55, "Afin de garder sa virginité"));
-        items.add(new ItemWeapon("talisman",48, "On sait pas trop s'il marche vraiment celui là"));
+        items.add(new ItemRune("sword",75, "Arme tranchante de corps à corps"));
+        items.add(new ItemRune("bow",65, "Il est beau mon bow"));
+        items.add(new ItemRune("shield",70, "Permet de se protéger"));
+        items.add(new ItemRune("spatule",100000, "Trouvez en deux pour avoir un personnage en plus !"));
+        items.add(new ItemRune("aiguisoir",100, "Bah... il aiguise quoi frère"));
+        items.add(new ItemRune("axe",50, "Coupe du bois ou coupe tes ennemis, ton choix"));
+        items.add(new ItemRune("book",20, "Qu'est-ce que tu veux foutre d'un bouquin en combat ?"));
+        items.add(new ItemRune("cape",88, "Rends invi... heu non attenez c'est pas ça"));
+        items.add(new ItemRune("boots",30, "Parce que marcher pied nu, ça n'est pas très pratique"));
+        items.add(new ItemRune("parchemin",99, "Un parchemin sur un parchemin"));
+        items.add(new ItemRune("pierre de protection",144, "Pierre vous protègera à l'avenir"));
+        items.add(new ItemRune("pierre",45, "Une pierre. Si si, oui je sais, elle coûte cher"));
+        items.add(new ItemRune("plastron",55, "Afin de garder sa virginité"));
+        items.add(new ItemRune("talisman",48, "On sait pas trop s'il marche vraiment celui là"));
 
         shop = new ArrayList<>();
         buttons = new ArrayList<>();
