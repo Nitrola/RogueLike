@@ -26,7 +26,8 @@ public class Player {
     private int[] potionsTable; //Premiere case: potion de soin - Seconde case: potion de mana
     private Equipement[] inventoryEquipements;
 
-    public int cpt = 1;
+    private int cpt = 1; //Niveau de la map
+    private int cptStage = 1; //Niveau du stage
 
     /**
      * Creer un joueur
@@ -165,19 +166,15 @@ public class Player {
     ///////Getters and Setters///////
     /////////////////////////////////
 
+    /**
+     * Degat infligé au monstre
+     */
     public float getDamage(Monster monster){
-        float physicalDamage = getPlayerCharacter().getPhysicalDmg(this) - monster.getPhysicalDef();
-        float magicalDamage =  getPlayerCharacter().getMagicalDmg(this) - monster.getMagicalDef();
-        if(physicalDamage + magicalDamage <= 0) {
-            return 1;
-        }
-        if (physicalDamage <= 0) {
-            physicalDamage = 1;
-        }
-        if (magicalDamage <= 0) {
-            magicalDamage = 1;
-        }
-        return physicalDamage + magicalDamage;
+        float physicalDamage = (float) (getPlayerCharacter().getPhysicalDmg(this) / (1+(Math.pow(monster.getPhysicalDef(),2))/100));
+        float magicalDamage = (float) (getPlayerCharacter().getMagicalDmg(this) / (1+(Math.pow(monster.getMagicalDef(),2))/100));
+        System.out.println((float)((physicalDamage + magicalDamage)/(Math.sqrt(cpt)+(Math.log(cptStage))/10)));
+        return (float)((physicalDamage + magicalDamage)/(Math.sqrt(cpt)+(Math.log(cptStage))/10));
+
     }
 
     public float getPhysicalAttackBonus(){
@@ -285,5 +282,18 @@ public class Player {
     public void setCurrentGold(int currentGold) {
         this.currentGold = currentGold;
     }
+    public int getCpt() {
+        return cpt;
+    }
+    public void increaseCpt(){
+        cpt++;
+        cptStage = 1;
+    }
+    public void increaseCptStage(){
+        cptStage++;
+    }
 
+    public int getCptStage() {
+        return cptStage;
+    }
 }

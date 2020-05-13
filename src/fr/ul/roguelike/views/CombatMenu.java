@@ -45,6 +45,8 @@ public class CombatMenu extends ScreenAdapter {
     private TextureRegion lifeBar;
     private Texture manaBa;
     private TextureRegion manaBar;
+    private Texture monsterLifeBa;
+    private TextureRegion monsterLifeBar;
     private Sprite attackButton;
     private Sprite defButton;
     private Sprite manaPotion;
@@ -108,9 +110,9 @@ public class CombatMenu extends ScreenAdapter {
         }else if(stage instanceof MiniBossStage){
             monsters.add(MonsterFactory.create("vampire"));
         }else{
-            if(player.cpt == 1){
+            if(player.getCpt() == 1){
                 monsters.add(MonsterFactory.create("griffin"));
-            }if(player.cpt == 2){
+            }if(player.getCpt() == 2){
                 monsters.add(MonsterFactory.create("arachnoide"));
             }
         }
@@ -138,6 +140,10 @@ public class CombatMenu extends ScreenAdapter {
         lifeBar = new TextureRegion(life, (int)((20 * lifeBarBackground.getWidth()*2)-7.f), (int)((lifeBarBackground.getHeight()*2)-6f ));
         manaBa = new Texture("images/manabar.png");
         manaBar = new TextureRegion(manaBa, (int)((20 * lifeBarBackground.getWidth()*2)-7.f), (int)((lifeBarBackground.getHeight()*2)-6f ));
+
+        //Bar pour le monstre
+        monsterLifeBa = new Texture("images/lifebar.png");
+        monsterLifeBar = new TextureRegion(monsterLifeBa,(int)((20 * lifeBarBackground.getWidth()*2)-7.f), (int)((lifeBarBackground.getHeight()*2)-6f ));
 
         // resizing buttons
         final int buttonSize = screenWidth/15;
@@ -214,7 +220,7 @@ public class CombatMenu extends ScreenAdapter {
                     mapInterface.getRogueLike().changeScreen();
                 }else {
                     mapInterface.generateMap();
-                    player.cpt++;
+                    player.increaseCpt();
                     mapInterface.setScreen();
                 }
             }else{
@@ -265,7 +271,7 @@ public class CombatMenu extends ScreenAdapter {
 
         sb.begin();
         sb.draw(heart, lifeBarBackground.getWidth()*2 - heart.getWidth()*2, screenHeight - heart.getHeight()*4, heart.getHeight()*4,heart.getHeight()*4);
-        sb.draw(mana, lifeBarBackground.getWidth()*2 - mana.getWidth(), screenHeight - mana.getHeight()*4, mana.getHeight()*1.9f,mana.getHeight()*1.9f);
+        sb.draw(mana, lifeBarBackground.getWidth()*2 - mana.getWidth(), screenHeight - mana.getHeight()*4, mana.getHeight()*1.9f,mana.getHeight()*2f);
         sb.end();
     }
 
@@ -280,10 +286,9 @@ public class CombatMenu extends ScreenAdapter {
 
         //monster health bar
         if(!monsters.isEmpty()) {
-            sr.begin(ShapeRenderer.ShapeType.Filled);
-            sr.setColor(Color.RED);
-            sr.rect(screenWidth - monsters.get(0).hpLeftRatio() * screenWidth/23f * 6f, screenHeight - screenHeight / 40f, monsters.get(0).hpLeftRatio() * screenWidth/23f * 6f, screenHeight / 40f);
-            sr.end();
+            sb.begin();
+            sb.draw(monsterLifeBar,screenWidth - monsters.get(0).getCurrentHp()*4, screenHeight + 3f- lifeBarBackground.getHeight()*2);
+            sb.end();
         }
 
         //player Mana

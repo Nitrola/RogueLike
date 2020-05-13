@@ -11,7 +11,7 @@ import java.util.Random;
 
 public abstract class Monster {
     private int hp;
-    private int currentHp;
+    protected int currentHp;
     private int mana;
     private int currentMana;
 
@@ -97,18 +97,13 @@ public abstract class Monster {
     ///////Getters and Setters///////
     /////////////////////////////////
 
+    /**
+     * Degat infligé au Player
+     */
     public float getDamage(Player player){
-        float physicalDamage = getPhysicalDmg() - player.getPlayerCharacter().getPhysicalDef(player);
-        float magicalDamage =  getMagicalDmg() - player.getPlayerCharacter().getMagicalDef(player);
-        if(physicalDamage + magicalDamage <= 0) {
-            return 1;
-        } else if (physicalDamage <= 0) {
-            physicalDamage = 1;
-        }
-        if (magicalDamage <= 0) {
-            magicalDamage = 1;
-        }
-        return physicalDamage + magicalDamage;
+        float physicalDamage = (float) ((getPhysicalDmg() / (1+(Math.pow(player.getPlayerCharacter().getPhysicalDef(player),2))/100)));
+        float magicalDamage = (float) (getMagicalDmg() / (1+(Math.pow(player.getPlayerCharacter().getMagicalDef(player),2))/100));
+        return (float)((physicalDamage + magicalDamage)*(Math.sqrt(player.getCpt())+(Math.log(player.getCptStage()))/10));
     }
 
     public void updateLastAttackTimer(float newTime){

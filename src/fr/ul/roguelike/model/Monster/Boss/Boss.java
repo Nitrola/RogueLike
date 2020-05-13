@@ -91,7 +91,7 @@ public abstract class Boss extends Monster {
         }
     }
 
-    private boolean shouldIdle(){
+    protected boolean shouldIdle(){
         if(combatState != Hero.CombatState.IDLE && animAttack.isAnimationFinished(animeTime) && animBlock.isAnimationFinished(animeTime)){
             animeTime = 0.0f;
             return true;

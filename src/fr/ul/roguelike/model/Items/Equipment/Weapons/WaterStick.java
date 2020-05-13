@@ -10,7 +10,7 @@ public class WaterStick extends Equipement {
      * Baton du mage
      */
     public WaterStick() {
-        super("Water Stick", "Aqua isn't totally useless");
+        super("Water Stick",10, "Aqua isn't totally useless");
         equipement = new EquipementStats(1,5,0f,0f);
         texture = new Texture("images/equipment/waterStick.png");
         equipementType = EquipementType.WEAPON;

@@ -29,6 +29,7 @@ public class MainMenu extends ScreenAdapter {
     private RogueLike rogueLike;
 
     private boolean clicked;
+    public static Player player;
 
     /**
      * Représente le menu principal
@@ -91,7 +92,8 @@ public class MainMenu extends ScreenAdapter {
      */
     private void play(){
         if(!clicked) {
-            ChooseMenu chooseMenu = new ChooseMenu(rogueLike, new Player());
+            player = new Player();
+            ChooseMenu chooseMenu = new ChooseMenu(rogueLike, player);
             rogueLike.setScreen(chooseMenu);
             clicked = true;
         }

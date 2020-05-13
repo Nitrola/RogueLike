@@ -7,7 +7,7 @@ import fr.ul.roguelike.model.Items.Equipment.EquipementStats;
 public class Casque extends Equipement {
 
     public Casque() {
-        super("Casque", "Flemme pour le moment");
+        super("Casque", 10,"Flemme pour le moment");
         equipement = new EquipementStats(0,0,10f,1f);
         texture = new Texture("images/equipment/casque.png");
         equipementType = EquipementType.HEAD;

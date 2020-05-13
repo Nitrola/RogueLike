@@ -171,6 +171,7 @@ public class MapInterface extends ScreenAdapter {
                         rogueLike.setScreen(new CombatMenu(player, this, stage));
                     }
                     actualStage.setActual();
+                    player.increaseCptStage();
                     actualStage = stage;
                 }
 
