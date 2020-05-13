@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import fr.ul.roguelike.model.Items.ButtonItem;
+import fr.ul.roguelike.model.Items.Equipment.Equipement;
 import fr.ul.roguelike.model.Items.Equipment.Potions.ItemPotion;
 import fr.ul.roguelike.model.Items.Item;
 import fr.ul.roguelike.model.Items.ItemRune;
@@ -53,7 +54,7 @@ public class Popup {
         stage.addActor(image);
         image.setHeight(screenHeight /1.25f);
         image.setWidth(screenWidth /2.5f);
-        image.setPosition(screenWidth /2f -image.getWidth()/2, screenHeight /10);
+        image.setPosition(screenWidth /2f -image.getWidth()/2, screenHeight/10f);
 
         Texture textureButtonYes = new Texture(Gdx.files.internal("images/sceau_yes.png"));
         Texture textureButtonNo = new Texture(Gdx.files.internal("images/sceau_no.png"));
@@ -85,6 +86,9 @@ public class Popup {
                     }
                     if(item instanceof ItemRune) {
                         shopMenu.getMapInterface().getInventoryMenu().addItem((ItemRune) item);
+                    }
+                    if(item instanceof Equipement) {
+                        shopMenu.getMapInterface().getInventoryMenu().addEquipement((Equipement) item);
                     }
                     if(item.isPotion()){
                         if(((ItemPotion)item).isHealthPotion()){

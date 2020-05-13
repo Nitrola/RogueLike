@@ -20,8 +20,15 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import fr.ul.roguelike.model.Items.ButtonItem;
+import fr.ul.roguelike.model.Items.Equipment.Armors.ArcherPlate;
+import fr.ul.roguelike.model.Items.Equipment.Armors.Casque;
+import fr.ul.roguelike.model.Items.Equipment.Armors.HighMageMantel;
+import fr.ul.roguelike.model.Items.Equipment.Equipement;
 import fr.ul.roguelike.model.Items.Equipment.Potions.HealthPotion;
 import fr.ul.roguelike.model.Items.Equipment.Potions.ManaPotion;
+import fr.ul.roguelike.model.Items.Equipment.Weapons.BaseBow;
+import fr.ul.roguelike.model.Items.Equipment.Weapons.DemonSword;
+import fr.ul.roguelike.model.Items.Equipment.Weapons.WaterStick;
 import fr.ul.roguelike.model.Items.Item;
 import fr.ul.roguelike.model.Items.ItemRune;
 import fr.ul.roguelike.model.Popup;
@@ -75,6 +82,12 @@ public class ShopMenu extends ScreenAdapter {
         items.add(new ItemRune("pierre",45, "Une pierre. Si si, oui je sais, elle coûte cher"));
         items.add(new ItemRune("plastron",55, "Afin de garder sa virginité"));
         items.add(new ItemRune("talisman",48, "On sait pas trop s'il marche vraiment celui là"));
+        items.add(new DemonSword());
+        items.add(new ArcherPlate());
+        items.add(new BaseBow());
+        items.add(new HighMageMantel());
+        items.add(new WaterStick());
+        items.add(new Casque());
 
         shop = new ArrayList<>();
         buttons = new ArrayList<>();
@@ -145,7 +158,11 @@ public class ShopMenu extends ScreenAdapter {
             if(index%3==0 && index!=0) {
                 y++;
             }
-            i.setTexture(new Texture(Gdx.files.internal("images/" +i.getName() +".png")));
+            if(i instanceof Equipement){
+                i.setTexture(i.getTexture());
+            }else {
+                i.setTexture(new Texture(Gdx.files.internal("images/" + i.getName() + ".png")));
+            }
             Texture playTexture = i.getTexture();
 
             Drawable drawable = new TextureRegionDrawable(new TextureRegion(playTexture));

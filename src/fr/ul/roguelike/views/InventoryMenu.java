@@ -423,6 +423,10 @@ public class InventoryMenu extends ScreenAdapter {
         items.add(item);
     }
 
+    public void addEquipement(Equipement equipement){
+        equipements.add(equipement);
+    }
+
     @Override
     public void dispose() {
     }
