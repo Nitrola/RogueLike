@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import fr.ul.roguelike.model.Player;
 
 import static fr.ul.roguelike.RogueLike.screenWidth;
 
@@ -157,20 +158,20 @@ public abstract class Hero {
         return criticChance;
     }
 
-    public int getPhysicalDmg() {
-        return physicalDmg;
+    public float getPhysicalDmg(Player player) {
+        return physicalDmg + player.getPhysicalAttackBonus()/2;
     }
 
-    public int getMagicalDmg() {
-        return magicalDmg;
+    public float getMagicalDmg(Player player) {
+        return magicalDmg + player.getMagicalAttackBonus()/2;
     }
 
-    public float getPhysicalDef() {
-        return physicalDef;
+    public float getPhysicalDef(Player player) {
+        return physicalDef + player.getPhysicalDefenseBonus()/2;
     }
 
-    public float getMagicalDef() {
-        return magicalDef;
+    public float getMagicalDef(Player player) {
+        return magicalDef + player.getMagicalDefenseBonus()/2;
     }
 
     public int getNb_spell_slots() {

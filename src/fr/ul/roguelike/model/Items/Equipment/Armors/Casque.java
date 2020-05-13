@@ -8,7 +8,7 @@ public class Casque extends Equipement {
 
     public Casque() {
         super("Casque", "Flemme pour le moment");
-        equipement = new EquipementStats(0,0,0.1f,0.1f);
+        equipement = new EquipementStats(0,0,10f,1f);
         texture = new Texture("images/equipment/casque.png");
         equipementType = EquipementType.HEAD;
     }

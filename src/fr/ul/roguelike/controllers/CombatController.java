@@ -19,6 +19,7 @@ public class CombatController {
     private Rectangle attack,block,healthPotion,manaPotion;
     private Player player;
     private ArrayList<Monster> monsters;
+    private float physicalDamage, magicalDamage;
 
     public CombatController(Rectangle attack, Rectangle block, Rectangle healthPotion, Rectangle manaPotion, Player player, ArrayList<Monster> monsters) {
         this.attack = attack;
@@ -37,9 +38,9 @@ public class CombatController {
             //Le joueur attaque
             if (attack.contains(posX, posY) && !monsters.isEmpty()) {
                 if(!monsters.get(0).isBlocking() && monsters.get(0).getCurrentHp() > 0) {
-                    monsters.get(0).receiveHit(player.getPlayerCharacter().getPhysicalDmg());
+                    monsters.get(0).receiveHit((int)(player.getDamage(monsters.get(0))));
                 }
-                player.useMana(20);
+                player.useMana(15);
                 if (monsters.get(0).getCurrentHp() <= 0 && monsters.get(0).getCombatState() != Hero.CombatState.DEAD) {
                     monsters.get(0).setCombatState(Hero.CombatState.DEAD);
                 }

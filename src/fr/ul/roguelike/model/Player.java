@@ -4,6 +4,7 @@ import fr.ul.roguelike.model.Heros.Hero;
 import fr.ul.roguelike.model.Heros.Warrior;
 import fr.ul.roguelike.model.Items.Equipment.Equipement;
 import fr.ul.roguelike.model.Items.Item;
+import fr.ul.roguelike.model.Monster.Monster;
 import fr.ul.roguelike.model.Spells.Spell;
 
 import java.util.ArrayList;
@@ -164,6 +165,61 @@ public class Player {
     ///////Getters and Setters///////
     /////////////////////////////////
 
+    public float getDamage(Monster monster){
+        float physicalDamage = getPlayerCharacter().getPhysicalDmg(this) - monster.getPhysicalDef();
+        float magicalDamage =  getPlayerCharacter().getMagicalDmg(this) - monster.getMagicalDef();
+        if(physicalDamage + magicalDamage <= 0) {
+            return 1;
+        }
+        if (physicalDamage <= 0) {
+            physicalDamage = 1;
+        }
+        if (magicalDamage <= 0) {
+            magicalDamage = 1;
+        }
+        return physicalDamage + magicalDamage;
+    }
+
+    public float getPhysicalAttackBonus(){
+        int bonus = 0;
+        for(Equipement e :inventoryEquipements){
+            if(e != null) {
+                bonus += e.getPhysicalDamage();
+            }
+        }
+        return bonus;
+    }
+
+    public float getMagicalAttackBonus(){
+        int bonus = 0;
+        for(Equipement e : inventoryEquipements){
+            if(e != null){
+                bonus+= e.getMagicDamage();
+            }
+        }
+        return bonus;
+    }
+
+    public float getPhysicalDefenseBonus() {
+        int bonus = 0;
+        for(Equipement e : inventoryEquipements){
+            if(e != null){
+                bonus+= e.getArmor();
+            }
+        }
+        return bonus;
+    }
+
+    public float getMagicalDefenseBonus() {
+        int bonus = 0;
+        for(Equipement e : inventoryEquipements){
+            if(e != null){
+                bonus+= e.getMagicResist();
+            }
+        }
+        return bonus;
+    }
+
     public PlayerGear getPlayerGear() {
         return playerGear;
     }
@@ -229,4 +285,5 @@ public class Player {
     public void setCurrentGold(int currentGold) {
         this.currentGold = currentGold;
     }
+
 }

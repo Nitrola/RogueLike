@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import fr.ul.roguelike.model.Heros.Hero;
+import fr.ul.roguelike.model.Player;
 
 import java.util.Random;
 
@@ -95,6 +96,20 @@ public abstract class Monster {
     //////////////////////////////////
     ///////Getters and Setters///////
     /////////////////////////////////
+
+    public float getDamage(Player player){
+        float physicalDamage = getPhysicalDmg() - player.getPlayerCharacter().getPhysicalDef(player);
+        float magicalDamage =  getMagicalDmg() - player.getPlayerCharacter().getMagicalDef(player);
+        if(physicalDamage + magicalDamage <= 0) {
+            return 1;
+        } else if (physicalDamage <= 0) {
+            physicalDamage = 1;
+        }
+        if (magicalDamage <= 0) {
+            magicalDamage = 1;
+        }
+        return physicalDamage + magicalDamage;
+    }
 
     public void updateLastAttackTimer(float newTime){
         timeSincePreviousAttack = newTime;

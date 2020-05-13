@@ -12,7 +12,7 @@ public class WariorHeadset extends Equipement {
      */
     public WariorHeadset() {
         super("Warior Headset", "The cheapest helmet in the capital !");
-        equipement = new EquipementStats(10,3,0.1f,0.1f);
+        equipement = new EquipementStats(10,3,10f,1f);
         texture = new Texture("images/equipment/demonSword.png");
         equipementType = EquipementType.HEAD;
 
