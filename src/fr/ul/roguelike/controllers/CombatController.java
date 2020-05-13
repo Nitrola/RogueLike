@@ -36,7 +36,7 @@ public class CombatController {
             int posY = screenHeight - Gdx.input.getY();
 
             //Le joueur attaque
-            if (attack.contains(posX, posY) && !monsters.isEmpty()) {
+            if (attack.contains(posX, posY) && !monsters.isEmpty() && player.getPlayerCharacter().getCombatState() != Hero.CombatState.ATTACKING) {
                 if(!monsters.get(0).isBlocking() && monsters.get(0).getCurrentHp() > 0) {
                     player.getPlayerCharacter().setHasAttack(false);
                 }
@@ -46,7 +46,7 @@ public class CombatController {
             }
 
             //Le joueur bloque
-            if (block.contains(posX, posY)) {
+            if (block.contains(posX, posY) && player.getPlayerCharacter().getCombatState() != Hero.CombatState.BLOCKING) {
                 player.useMana(10);
                 player.parry();
             }

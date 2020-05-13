@@ -24,7 +24,7 @@ public class MonsterFactory {
             return new Griffin(200, 0, 3f, 0.0f, 30, 0, 20f, 10f, 20f);
         }
         if(monsterName.equals("skeleton")){
-            return new Skeleton(60, 0, 3.5f, 0.0f, 15, 0, 5f, 5f);
+            return new Skeleton(70, 0, 3.5f, 0.0f, 15, 0, 5f, 5f);
         }
         if (monsterName.equals("vampire")){
             return new Vampire(60, 0, 3f, 0.0f, 10, 10, 5f, 2.5f, 25f);
@@ -33,7 +33,7 @@ public class MonsterFactory {
             return new Dragon(80, 0, 3.5f, 0.0f, 10, 5, 10f, 10f);
         }
         if (monsterName.equals("knight")){
-            return new Knight(75, 0, 8f, 0.0f, 0, 1, 8f, 1f);
+            return new Knight(60, 0, 8f, 0.0f, 0, 1, 8f, 1f);
         }
             return null;
     }

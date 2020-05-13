@@ -22,6 +22,6 @@ public class Mage extends Hero {
 
     @Override
     public int getHitFrame() {
-        return 19;
+        return 18;
     }
 }
