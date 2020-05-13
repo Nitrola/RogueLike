@@ -44,7 +44,7 @@ public abstract class Hero {
     float width;
     float height;
 
-    private boolean inInventory;
+    private boolean inInventory, hasAttack, degat;
 
 
     /**
@@ -71,6 +71,8 @@ public abstract class Hero {
         combatState = CombatState.IDLE;
         animeTime = 0;
         inInventory = false;
+        degat = false;
+        hasAttack = false;
     }
 
     Texture[] loadFrames(int nb,String path){
@@ -95,6 +97,10 @@ public abstract class Hero {
             }
             animeTime += Gdx.graphics.getDeltaTime();
             currentFrame = animAttack.getKeyFrame(animeTime, false);
+            if(animAttack.getKeyFrameIndex(animeTime) == getHitFrame() && !hasAttack){
+                degat = true;
+                hasAttack = true;
+            }
         }
 
         if(combatState == CombatState.IDLE)
@@ -206,4 +212,18 @@ public abstract class Hero {
         this.inInventory = inInventory;
         changeSize();
     }
+
+    public void setHasAttack(boolean hasAttack) {
+        this.hasAttack = hasAttack;
+    }
+
+    public boolean isDegat() {
+        return degat;
+    }
+
+    public void setDegat(boolean degat) {
+        this.degat = degat;
+    }
+
+    public abstract int getHitFrame();
 }

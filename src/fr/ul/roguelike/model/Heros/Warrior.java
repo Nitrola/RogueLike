@@ -13,7 +13,7 @@ public class Warrior extends Hero {
         super(100,100,0.40f,0.01f,20,1,10f,5f); //Damage = 10
         nb_spell_slots = 2;
         Texture warriorSheet = new Texture("images/combat/warriorWalk.png");
-        TextureRegion[][] tmp = TextureRegion.split(warriorSheet,warriorSheet.getWidth() / 3 , warriorSheet.getHeight()/1);
+        TextureRegion[][] tmp = TextureRegion.split(warriorSheet,warriorSheet.getWidth() / 3 , warriorSheet.getHeight());
         TextureRegion[] walkFrames = new TextureRegion[3*1];
         int index = 0;
         for(int i = 0; i < 3; i++){
@@ -30,4 +30,8 @@ public class Warrior extends Hero {
         height = screenHeight/2.5f;
     }
 
+    @Override
+    public int getHitFrame() {
+        return 2;
+    }
 }

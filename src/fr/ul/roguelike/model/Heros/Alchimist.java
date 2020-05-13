@@ -19,4 +19,9 @@ public class Alchimist extends Hero {
         width = screenWidth/2f;
         height = screenHeight/1.5f;
     }
+
+    @Override
+    public int getHitFrame() {
+        return 22;
+    }
 }
