@@ -2,6 +2,7 @@ package fr.ul.roguelike.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -17,7 +18,7 @@ import fr.ul.roguelike.model.Player;
 import static fr.ul.roguelike.RogueLike.screenWidth;
 import static fr.ul.roguelike.RogueLike.screenHeight;
 
-public class ChooseMenu extends ScreenAdapter {
+public class ChooseMenu extends ScreenAdapter implements InputProcessor {
     private RogueLike rogueLike;
     private Player player;
 
@@ -36,6 +37,7 @@ public class ChooseMenu extends ScreenAdapter {
      * @param p le joueur
      */
     ChooseMenu(RogueLike r, Player p){
+        Gdx.input.setInputProcessor(this);
         rogueLike = r;
         player = p;
         sb = new SpriteBatch();
@@ -64,33 +66,64 @@ public class ChooseMenu extends ScreenAdapter {
         sb.end();
 
         camera.update();
-        update();
     }
 
-    private void update(){
-        if(Gdx.input.getX() < screenWidth/3) {
-            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.justTouched()) {
-                play(new Warrior());
-            }
-        }
-
-        if(Gdx.input.getX() > screenWidth/3 &&  Gdx.input.getX() < screenWidth/3*2){
-            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.justTouched()) {
-                play(new Mage());
-            }
-        }
-
-        if(Gdx.input.getX() > screenWidth/3*2) {
-            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.justTouched()) {
-                play(new Alchimist());
-            }
-        }
-    }
 
     private void play(Hero h){
         player.setPlayerCharacter(h);
 
         MapInterface mapInterface = new MapInterface(rogueLike, player);
         rogueLike.setScreen(mapInterface);
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return  false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        if(screenX < screenWidth/3) {
+            play(new Warrior());
+        }
+
+        if(screenX > screenWidth/3 &&  screenX < screenWidth/3*2){
+            play(new Mage());
+        }
+
+        if(screenX > screenWidth/3*2) {
+            play(new Alchimist());
+        }
+        return true;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 }

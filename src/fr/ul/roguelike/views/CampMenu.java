@@ -116,7 +116,7 @@ public class CampMenu extends ScreenAdapter {
         drawLifeBars();
 
         if(sprite.getBoundingRectangle().contains(Gdx.input.getX(), screenHeight - Gdx.input.getY())) {
-            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.justTouched()) {
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched()) {
                 player.heal(20);
                 mapInterface.setScreen();
             }

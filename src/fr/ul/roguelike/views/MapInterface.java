@@ -1,14 +1,13 @@
 package fr.ul.roguelike.views;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -25,7 +24,7 @@ import static fr.ul.roguelike.RogueLike.screenWidth;
 import static fr.ul.roguelike.RogueLike.screenHeight;
 
 
-public class MapInterface extends ScreenAdapter {
+public class MapInterface extends ScreenAdapter implements InputProcessor {
     private RogueLike rogueLike;
     private InventoryMenu inventoryMenu;
     private Player player;
@@ -52,7 +51,11 @@ public class MapInterface extends ScreenAdapter {
         player = p;
         inventoryMenu = new InventoryMenu(this);
         stage = new com.badlogic.gdx.scenes.scene2d.Stage();
-        Gdx.input.setInputProcessor(stage);
+
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(stage);
+        inputMultiplexer.addProcessor(this);
+        Gdx.input.setInputProcessor(inputMultiplexer);
         spriteBatch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         isClicking = false;
@@ -68,6 +71,7 @@ public class MapInterface extends ScreenAdapter {
         generateMap();
 
         initStage();
+        actualStage.setActual();
     }
 
     /**
@@ -157,30 +161,6 @@ public class MapInterface extends ScreenAdapter {
     private void drawStages(){
         spriteBatch.begin();
         for (Stage stage: listeStages) {
-            if(stage.getSprite().getBoundingRectangle().contains(Gdx.input.getX(), screenHeight - Gdx.input.getY()) && actualStage.isNext(stage)){
-                if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.justTouched() && !isClicking) {
-                    isClicking = true;
-                    if(stage instanceof ShopStage){
-                        rogueLike.setScreen(new ShopMenu(this));
-                    }else if(stage instanceof CombatStage){
-                        rogueLike.setScreen(new CombatMenu(player, this, stage));
-                    }else if(stage instanceof CampStage){
-                        rogueLike.setScreen(new CampMenu(this));
-                    }else if(stage instanceof MiniBossStage){
-                        //TODO faire combat plus dur
-                        rogueLike.setScreen(new CombatMenu(player, this, stage));
-                    }else if(stage instanceof BossStage){
-                        rogueLike.setScreen(new CombatMenu(player, this, stage));
-                    }
-                    actualStage.setActual();
-                    player.increaseCptStage();
-                    actualStage = stage;
-                }
-
-            }
-            if(stage.equals(actualStage) && !stage.isActual()){
-                stage.setActual();
-            }
             stage.draw(spriteBatch);
         }
         spriteBatch.end();
@@ -378,7 +358,7 @@ public class MapInterface extends ScreenAdapter {
             }
         });
         stage.addActor(exitBouton);
-        Gdx.input.setInputProcessor(stage);
+        setInputProcessor();
     }
 
     //////////////////////////////////
@@ -410,6 +390,74 @@ public class MapInterface extends ScreenAdapter {
     }
 
     public void setInputProcessor() {
-        Gdx.input.setInputProcessor(stage);
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(stage);
+        inputMultiplexer.addProcessor(this);
+        Gdx.input.setInputProcessor(inputMultiplexer);
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        for (Stage stage: listeStages) {
+            if(stage.getSprite().getBoundingRectangle().contains(Gdx.input.getX(), screenHeight - Gdx.input.getY()) && actualStage.isNext(stage)){
+                if(!isClicking) {
+                    isClicking = true;
+                    if(stage instanceof ShopStage){
+                        rogueLike.setScreen(new ShopMenu(this));
+                    }else if(stage instanceof CombatStage){
+                        rogueLike.setScreen(new CombatMenu(player, this, stage));
+                    }else if(stage instanceof CampStage){
+                        rogueLike.setScreen(new CampMenu(this));
+                    }else if(stage instanceof MiniBossStage){
+                        //TODO faire combat plus dur
+                        rogueLike.setScreen(new CombatMenu(player, this, stage));
+                    }else if(stage instanceof BossStage){
+                        rogueLike.setScreen(new CombatMenu(player, this, stage));
+                    }
+                    actualStage.setActual();
+                    player.increaseCptStage();
+                    actualStage = stage;
+                }
+            }
+            if(stage.equals(actualStage) && !stage.isActual()){
+                stage.setActual();
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 }

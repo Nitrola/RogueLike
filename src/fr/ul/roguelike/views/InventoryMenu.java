@@ -226,7 +226,7 @@ public class InventoryMenu extends ScreenAdapter {
     }
 
     private void upgradeInventaryItem() {
-        if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.justTouched()){
+        if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched()){
             //HEAD
             if (headSlot.getBoundingRectangle().contains(Gdx.input.getX(), screenHeight - Gdx.input.getY())) {
 
