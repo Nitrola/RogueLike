@@ -1,0 +1,18 @@
+package fr.ul.roguelike.model.items.equipment.weapons;
+
+import com.badlogic.gdx.graphics.Texture;
+import fr.ul.roguelike.model.items.equipment.Equipement;
+import fr.ul.roguelike.model.items.equipment.EquipementStats;
+
+public class BaseBow extends Equipement {
+
+    /**
+     * Arc de l'archer
+     */
+    public BaseBow() {
+        super("Base bow", 10,"Every hunter have one from Daddy at 10 !");
+        equipement = new EquipementStats(2, 0, 0, 0);
+        texture = new Texture("images/equipment/baseBow.png");
+        equipementType = EquipementType.WEAPON;
+    }
+}

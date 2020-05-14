@@ -3,11 +3,8 @@ package fr.ul.roguelike.controllers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
-import fr.ul.roguelike.model.Heros.Hero;
-import fr.ul.roguelike.model.Monster.Boss.Boss;
-import fr.ul.roguelike.model.Monster.Boss.MiniBoss.MiniBoss;
-import fr.ul.roguelike.model.Monster.Mob.Golem;
-import fr.ul.roguelike.model.Monster.Monster;
+import fr.ul.roguelike.model.heros.Hero;
+import fr.ul.roguelike.model.monsters.Monster;
 import fr.ul.roguelike.model.Player;
 
 import static fr.ul.roguelike.RogueLike.screenHeight;
@@ -47,8 +44,10 @@ public class CombatController {
 
             //Le joueur bloque
             if (block.contains(posX, posY) && player.getPlayerCharacter().getCombatState() != Hero.CombatState.BLOCKING) {
-                player.useMana(10);
-                player.parry();
+                if(player.getManaLeft() > 10) {
+                    player.useMana(10);
+                    player.parry();
+                }
             }
 
             //Le joueur prend une potion de soin

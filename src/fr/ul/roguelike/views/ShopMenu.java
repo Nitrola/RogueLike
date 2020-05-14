@@ -19,19 +19,20 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import fr.ul.roguelike.model.Items.ButtonItem;
-import fr.ul.roguelike.model.Items.Equipment.Armors.ArcherPlate;
-import fr.ul.roguelike.model.Items.Equipment.Armors.Casque;
-import fr.ul.roguelike.model.Items.Equipment.Armors.HighMageMantel;
-import fr.ul.roguelike.model.Items.Equipment.Equipement;
-import fr.ul.roguelike.model.Items.Equipment.Potions.HealthPotion;
-import fr.ul.roguelike.model.Items.Equipment.Potions.ManaPotion;
-import fr.ul.roguelike.model.Items.Equipment.Weapons.BaseBow;
-import fr.ul.roguelike.model.Items.Equipment.Weapons.DemonSword;
-import fr.ul.roguelike.model.Items.Equipment.Weapons.WaterStick;
-import fr.ul.roguelike.model.Items.Item;
-import fr.ul.roguelike.model.Items.ItemRune;
+import fr.ul.roguelike.model.items.ButtonItem;
+import fr.ul.roguelike.model.items.equipment.Equipement;
+import fr.ul.roguelike.model.items.equipment.armors.heads.Casque;
+import fr.ul.roguelike.model.items.equipment.armors.plates.ArcherPlate;
+import fr.ul.roguelike.model.items.equipment.armors.plates.Chestplate;
+import fr.ul.roguelike.model.items.equipment.armors.plates.HighMageMantel;
+import fr.ul.roguelike.model.items.equipment.armors.plates.Mantle;
+import fr.ul.roguelike.model.items.equipment.potions.HealthPotion;
+import fr.ul.roguelike.model.items.equipment.potions.ManaPotion;
+import fr.ul.roguelike.model.items.equipment.weapons.*;
+import fr.ul.roguelike.model.items.Item;
+import fr.ul.roguelike.model.items.runes.Rune;
 import fr.ul.roguelike.model.Popup;
+import fr.ul.roguelike.model.items.runes.Stone;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -66,28 +67,34 @@ public class ShopMenu extends ScreenAdapter {
         ArrayList<Item> items = new ArrayList<>();
         this.mapInterface = mapInterface;
 
-        items.add(new HealthPotion("healingPotion",20, "Rends des PV"));
-        items.add(new ManaPotion("manaPotion",20, "Donne de l'attaque pour un moment"));
-        items.add(new ItemRune("sword",75, "Arme tranchante de corps à corps"));
-        items.add(new ItemRune("bow",65, "Il est beau mon bow"));
-        items.add(new ItemRune("shield",70, "Permet de se protéger"));
-        items.add(new ItemRune("spatule",100000, "Trouvez en deux pour avoir un personnage en plus !"));
-        items.add(new ItemRune("aiguisoir",100, "Bah... il aiguise quoi frère"));
-        items.add(new ItemRune("axe",50, "Coupe du bois ou coupe tes ennemis, ton choix"));
-        items.add(new ItemRune("book",20, "Qu'est-ce que tu veux foutre d'un bouquin en combat ?"));
-        items.add(new ItemRune("cape",88, "Rends invi... heu non attenez c'est pas ça"));
-        items.add(new ItemRune("boots",30, "Parce que marcher pied nu, ça n'est pas très pratique"));
-        items.add(new ItemRune("parchemin",99, "Un parchemin sur un parchemin"));
-        items.add(new ItemRune("pierre de protection",144, "Pierre vous protègera à l'avenir"));
-        items.add(new ItemRune("pierre",45, "Une pierre. Si si, oui je sais, elle coûte cher"));
-        items.add(new ItemRune("plastron",55, "Afin de garder sa virginité"));
-        items.add(new ItemRune("talisman",48, "On sait pas trop s'il marche vraiment celui là"));
+        items.add(new HealthPotion());
+        items.add(new ManaPotion());
+        /*items.add(new Rune("sword",75, "Arme tranchante de corps à corps"));
+        items.add(new Rune("bow",65, "Il est beau mon bow"));
+        items.add(new Rune("shield",70, "Permet de se protéger"));
+        items.add(new Rune("spatule",100000, "Trouvez en deux pour avoir un personnage en plus !"));
+        items.add(new Rune("aiguisoir",100, "Bah... il aiguise quoi frère"));
+        items.add(new Rune("book",20, "Qu'est-ce que tu veux foutre d'un bouquin en combat ?"));
+        items.add(new Rune("cape",88, "Rends invi... heu non attenez c'est pas ça"));
+        items.add(new Rune("parchemin",99, "Un parchemin sur un parchemin"));
+        items.add(new Rune("pierre de protection",144, "Pierre vous protègera à l'avenir"));
+        items.add(new Rune("pierre",45, "Une pierre. Si si, oui je sais, elle coûte cher"));
+        items.add(new Rune("talisman",48, "On sait pas trop s'il marche vraiment celui là"));
+        */
+        //Equipements
         items.add(new DemonSword());
         items.add(new ArcherPlate());
         items.add(new BaseBow());
         items.add(new HighMageMantel());
         items.add(new WaterStick());
         items.add(new Casque());
+        items.add(new Axe());
+        items.add(new BowJakshir());
+        items.add(new Chestplate());
+        items.add(new Mantle());
+        //Runes
+        items.add(new Stone());
+
 
         shop = new ArrayList<>();
         buttons = new ArrayList<>();

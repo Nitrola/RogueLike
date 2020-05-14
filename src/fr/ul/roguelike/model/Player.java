@@ -1,12 +1,12 @@
 package fr.ul.roguelike.model;
 
-import fr.ul.roguelike.model.Heros.Hero;
-import fr.ul.roguelike.model.Heros.Warrior;
-import fr.ul.roguelike.model.Items.Equipment.Equipement;
-import fr.ul.roguelike.model.Items.Item;
-import fr.ul.roguelike.model.Monster.Monster;
-import fr.ul.roguelike.model.Spells.Spell;
-
+import fr.ul.roguelike.model.heros.Hero;
+import fr.ul.roguelike.model.heros.Warrior;
+import fr.ul.roguelike.model.items.equipment.Equipement;
+import fr.ul.roguelike.model.items.Item;
+import fr.ul.roguelike.model.items.runes.Rune;
+import fr.ul.roguelike.model.monsters.Monster;
+import fr.ul.roguelike.model.spells.Spell;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -22,7 +22,6 @@ public class Player {
     private int currentGold;
     private PlayerGear playerGear;
 
-    private ArrayList<Item> inventory;
     private int[] potionsTable; //Premiere case: potion de soin - Seconde case: potion de mana
     private Equipement[] inventoryEquipements;
 
@@ -46,7 +45,6 @@ public class Player {
         currentLevel = 0;
         currentGold = 999;
 
-        inventory = new ArrayList<>();
         potionsTable = new int[2];
         potionsTable[0] = 100; //Ca va degager
         potionsTable[1] = 100; //Ca va degager
@@ -172,9 +170,7 @@ public class Player {
     public float getDamage(Monster monster){
         float physicalDamage = (float) (getPlayerCharacter().getPhysicalDmg(this) / (1+(Math.pow(monster.getPhysicalDef(),2))/100));
         float magicalDamage = (float) (getPlayerCharacter().getMagicalDmg(this) / (1+(Math.pow(monster.getMagicalDef(),2))/100));
-        System.out.println((float)((physicalDamage + magicalDamage)/(Math.sqrt(cpt)+(Math.log(cptStage))/10)));
         return (float)((physicalDamage + magicalDamage)/(Math.sqrt(cpt)+(Math.log(cptStage))/10));
-
     }
 
     public float getPhysicalAttackBonus(){
@@ -215,6 +211,10 @@ public class Player {
             }
         }
         return bonus;
+    }
+
+    public void addStat(float hp, float mana, float mana_regen, float critic_chance, float physical_dmg, float magical_dmg, float physical_def, float magical_def){
+        getPlayerCharacter().addStat(hp,mana,mana_regen,critic_chance,physical_dmg,magical_dmg,physical_def,magical_def);
     }
 
     public PlayerGear getPlayerGear() {

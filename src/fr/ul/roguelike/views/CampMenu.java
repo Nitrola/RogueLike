@@ -3,7 +3,6 @@ package fr.ul.roguelike.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -20,9 +19,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import fr.ul.roguelike.RogueLike;
-import fr.ul.roguelike.model.Items.ButtonItem;
+import fr.ul.roguelike.model.items.ButtonItem;
 import fr.ul.roguelike.model.Player;
-import static fr.ul.roguelike.RogueLike.screenWidth;
+
 import static fr.ul.roguelike.RogueLike.screenHeight;
 
 

@@ -17,17 +17,18 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.*;
 import com.badlogic.gdx.utils.Align;
-import fr.ul.roguelike.model.Heros.Hero;
-import fr.ul.roguelike.model.Items.ButtonItem;
-import fr.ul.roguelike.model.Items.Equipment.Armors.ArcherPlate;
-import fr.ul.roguelike.model.Items.Equipment.Armors.Casque;
-import fr.ul.roguelike.model.Items.Equipment.Armors.HighMageMantel;
-import fr.ul.roguelike.model.Items.Equipment.Weapons.BaseBow;
-import fr.ul.roguelike.model.Items.Equipment.Equipement;
-import fr.ul.roguelike.model.Items.Equipment.Weapons.DemonSword;
-import fr.ul.roguelike.model.Items.Equipment.Weapons.WaterStick;
-import fr.ul.roguelike.model.Items.ItemRune;
+import fr.ul.roguelike.model.heros.Hero;
+import fr.ul.roguelike.model.items.ButtonItem;
+import fr.ul.roguelike.model.items.equipment.armors.plates.ArcherPlate;
+import fr.ul.roguelike.model.items.equipment.armors.heads.Casque;
+import fr.ul.roguelike.model.items.equipment.armors.plates.HighMageMantel;
+import fr.ul.roguelike.model.items.equipment.weapons.BaseBow;
+import fr.ul.roguelike.model.items.equipment.Equipement;
+import fr.ul.roguelike.model.items.equipment.weapons.DemonSword;
+import fr.ul.roguelike.model.items.equipment.weapons.WaterStick;
+import fr.ul.roguelike.model.items.runes.Rune;
 import fr.ul.roguelike.model.Player;
+import fr.ul.roguelike.model.items.runes.Stone;
 
 import java.util.ArrayList;
 
@@ -50,7 +51,7 @@ public class InventoryMenu extends ScreenAdapter {
     private SpriteBatch spriteBatch;
     private ArrayList<ButtonItem> itemsButton, runesButton;
     private ArrayList<Equipement> equipements;
-    private ArrayList<ItemRune> items;
+    private ArrayList<Rune> runes;
     private ImageButton exitBouton;
     private boolean camp;
     private Table tableEquipment, tableItems;
@@ -106,7 +107,7 @@ public class InventoryMenu extends ScreenAdapter {
      * Initialisation des boutons
      */
     private void initStage() {
-        items = new ArrayList<>();
+        runes = new ArrayList<>();
         runesButton = new ArrayList<>();
         //table.setFillParent(true);
         tableEquipment.align(Align.top);
@@ -419,7 +420,7 @@ public class InventoryMenu extends ScreenAdapter {
         tableEquipment.align(Align.left);
 
         tableItems.align(Align.top);
-        for(final ItemRune e : items){
+        for(final Rune e : runes){
 
             ButtonItem ib = new ButtonItem(new TextureRegionDrawable(e.getTexture()), e, buttonWidth, buttonHeight);
             ib.setSize(buttonWidth/2f, buttonHeight/2f);
@@ -432,8 +433,7 @@ public class InventoryMenu extends ScreenAdapter {
 
 
             tableItems.add(ib).width(ib.getWidth()*3f).height(ib.getHeight()*3f);
-            tableItems.add(new Label(e.getDescription(),
-                    new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
+            tableItems.add(new Label(e.getDescription(), new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
             tableItems.row();
             runesButton.add(ib);
         }
@@ -441,8 +441,8 @@ public class InventoryMenu extends ScreenAdapter {
         moveEquipment();
     }
 
-    public void addItem(ItemRune item){
-        items.add(item);
+    public void addItem(Rune item){
+        runes.add(item);
     }
 
     public void addEquipement(Equipement equipement){

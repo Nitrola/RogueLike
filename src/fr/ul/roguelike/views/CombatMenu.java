@@ -15,10 +15,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Timer;
 import fr.ul.roguelike.controllers.CombatController;
-import fr.ul.roguelike.model.Heros.Hero;
-import fr.ul.roguelike.model.Monster.Boss.Boss;
-import fr.ul.roguelike.model.Monster.Monster;
-import fr.ul.roguelike.model.Monster.MonsterFactory;
+import fr.ul.roguelike.model.heros.Hero;
+import fr.ul.roguelike.model.monsters.bosses.Boss;
+import fr.ul.roguelike.model.monsters.Monster;
+import fr.ul.roguelike.model.monsters.MonsterFactory;
 import fr.ul.roguelike.model.Player;
 import fr.ul.roguelike.model.stages.CombatStage;
 import fr.ul.roguelike.model.stages.MiniBossStage;
@@ -148,7 +148,7 @@ public class CombatMenu extends ScreenAdapter {
         manaBar = new TextureRegion(manaBa,screenWidth/2, screenHeight/15);
 
         //Bar pour le monstre
-        monsterLifeBa = new Texture("images/lifebar.png");
+        monsterLifeBa = new Texture("images/monsterLifebar.png");
         monsterLifeBar = new TextureRegion(monsterLifeBa,screenWidth/2, screenHeight/15);
 
         // resizing buttons
@@ -315,7 +315,6 @@ public class CombatMenu extends ScreenAdapter {
         manaBar.setRegionWidth((int)((playerManaLeftRate * screenWidth/3.125f)-screenWidth/200f));
         sb.begin();
         sb.draw(manaBar,screenWidth/400f,screenHeight + screenHeight/300f - screenHeight/7.03125f);
-        //System.out.println(lifeBarBackground.getWidth() +" "+ lifeBarBackground.getHeight());
         sb.end();
     }
 

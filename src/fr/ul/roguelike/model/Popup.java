@@ -16,11 +16,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import fr.ul.roguelike.model.Items.ButtonItem;
-import fr.ul.roguelike.model.Items.Equipment.Equipement;
-import fr.ul.roguelike.model.Items.Equipment.Potions.ItemPotion;
-import fr.ul.roguelike.model.Items.Item;
-import fr.ul.roguelike.model.Items.ItemRune;
+import fr.ul.roguelike.model.items.ButtonItem;
+import fr.ul.roguelike.model.items.equipment.Equipement;
+import fr.ul.roguelike.model.items.equipment.potions.ItemPotion;
+import fr.ul.roguelike.model.items.Item;
+import fr.ul.roguelike.model.items.runes.Rune;
+import fr.ul.roguelike.views.MainMenu;
 import fr.ul.roguelike.views.ShopMenu;
 import static fr.ul.roguelike.RogueLike.screenWidth;
 import static fr.ul.roguelike.RogueLike.screenHeight;
@@ -84,8 +85,10 @@ public class Popup {
                             b.setClicked(true);
                         }
                     }
-                    if(item instanceof ItemRune) {
-                        shopMenu.getMapInterface().getInventoryMenu().addItem((ItemRune) item);
+                    if(item instanceof Rune) {
+                        shopMenu.getMapInterface().getInventoryMenu().addItem((Rune) item);
+                        MainMenu.player.addStat(((Rune) item).getHp(),((Rune) item).getMana(),((Rune) item).getManaRegen(), ((Rune) item).getCriticalChance(),
+                                ((Rune) item).getPhysicalDamage(),((Rune) item).getMagicalDamage(),((Rune) item).getArmor(),((Rune) item).getMagicResist());
                     }
                     if(item instanceof Equipement) {
                         shopMenu.getMapInterface().getInventoryMenu().addEquipement((Equipement) item);
