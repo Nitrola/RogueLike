@@ -152,7 +152,7 @@ public class CombatMenu extends ScreenAdapter {
         monsterLifeBar = new TextureRegion(monsterLifeBa,screenWidth/2, screenHeight/15);
 
         // resizing buttons
-        final int buttonSize = screenWidth/15; //TODO: Changer la taille des boutons
+        final int buttonSize = screenWidth/10; //TODO: Changer la taille des boutons
         attackButton.setSize(buttonSize,buttonSize);
         defButton.setSize(buttonSize,buttonSize);
         healthPotion.setSize(buttonSize,buttonSize);
@@ -160,10 +160,10 @@ public class CombatMenu extends ScreenAdapter {
 
 
         // Positionning buttons
-        attackButton.setPosition(screenWidth/9f,screenWidth/15f);
+        attackButton.setPosition(screenWidth/15f,screenWidth/15f);
         defButton.setPosition(attackButton.getX() * 3 , attackButton.getY());
-        healthPotion.setPosition(attackButton.getX() * 5 , attackButton.getY());
-        manaPotion.setPosition(attackButton.getX() * 7 , attackButton.getY());
+        healthPotion.setPosition(screenWidth - screenWidth/15f - healthPotion.getWidth() , attackButton.getY());
+        manaPotion.setPosition(screenWidth - 3 * screenWidth /15f - manaPotion.getWidth() , attackButton.getY());
 
         // Number of potions
         FreeTypeFontGenerator fontGen = new FreeTypeFontGenerator(Gdx.files.internal(("fonts/comicSansMS.ttf")));
