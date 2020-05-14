@@ -45,6 +45,7 @@ public class InventoryMenu extends ScreenAdapter {
     private Sprite leftWepSlot;
     private Sprite rightWepSlot;
     private Sprite armorSlot;
+    private Sprite stats;
     private ScrollPane scrollPane;
     private SpriteBatch spriteBatch;
     private ArrayList<ButtonItem> itemsButton, runesButton;
@@ -53,7 +54,7 @@ public class InventoryMenu extends ScreenAdapter {
     private ImageButton exitBouton;
     private boolean camp;
     private Table tableEquipment, tableItems;
-    private Label labelHealthPotion,labelManaPotion;
+    private Label labelHealthPotion,labelManaPotion, labelAttack, labelAttackMagic, labelDefense, labelDefenseMagic;
     private float buttonWidth = screenWidth/20f, buttonHeight = screenHeight/10f;
 
     /**
@@ -75,15 +76,18 @@ public class InventoryMenu extends ScreenAdapter {
      * Remplit l'inventaire
      */
     private void fillInventary() {
-        headSlot = new Sprite(new Texture("images/inventory/headSlot.png")) ;
-        leftWepSlot = new Sprite(new Texture("images/inventory/leftWeaponSlot.png")) ;
-        rightWepSlot = new Sprite(new Texture("images/inventory/rightWeaponSlot.png")) ;
-        armorSlot = new Sprite(new Texture("images/inventory/armorSlot.png")) ;
+        headSlot = new Sprite(new Texture("images/inventory/headSlot.png"));
+        leftWepSlot = new Sprite(new Texture("images/inventory/leftWeaponSlot.png"));
+        rightWepSlot = new Sprite(new Texture("images/inventory/rightWeaponSlot.png"));
+        armorSlot = new Sprite(new Texture("images/inventory/armorSlot.png"));
+        stats = new Sprite(new Texture("images/inventory/stats.png"));
 
-        armorSlot.setPosition(screenWidth*0.17f,screenHeight*0.17f);
-        rightWepSlot.setPosition(screenWidth*0.3f,screenHeight*0.4f);
-        leftWepSlot.setPosition(screenWidth*0.04f,screenHeight*0.4f);
-        headSlot.setPosition(screenWidth*0.17f,screenHeight*0.6f);
+        armorSlot.setPosition(screenWidth*0.17f,screenHeight*0.17f+screenHeight/5f);
+        rightWepSlot.setPosition(screenWidth*0.3f,screenHeight*0.4f+screenHeight/5f);
+        leftWepSlot.setPosition(screenWidth*0.04f,screenHeight*0.4f+screenHeight/5f);
+        headSlot.setPosition(screenWidth*0.17f,screenHeight*0.6f+screenHeight/5f);
+        stats.setPosition(screenWidth*0.04f, 0);
+        stats.setSize(screenWidth/3f, screenHeight/3f);
 
         itemsButton = new ArrayList<>();
         tableEquipment = new Table();
@@ -140,6 +144,17 @@ public class InventoryMenu extends ScreenAdapter {
 
         potionTable.setPosition(screenWidth*0.87f,screenHeight*0.96f);
 
+
+        Table statsTable1 = new Table();
+        statsTable1.add(labelAttack = new Label(Integer.toString((int) player.getPlayerCharacter().getPhysicalDmg(player)), new Label.LabelStyle(new BitmapFont(), Color.RED))).width(screenWidth/7f).pad(10);
+        statsTable1.add(labelAttackMagic = new Label(Integer.toString((int) player.getPlayerCharacter().getMagicalDmg(player)), new Label.LabelStyle(new BitmapFont(), Color.RED)));
+        statsTable1.setPosition(screenWidth*0.17f, screenHeight*0.25f);
+
+        Table statsTable2 = new Table();
+        statsTable2.add(labelDefense = new Label(Integer.toString((int) player.getPlayerCharacter().getPhysicalDef(player)), new Label.LabelStyle(new BitmapFont(), Color.RED))).width(screenWidth/7f).pad(10);
+        statsTable2.add(labelDefenseMagic = new Label(Integer.toString((int) player.getPlayerCharacter().getMagicalDef(player)), new Label.LabelStyle(new BitmapFont(), Color.RED)));
+        statsTable2.setPosition(screenWidth*0.17f, screenHeight*0.1f);
+
         //Bouton Exit
         Texture exit = new Texture(Gdx.files.internal("images/exit.png"));
         Drawable drawableExit = new TextureRegionDrawable(new TextureRegion(exit));
@@ -160,6 +175,8 @@ public class InventoryMenu extends ScreenAdapter {
         stage.addActor(scrollPane);
         stage.addActor(scrollPaneItems);
         stage.addActor(potionTable);
+        stage.addActor(statsTable1);
+        stage.addActor(statsTable2);
         stage.addActor(exitBouton);
         Gdx.input.setInputProcessor(stage);
     }
@@ -206,16 +223,21 @@ public class InventoryMenu extends ScreenAdapter {
 
         spriteBatch.begin();
         spriteBatch.draw(background,0,0, screenWidth, screenHeight);
-        player.getPlayerCharacter().draw(spriteBatch, screenWidth*0.05f,screenHeight*0.5f - player.getPlayerCharacter().getHeight()/2 );
+        player.getPlayerCharacter().draw(spriteBatch, screenWidth*0.05f,screenHeight*0.5f - player.getPlayerCharacter().getHeight()/2+screenHeight/5f);
 
         // slots around the character
         armorSlot.draw(spriteBatch);
         headSlot.draw(spriteBatch);
         leftWepSlot.draw(spriteBatch);
         rightWepSlot.draw(spriteBatch);
+        stats.draw(spriteBatch);
 
         labelHealthPotion.setText(player.getNbPotionHealth());
         labelManaPotion.setText(player.getNbPotionMana());
+        labelAttack.setText(Integer.toString((int) player.getPlayerCharacter().getPhysicalDmg(player)));
+        labelAttackMagic.setText(Integer.toString((int) player.getPlayerCharacter().getMagicalDmg(player)));
+        labelDefense.setText(Integer.toString((int) player.getPlayerCharacter().getPhysicalDef(player)));
+        labelDefenseMagic.setText(Integer.toString((int) player.getPlayerCharacter().getMagicalDef(player)));
         spriteBatch.end();
 
         stage.draw();
