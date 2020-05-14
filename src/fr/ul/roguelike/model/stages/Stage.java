@@ -101,4 +101,9 @@ public abstract class Stage {
         }
         return res;
     }
+
+    public void setPassed() {
+        passed = true;
+        sprite.setTexture(texturePassed);
+    }
 }

@@ -72,6 +72,7 @@ public class MapInterface extends ScreenAdapter implements InputProcessor {
 
         initStage();
         actualStage.setActual();
+        actualStage.setPassed();
     }
 
     /**
@@ -437,6 +438,7 @@ public class MapInterface extends ScreenAdapter implements InputProcessor {
                     actualStage.setActual();
                     player.increaseCptStage();
                     actualStage = stage;
+                    actualStage.setPassed();
                 }
             }
             if(stage.equals(actualStage) && !stage.isActual()){
