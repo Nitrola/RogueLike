@@ -91,12 +91,14 @@ public class MapInterface extends ScreenAdapter {
         stage.addActor(exitBouton);
 
         //Bouton Inventaire
-        final Texture inventory = new Texture(Gdx.files.internal("badlogic.jpg"));
+        final Texture inventory = new Texture(Gdx.files.internal("images/inventory/bag.png"));
         Drawable drawableInventory = new TextureRegionDrawable(new TextureRegion(inventory));
         drawableExit.setMinHeight(screenHeight/9f);
         drawableExit.setMinWidth(screenWidth/8f);
         ImageButton inventoryButton = new ImageButton(drawableInventory);
-        inventoryButton.setPosition(screenWidth - drawableExit.getMinWidth(),screenHeight - drawableExit.getMinHeight());
+        inventoryButton.setWidth(screenWidth/10f);
+        inventoryButton.setHeight(screenWidth/10f);
+        inventoryButton.setPosition(screenWidth - inventoryButton.getWidth(),screenHeight - inventoryButton.getHeight());
         inventoryButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -156,7 +158,7 @@ public class MapInterface extends ScreenAdapter {
         spriteBatch.begin();
         for (Stage stage: listeStages) {
             if(stage.getSprite().getBoundingRectangle().contains(Gdx.input.getX(), screenHeight - Gdx.input.getY()) && actualStage.isNext(stage)){
-                if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched() && !isClicking) {
+                if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.justTouched() && !isClicking) {
                     isClicking = true;
                     if(stage instanceof ShopStage){
                         rogueLike.setScreen(new ShopMenu(this));

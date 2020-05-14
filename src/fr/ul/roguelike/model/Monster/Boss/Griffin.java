@@ -2,8 +2,6 @@ package fr.ul.roguelike.model.Monster.Boss;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import fr.ul.roguelike.model.Heros.Hero;
 
 import static fr.ul.roguelike.RogueLike.screenHeight;

@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import fr.ul.roguelike.model.Heros.Hero;
 import fr.ul.roguelike.model.Player;
 
-import java.util.Random;
 
 public abstract class Monster {
     private int hp;

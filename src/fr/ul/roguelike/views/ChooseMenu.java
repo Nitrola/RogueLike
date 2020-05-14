@@ -69,19 +69,19 @@ public class ChooseMenu extends ScreenAdapter {
 
     private void update(){
         if(Gdx.input.getX() < screenWidth/3) {
-            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched()) {
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.justTouched()) {
                 play(new Warrior());
             }
         }
 
         if(Gdx.input.getX() > screenWidth/3 &&  Gdx.input.getX() < screenWidth/3*2){
-            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched()) {
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.justTouched()) {
                 play(new Mage());
             }
         }
 
         if(Gdx.input.getX() > screenWidth/3*2) {
-            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isTouched()) {
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.justTouched()) {
                 play(new Alchimist());
             }
         }

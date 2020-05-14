@@ -62,6 +62,7 @@ public class CombatMenu extends ScreenAdapter {
 
     private CombatController combatController;
     private Stage stage;
+    private boolean isTimer = false;
 
     private enum State{
         WIN,
@@ -234,6 +235,18 @@ public class CombatMenu extends ScreenAdapter {
             //stop mana regeneration
             ended = true;
             drawCombat();
+            if(!isTimer){
+                isTimer = true;
+                Timer timer = new Timer();
+                com.badlogic.gdx.utils.Timer.Task task = new com.badlogic.gdx.utils.Timer.Task() {
+                    @Override
+                    public void run() {
+                        mapInterface.getRogueLike().setScreen(new MainMenu(mapInterface.getRogueLike()));;
+                    }
+                };
+                timer.scheduleTask(task, 5);
+            }
+
         }
 
         update(delta);
