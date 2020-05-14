@@ -314,7 +314,7 @@ public class CombatMenu extends ScreenAdapter {
         float playerManaLeftRate =1.0f * player.getManaLeft() / player.getPlayerCharacter().getMana();
         manaBar.setRegionWidth((int)((playerManaLeftRate * screenWidth/3.125f)-screenWidth/200f));
         sb.begin();
-        sb.draw(manaBar,screenWidth/400f,screenHeight + screenHeight/300f - screenWidth/12.5f);
+        sb.draw(manaBar,screenWidth/400f,screenHeight + screenHeight/300f - screenHeight/7.03125f);
         //System.out.println(lifeBarBackground.getWidth() +" "+ lifeBarBackground.getHeight());
         sb.end();
     }
