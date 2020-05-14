@@ -1,4 +1,4 @@
-package fr.ul.roguelike.model.items.equipment.potions;
+package fr.ul.roguelike.model.items.equipments.potions;
 
 import fr.ul.roguelike.model.items.Item;
 

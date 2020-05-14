@@ -1,4 +1,4 @@
-package fr.ul.roguelike.model.items.equipment;
+package fr.ul.roguelike.model.items.equipments;
 
 import com.badlogic.gdx.graphics.Texture;
 import fr.ul.roguelike.model.items.Item;

@@ -2,7 +2,7 @@ package fr.ul.roguelike.model.items;
 
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import fr.ul.roguelike.model.items.equipment.Equipement;
+import fr.ul.roguelike.model.items.equipments.Equipement;
 import fr.ul.roguelike.model.items.runes.Rune;
 
 public class ButtonItem extends ImageButton {

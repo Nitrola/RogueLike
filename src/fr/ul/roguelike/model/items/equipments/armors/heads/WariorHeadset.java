@@ -1,8 +1,8 @@
-package fr.ul.roguelike.model.items.equipment.armors.heads;
+package fr.ul.roguelike.model.items.equipments.armors.heads;
 
 import com.badlogic.gdx.graphics.Texture;
-import fr.ul.roguelike.model.items.equipment.Equipement;
-import fr.ul.roguelike.model.items.equipment.EquipementStats;
+import fr.ul.roguelike.model.items.equipments.Equipement;
+import fr.ul.roguelike.model.items.equipments.EquipementStats;
 
 public class WariorHeadset extends Equipement {
 

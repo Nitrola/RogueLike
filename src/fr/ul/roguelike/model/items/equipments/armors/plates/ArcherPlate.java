@@ -1,8 +1,8 @@
-package fr.ul.roguelike.model.items.equipment.armors.plates;
+package fr.ul.roguelike.model.items.equipments.armors.plates;
 
 import com.badlogic.gdx.graphics.Texture;
-import fr.ul.roguelike.model.items.equipment.Equipement;
-import fr.ul.roguelike.model.items.equipment.EquipementStats;
+import fr.ul.roguelike.model.items.equipments.Equipement;
+import fr.ul.roguelike.model.items.equipments.EquipementStats;
 
 public class ArcherPlate extends Equipement {
 

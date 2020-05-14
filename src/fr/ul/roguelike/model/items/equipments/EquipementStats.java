@@ -1,4 +1,4 @@
-package fr.ul.roguelike.model.items.equipment;
+package fr.ul.roguelike.model.items.equipments;
 
 public class EquipementStats {
     //TODO mettre les champs en privés

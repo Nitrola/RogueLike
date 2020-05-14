@@ -2,7 +2,7 @@ package fr.ul.roguelike.model;
 
 import fr.ul.roguelike.model.heros.Hero;
 import fr.ul.roguelike.model.heros.Warrior;
-import fr.ul.roguelike.model.items.equipment.Equipement;
+import fr.ul.roguelike.model.items.equipments.Equipement;
 import fr.ul.roguelike.model.items.Item;
 import fr.ul.roguelike.model.items.runes.Rune;
 import fr.ul.roguelike.model.monsters.Monster;

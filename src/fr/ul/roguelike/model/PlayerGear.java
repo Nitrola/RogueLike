@@ -1,7 +1,7 @@
 package fr.ul.roguelike.model;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import fr.ul.roguelike.model.items.equipment.Equipement;
+import fr.ul.roguelike.model.items.equipments.Equipement;
 
 public class PlayerGear {
     private Equipement helmet;

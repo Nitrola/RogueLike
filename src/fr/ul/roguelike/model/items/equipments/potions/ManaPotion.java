@@ -1,4 +1,4 @@
-package fr.ul.roguelike.model.items.equipment.potions;
+package fr.ul.roguelike.model.items.equipments.potions;
 
 public class ManaPotion extends ItemPotion {
     /**
