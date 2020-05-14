@@ -152,7 +152,7 @@ public class CombatMenu extends ScreenAdapter {
         monsterLifeBar = new TextureRegion(monsterLifeBa,screenWidth/2, screenHeight/15);
 
         // resizing buttons
-        final int buttonSize = screenWidth/10; //TODO: Changer la taille des boutons
+        final int buttonSize = screenWidth/10;
         attackButton.setSize(buttonSize,buttonSize);
         defButton.setSize(buttonSize,buttonSize);
         healthPotion.setSize(buttonSize,buttonSize);
