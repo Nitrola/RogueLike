@@ -96,7 +96,7 @@ public class CombatMenu extends ScreenAdapter {
     private void createMonster(){
         monsters = new ArrayList<>();
         Random r = new Random();
-        int random = r.nextInt(3);
+        int random = r.nextInt(7);
         if(stage instanceof CombatStage){
             switch (random) {
                 case 0 :
@@ -107,6 +107,18 @@ public class CombatMenu extends ScreenAdapter {
                     break;
                 case 2:
                     monsters.add(MonsterFactory.create("skeleton"));
+                    break;
+                case 3:
+                    monsters.add(MonsterFactory.create("stag_knight"));
+                    break;
+                case 4:
+                    monsters.add(MonsterFactory.create("inquisitor"));
+                    break;
+                case 5:
+                    monsters.add(MonsterFactory.create("cyclops"));
+                    break;
+                case 6:
+                    monsters.add(MonsterFactory.create("assassin"));
                     break;
             }
         }else if(stage instanceof MiniBossStage){

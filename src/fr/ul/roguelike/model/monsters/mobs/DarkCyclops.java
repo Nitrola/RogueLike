@@ -6,9 +6,13 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.roguelike.RogueLike;
 import fr.ul.roguelike.model.heros.Hero;
-import fr.ul.roguelike.model.monsters.Monster;
 
-public abstract class Mob extends Monster {
+import static fr.ul.roguelike.RogueLike.screenHeight;
+import static fr.ul.roguelike.RogueLike.screenWidth;
+
+public class DarkCyclops extends Mob {
+    private boolean havehit;
+
     /**
      * Creer Monstre
      *
@@ -21,9 +25,17 @@ public abstract class Mob extends Monster {
      * @param physicalDef  Defense physique du monstre
      * @param magicalDef   Defense magique du monstre
      */
-    public Mob(int hp, int mana, float attackSpeed, float criticChance, int physicalDmg, int magicalDmg, float physicalDef, float magicalDef) {
+    public DarkCyclops(int hp, int mana, float attackSpeed, float criticChance, int physicalDmg, int magicalDmg, float physicalDef, float magicalDef) {
         super(hp, mana, attackSpeed, criticChance, physicalDmg, magicalDmg, physicalDef, magicalDef);
-        animDead = new Animation<Texture>(0.1f, loadFrames(21,"images/combat/Smoke/smoke_"));
+
+        animIdle = new Animation<Texture>(0.1f, loadFrames(14,"images/combat/Dark_Cyclops/Idle/darkCyclops_idle_"));
+        animAttack = new Animation<Texture>(0.07f, loadFrames(23,"images/combat/Dark_Cyclops/Attack/darkCyclops_attack_"));
+
+
+        combatState = Hero.CombatState.IDLE;
+        width = screenWidth/7f*3;
+        height = screenHeight/4.5f*3;
+        havehit = false;
     }
 
     @Override
@@ -31,20 +43,24 @@ public abstract class Mob extends Monster {
         this.posX = posX;
         this.posY = posY;
 
-        posX -= width/4;
-        if(this instanceof Assassin || this instanceof Inquisitor || this instanceof StagKnight){
-            posY -= RogueLike.screenHeight/10;
-        }
+        posX += RogueLike.screenWidth/10;
+        posY -= RogueLike.screenHeight/14;
 
+        posX -= width/4;
         stateTime += Gdx.graphics.getDeltaTime();
         Texture currentFrame = null;
 
         if(combatState == Hero.CombatState.ATTACKING) {
             animeTime += Gdx.graphics.getDeltaTime();
             currentFrame = animAttack.getKeyFrame(animeTime, false);
-            if(animAttack.getKeyFrameIndex(animeTime) == getHitFrame() && !hasAttack){
-                degat = true;
-                hasAttack = true;
+            if(animAttack.getKeyFrameIndex(animeTime) >= getHitFrame() && animAttack.getKeyFrameIndex(animeTime) <= getHitFrame2()){
+                if(havehit) {
+                    degat = true;
+                    hasAttack = true;
+                    havehit = false;
+                } else {
+                    havehit = true;
+                }
             }
         }
 
@@ -64,22 +80,12 @@ public abstract class Mob extends Monster {
         update();
     }
 
-    protected void update(){
-        boolean res = shouldIdle();
-        if(res && combatState == Hero.CombatState.DEAD){
-            combatState = Hero.CombatState.WIN;
-        }else {
-            if (res) {
-                combatState = Hero.CombatState.IDLE;
-            }
-        }
+    @Override
+    public int getHitFrame() {
+        return 10;
     }
 
-    private boolean shouldIdle(){
-        if(combatState != Hero.CombatState.IDLE && animAttack.isAnimationFinished(animeTime) && animDead.isAnimationFinished(animeTime)){
-            animeTime = 0.0f;
-            return true;
-        }
-        return false;
+    public int getHitFrame2() {
+        return 18;
     }
 }
