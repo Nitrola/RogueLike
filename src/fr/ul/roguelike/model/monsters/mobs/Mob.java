@@ -22,7 +22,7 @@ public abstract class Mob extends Monster {
      */
     public Mob(int hp, int mana, float attackSpeed, float criticChance, int physicalDmg, int magicalDmg, float physicalDef, float magicalDef) {
         super(hp, mana, attackSpeed, criticChance, physicalDmg, magicalDmg, physicalDef, magicalDef);
-        animDead = new Animation<Texture>(0.1f, loadFrames(18,"images/combat/Smoke/smoke_"));
+        animDead = new Animation<Texture>(0.1f, loadFrames(21,"images/combat/Smoke/smoke_"));
     }
 
     @Override
