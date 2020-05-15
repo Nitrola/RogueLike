@@ -92,6 +92,10 @@ public abstract class Monster {
         return frames;
     }
 
+    public void retardAttack() {
+
+    }
+
     //////////////////////////////////
     ///////Getters and Setters///////
     /////////////////////////////////
@@ -200,4 +204,5 @@ public abstract class Monster {
     public boolean isBlocking(){
         return false;
     }
+
 }

@@ -34,8 +34,17 @@ public class CombatController {
 
             //Le joueur attaque
             if (attack.contains(posX, posY) && !monsters.isEmpty() && player.getPlayerCharacter().getCombatState() != Hero.CombatState.ATTACKING) {
-                if(!monsters.get(0).isBlocking() && monsters.get(0).getCurrentHp() > 0) {
-                    player.getPlayerCharacter().setHasAttack(false);
+                if(monsters.get(0).getCurrentHp() > 0) {
+                    if (!monsters.get(0).isBlocking()) {
+                        player.getPlayerCharacter().setHasAttack(false);
+                    }else{
+                        float res = monsters.get(0).getTimeSincePreviousAttack() - monsters.get(0).getAttackSpeed()/2;
+                        if(res <= 0){
+                            monsters.get(0).updateLastAttackTimer(0);
+                        }else {
+                            monsters.get(0).updateLastAttackTimer(res);
+                        }
+                    }
                 }
                 if (player.getManaLeft() > 15){
                     player.useMana(15);
