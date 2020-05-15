@@ -2,10 +2,10 @@ package fr.ul.roguelike.model.items.equipments;
 
 public class EquipementStats {
     //TODO mettre les champs en privés
-    public int physicalDamage;
-    public int magicalDamage;
-    public float armor;
-    public float magicResist;
+    private int physicalDamage;
+    private int magicalDamage;
+    private float armor;
+    private float magicResist;
 
     /**
      * Creer un objet avec des bonus
@@ -29,5 +29,17 @@ public class EquipementStats {
     ///////Getters and Setters///////
     /////////////////////////////////
 
-    //TODO Faire des getters et des setters
+
+    public int getPhysicalDamage() {
+        return physicalDamage;
+    }
+    public int getMagicalDamage() {
+        return magicalDamage;
+    }
+    public float getArmor() {
+        return armor;
+    }
+    public float getMagicResist() {
+        return magicResist;
+    }
 }

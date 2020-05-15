@@ -33,7 +33,6 @@ public abstract class Equipement extends Item{
     ///////Getters and Setters///////
     /////////////////////////////////
 
-
     public EquipementStats getEquipement() {
         return equipement;
     }
@@ -43,19 +42,19 @@ public abstract class Equipement extends Item{
     }
 
     public float getArmor() {
-        return equipement.armor;
+        return equipement.getArmor();
     }
 
     public float getMagicResist() {
-        return equipement.magicResist;
+        return equipement.getMagicResist();
     }
 
     public int getPhysicalDamage() {
-        return equipement.physicalDamage;
+        return equipement.getPhysicalDamage();
     }
 
     public int getMagicDamage() {
-        return equipement.magicalDamage;
+        return equipement.getMagicalDamage();
     }
 
     public Texture getTexture() {
