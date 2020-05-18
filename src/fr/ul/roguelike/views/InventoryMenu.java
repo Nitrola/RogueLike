@@ -139,11 +139,11 @@ public class InventoryMenu extends ScreenAdapter {
         Texture manaPotion, potion;
         manaPotion = new Texture("images/combat/manapotion.png");
         potion = new Texture("images/combat/potion.png");
-        potionTable.add(new Image(potion)).width(potion.getWidth()*2f).height(potion.getHeight()*2f);
+        potionTable.add(new Image(potion)).width(2*screenWidth/50).height(2*screenHeight/28.125f);
         potionTable.add(labelHealthPotion = new Label(Integer.toString(player.getNbPotionHealth()),new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
 
 
-        potionTable.add(new Image(manaPotion)).width(manaPotion.getWidth()*2f).height(manaPotion.getHeight()*2f);
+        potionTable.add(new Image(manaPotion)).width(2*screenWidth/50).height(2*screenHeight/28.125f);
         potionTable.add(labelManaPotion = new Label(Integer.toString(player.getNbPotionMana()),new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
 
         potionTable.setPosition(screenWidth*0.87f,screenHeight*0.96f);
