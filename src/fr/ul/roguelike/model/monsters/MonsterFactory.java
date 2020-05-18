@@ -2,6 +2,9 @@ package fr.ul.roguelike.model.monsters;
 
 import fr.ul.roguelike.model.monsters.bosses.Arachnoide;
 import fr.ul.roguelike.model.monsters.bosses.Griffin;
+import fr.ul.roguelike.model.monsters.bosses.miniBosses.Hyppogriff;
+import fr.ul.roguelike.model.monsters.bosses.miniBosses.Jose;
+import fr.ul.roguelike.model.monsters.bosses.miniBosses.OldMan;
 import fr.ul.roguelike.model.monsters.bosses.miniBosses.Vampire;
 import fr.ul.roguelike.model.monsters.mobs.*;
 
@@ -43,6 +46,18 @@ public class MonsterFactory {
         }
         if(monsterName.equals("stag_knight")){
             return new StagKnight(100, 0, 5f, 0, 0, 40, 10f, 10f);
+        }
+        if(monsterName.equals("jose")){
+            return new Jose(150, 0, 5f, 0, 50, 10, 40f, 40f, 0);
+        }
+        if(monsterName.equals("oldman")){
+            return new OldMan(80, 0, 4f, 0, 0, 20, 10f, 10f, 0);
+        }
+        if(monsterName.equals("hyppogriff")){
+            return new Hyppogriff(80, 0, 4f, 0, 0, 20, 10f, 10f, 0);
+        }
+        if(monsterName.equals("orcarcher")){
+            return new OrcArcher(100, 0, 3f, 0, 10, 10, 10f, 10f);
         }
             return null;
     }

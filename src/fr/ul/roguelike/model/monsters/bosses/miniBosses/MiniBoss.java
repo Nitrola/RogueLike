@@ -4,7 +4,7 @@ import fr.ul.roguelike.model.monsters.bosses.Boss;
 
 public abstract class MiniBoss extends Boss {
     /**
-     * Creer Boss de fin de niveau
+     * Creer MiniBoss de fin de niveau
      *
      * @param hp           Vie du monstre
      * @param mana         Mana du monstre

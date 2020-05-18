@@ -96,11 +96,12 @@ public class CombatMenu extends ScreenAdapter {
     private void createMonster(){
         monsters = new ArrayList<>();
         Random r = new Random();
-        int random = r.nextInt(7);
+        int randomMob = r.nextInt(8);
+        int randomMiniBoss = r.nextInt(4);
         if(stage instanceof CombatStage){
-            switch (random) {
+            switch (randomMob) {
                 case 0 :
-                    monsters.add(MonsterFactory.create("knight"));
+                    monsters.add(MonsterFactory.create("orcarcher"));
                     break;
                 case 1:
                     monsters.add(MonsterFactory.create("dragon"));
@@ -120,9 +121,25 @@ public class CombatMenu extends ScreenAdapter {
                 case 6:
                     monsters.add(MonsterFactory.create("assassin"));
                     break;
+                case 7 :
+                    monsters.add(MonsterFactory.create("knight"));
+                    break;
             }
         }else if(stage instanceof MiniBossStage){
-            monsters.add(MonsterFactory.create("vampire"));
+            switch (randomMiniBoss) {
+                case 0:
+                    monsters.add(MonsterFactory.create("jose"));
+                    break;
+                case 1:
+                    monsters.add(MonsterFactory.create("oldman"));
+                    break;
+                case 2:
+                    monsters.add(MonsterFactory.create("hyppogriff"));
+                    break;
+                case 3:
+                    monsters.add(MonsterFactory.create("vampire"));
+                    break;
+            }
         }else{
             if(player.getCpt() == 1){
                 monsters.add(MonsterFactory.create("griffin"));
@@ -281,7 +298,7 @@ public class CombatMenu extends ScreenAdapter {
         sb.draw(lifeBarBackground, screenWidth - monsters.get(0).getHp()*screenWidth/400f - screenWidth/800f, screenHeight - screenHeight/14,monsters.get(0).getHp()*screenWidth/400f + screenWidth/800f , screenHeight/14); //Vie du monstre
 
         if (!monsters.isEmpty()) {
-            monsters.get(0).draw(sb, screenWidth / 2, screenHeight / 3);
+            monsters.get(0).draw(sb, screenWidth*2/3, screenHeight / 3);
         }
 
 
