@@ -128,7 +128,7 @@ public abstract class Hero {
     }
 
     public boolean shouldIdle(){
-        if( combatState != CombatState.IDLE && animHit.isAnimationFinished(animeTime)){
+        if( combatState != CombatState.IDLE && animAttack.isAnimationFinished(animeTime) && animBlock.isAnimationFinished(animeTime) && animHit.isAnimationFinished(animeTime)){
             animeTime = 0.0f;
             return true;
         }
