@@ -10,7 +10,8 @@ import fr.ul.roguelike.model.monsters.Monster;
 
 import java.util.Random;
 
-import static fr.ul.roguelike.model.heros.Hero.CombatState.DEAD;
+import static fr.ul.roguelike.model.heros.Hero.CombatState.*;
+import static fr.ul.roguelike.model.heros.Hero.CombatState.HIT;
 
 public abstract class Boss extends Monster {
     protected Animation<Texture> animBlock;
@@ -91,10 +92,20 @@ public abstract class Boss extends Monster {
         }
     }
 
-    protected boolean shouldIdle(){
-        if(combatState != Hero.CombatState.IDLE && animAttack.isAnimationFinished(animeTime) && animBlock.isAnimationFinished(animeTime)){
-            animeTime = 0.0f;
-            return true;
+    public boolean shouldIdle(){
+        if( combatState != Hero.CombatState.IDLE){
+            if(combatState == ATTACKING && animAttack.isAnimationFinished(animeTime)) {
+                animeTime = 0.0f;
+                return true;
+            }
+            if(combatState == BLOCKING && animBlock.isAnimationFinished(animeTime)) {
+                animeTime = 0.0f;
+                return true;
+            }
+            if(combatState == DEAD && animDead.isAnimationFinished(animeTime)) {
+                animeTime = 0.0f;
+                return true;
+            }
         }
         return false;
     }

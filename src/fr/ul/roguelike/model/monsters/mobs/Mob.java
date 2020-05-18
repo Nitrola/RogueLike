@@ -8,6 +8,8 @@ import fr.ul.roguelike.RogueLike;
 import fr.ul.roguelike.model.heros.Hero;
 import fr.ul.roguelike.model.monsters.Monster;
 
+import static fr.ul.roguelike.model.heros.Hero.CombatState.*;
+
 public abstract class Mob extends Monster {
     /**
      * Creer Monstre
@@ -75,10 +77,16 @@ public abstract class Mob extends Monster {
         }
     }
 
-    private boolean shouldIdle(){
-        if(combatState != Hero.CombatState.IDLE && animAttack.isAnimationFinished(animeTime) && animDead.isAnimationFinished(animeTime)){
-            animeTime = 0.0f;
-            return true;
+    public boolean shouldIdle(){
+        if( combatState != Hero.CombatState.IDLE){
+            if(combatState == ATTACKING && animAttack.isAnimationFinished(animeTime)) {
+                animeTime = 0.0f;
+                return true;
+            }
+            if(combatState == DEAD && animDead.isAnimationFinished(animeTime)) {
+                animeTime = 0.0f;
+                return true;
+            }
         }
         return false;
     }

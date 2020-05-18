@@ -9,7 +9,7 @@ import fr.ul.roguelike.model.Player;
 import java.util.Random;
 
 import static fr.ul.roguelike.RogueLike.screenWidth;
-import static fr.ul.roguelike.model.heros.Hero.CombatState.DEAD;
+import static fr.ul.roguelike.model.heros.Hero.CombatState.*;
 
 public abstract class Hero {
     private int hp;
@@ -128,9 +128,23 @@ public abstract class Hero {
     }
 
     public boolean shouldIdle(){
-        if( combatState != CombatState.IDLE && animAttack.isAnimationFinished(animeTime) && animBlock.isAnimationFinished(animeTime) && animHit.isAnimationFinished(animeTime)){
-            animeTime = 0.0f;
-            return true;
+        if( combatState != CombatState.IDLE){
+            if(combatState == ATTACKING && animAttack.isAnimationFinished(animeTime)) {
+                animeTime = 0.0f;
+                return true;
+            }
+            if(combatState == BLOCKING && animBlock.isAnimationFinished(animeTime)) {
+                animeTime = 0.0f;
+                return true;
+            }
+            if(combatState == HIT && animHit.isAnimationFinished(animeTime)) {
+                animeTime = 0.0f;
+                return true;
+            }
+            if(combatState == DEAD && animDead.isAnimationFinished(animeTime)) {
+                animeTime = 0.0f;
+                return true;
+            }
         }
         return false;
     }
