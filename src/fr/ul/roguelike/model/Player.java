@@ -103,7 +103,7 @@ public class Player {
      */
     public void receiveHit(int dmg){
         if(playerCharacter.getCombatState() != Hero.CombatState.DEAD && playerCharacter.getCombatState() != Hero.CombatState.BLOCKING){
-
+            getPlayerCharacter().setCombatState(Hero.CombatState.HIT);
             if (healthLeft - dmg > 0 && healthLeft - dmg < playerCharacter.getHp()) {
                 this.healthLeft -= dmg;
             } else if(healthLeft - dmg <= 0) {
