@@ -10,7 +10,7 @@ public class Warrior extends Hero {
 
 
     public Warrior() {
-        super(200,100,0.40f,0.01f,20,1,10f,5f); //Damage = 10
+        super(200,100,0.40f,20f,20,1,10f,5f); //Damage = 10
         nb_spell_slots = 2;
         Texture warriorSheet = new Texture("images/combat/warriorWalk.png");
         TextureRegion[][] tmp = TextureRegion.split(warriorSheet,warriorSheet.getWidth() / 3 , warriorSheet.getHeight());
@@ -25,6 +25,7 @@ public class Warrior extends Hero {
         animBlock = new Animation<Texture>(0.1f,loadFrames(4,"images/combat/Warrior/Block/HeroKnight_Block_"));
         animDead = new Animation<Texture>(0.1f,loadFrames(9,"images/combat/Warrior/Death/HeroKnight_Death_"));
         animIdle = new Animation<Texture>(0.1f,loadFrames(7,"images/combat/Warrior/Idle/HeroKnight_Idle_"));
+        animHit = new Animation<Texture>(0.1f,loadFrames(1,"images/combat/Warrior/Hit/HeroKnight_death_"));
 
         width = screenWidth/2.5f;
         height = screenHeight/2.5f;

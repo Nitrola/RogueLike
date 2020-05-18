@@ -6,7 +6,10 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.roguelike.model.Player;
 
+import java.util.Random;
+
 import static fr.ul.roguelike.RogueLike.screenWidth;
+import static fr.ul.roguelike.model.heros.Hero.CombatState.DEAD;
 
 public abstract class Hero {
     private int hp;
@@ -27,6 +30,7 @@ public abstract class Hero {
     public enum CombatState{
         ATTACKING,
         BLOCKING,
+        HIT,
         DEAD,
         IDLE,
         WIN
@@ -38,6 +42,7 @@ public abstract class Hero {
     Animation<Texture> animBlock;
     Animation<Texture> animAttack;
     Animation<Texture> animDead;
+    Animation<Texture> animHit;
     private float stateTime;
     private float animeTime;
 
@@ -114,12 +119,16 @@ public abstract class Hero {
             animeTime += Gdx.graphics.getDeltaTime();
             currentFrame = animDead.getKeyFrame(animeTime, false);
         }
+        if(combatState == CombatState.HIT) {
+            animeTime += Gdx.graphics.getDeltaTime();
+            currentFrame = animHit.getKeyFrame(animeTime, false);
+        }
 
         sb.draw(currentFrame,posX,posY,width , height);
     }
 
     public boolean shouldIdle(){
-        if( combatState != CombatState.IDLE && animAttack.isAnimationFinished(animeTime) && animBlock.isAnimationFinished(animeTime)){
+        if( combatState != CombatState.IDLE && animHit.isAnimationFinished(animeTime)){
             animeTime = 0.0f;
             return true;
         }
@@ -179,11 +188,31 @@ public abstract class Hero {
     }
 
     public float getPhysicalDmg(Player player) {
-        return physicalDmg + player.getPhysicalAttackBonus()/2;
+        float res = physicalDmg + player.getPhysicalAttackBonus()/2;
+        Random random = new Random();
+        int alea = random.nextInt(100);
+        if(alea < criticChance){
+            res *= 2;
+        }
+        return res;
     }
 
     public float getMagicalDmg(Player player) {
-        return magicalDmg + player.getMagicalAttackBonus()/2;
+        float res = magicalDmg + player.getMagicalAttackBonus()/2;
+        Random random = new Random();
+        int alea = random.nextInt(100);
+        if(alea < criticChance){
+            res *= 2;
+        }
+        return res;
+    }
+
+    public float getPhysicalDmgWithoutCrit(Player player) {
+        return physicalDmg + player.getPhysicalAttackBonus()/2;
+    }
+
+    public float getMagicalDmgWithoutCrit(Player player) {
+        return  magicalDmg + player.getMagicalAttackBonus()/2;
     }
 
     public float getPhysicalDef(Player player) {

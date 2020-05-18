@@ -250,8 +250,8 @@ public class InventoryMenu extends ScreenAdapter {
 
         labelHealthPotion.setText(player.getNbPotionHealth());
         labelManaPotion.setText(player.getNbPotionMana());
-        labelAttack.setText(Integer.toString((int) player.getPlayerCharacter().getPhysicalDmg(player)));
-        labelAttackMagic.setText(Integer.toString((int) player.getPlayerCharacter().getMagicalDmg(player)));
+        labelAttack.setText(Integer.toString((int) player.getPlayerCharacter().getPhysicalDmgWithoutCrit(player)));
+        labelAttackMagic.setText(Integer.toString((int) player.getPlayerCharacter().getMagicalDmgWithoutCrit(player)));
         labelDefense.setText(Integer.toString((int) player.getPlayerCharacter().getPhysicalDef(player)));
         labelDefenseMagic.setText(Integer.toString((int) player.getPlayerCharacter().getMagicalDef(player)));
         labelHealth.setText(Integer.toString((int) player.getPlayerCharacter().getHp()));

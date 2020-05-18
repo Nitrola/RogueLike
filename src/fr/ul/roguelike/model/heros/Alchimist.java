@@ -14,6 +14,7 @@ public class Alchimist extends Hero {
         animBlock = new Animation<Texture>(0.075f,loadFrames(13,"images/combat/Mage/Block/mage_block_"));
         animDead = new Animation<Texture>(0.1f,loadFrames(12,"images/combat/Alchimist/Death/alchimist_death_"));
         animIdle = new Animation<Texture>(0.1f,loadFrames(24,"images/combat/Alchimist/Idle/alchimist_idle_"));
+        animHit = new Animation<Texture>(0.1f,loadFrames(4,"images/combat/Alchimist/Hit/alchimist_death_"));
 
         width = screenWidth/2f;
         height = screenHeight/1.5f;

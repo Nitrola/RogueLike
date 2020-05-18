@@ -358,6 +358,7 @@ public class CombatMenu extends ScreenAdapter {
         if(!monsters.isEmpty()) {
             if (monsters.get(0).isDegat()) {
                 player.receiveHit((int) (monsters.get(0).getDamage(player)));
+                player.getPlayerCharacter().setCombatState(Hero.CombatState.HIT);
                 monsters.get(0).setDegat(false);
             }
         }
