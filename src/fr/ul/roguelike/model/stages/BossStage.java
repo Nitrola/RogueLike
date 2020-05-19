@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+import static fr.ul.roguelike.RogueLike.screenWidth;
+
 public class BossStage extends Stage {
 
     /**
@@ -14,7 +16,7 @@ public class BossStage extends Stage {
      */
     public BossStage(Vector2 pos){
         super(pos);
-        rayon = 100;
+        rayon = screenWidth/16;
         texture = new Texture(Gdx.files.internal("images/boss.png"));
         texturePassed = new Texture(Gdx.files.internal("images/skull_passed.png"));
         sprite = new Sprite(texture);
