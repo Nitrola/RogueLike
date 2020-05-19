@@ -49,7 +49,7 @@ public abstract class Hero {
     float width;
     float height;
 
-    private boolean inInventory, hasAttack, degat;
+    private boolean inInventory, hasAttack, degat, critic;
 
 
     /**
@@ -78,6 +78,7 @@ public abstract class Hero {
         inInventory = false;
         degat = false;
         hasAttack = false;
+        critic = false;
     }
 
     Texture[] loadFrames(int nb,String path){
@@ -206,6 +207,7 @@ public abstract class Hero {
         Random random = new Random();
         int alea = random.nextInt(100);
         if(alea < criticChance){
+            critic = true;
             res *= 2;
         }
         return res;
@@ -280,6 +282,14 @@ public abstract class Hero {
 
     public void setDegat(boolean degat) {
         this.degat = degat;
+    }
+
+    public boolean isCritic() {
+        return critic;
+    }
+
+    public void setCritic(boolean critic) {
+        this.critic = critic;
     }
 
     public abstract int getHitFrame();

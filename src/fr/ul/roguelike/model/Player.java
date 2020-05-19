@@ -168,8 +168,8 @@ public class Player {
      * Degat infligé au monstre
      */
     public float getDamage(Monster monster){
-        float physicalDamage = (float) (getPlayerCharacter().getPhysicalDmg(this) / (1+(Math.pow(monster.getPhysicalDef(),2))/100));
-        float magicalDamage = (float) (getPlayerCharacter().getMagicalDmg(this) / (1+(Math.pow(monster.getMagicalDef(),2))/100));
+        float physicalDamage = (float) (getPlayerCharacter().getPhysicalDmg(this) / (1+(Math.pow(monster.getPhysicalDef(), 2))/100));
+        float magicalDamage = (float) (getPlayerCharacter().getMagicalDmg(this) / (1+(Math.pow(monster.getMagicalDef(), 2))/100));
         return (float)((physicalDamage + magicalDamage)/(Math.sqrt(cpt)+(Math.log(cptStage))/10));
     }
 

@@ -53,7 +53,7 @@ public class CombatMenu extends ScreenAdapter {
     private Sprite healthPotion;
     private Texture lifeBarBackground;
     private Texture lifeBarMonsterBackground;
-    private Texture heart, mana;
+    private Texture heart, mana, critical;
     private TextureRegion heartRegion, manaRegion;
     private boolean ended;
 
@@ -168,6 +168,7 @@ public class CombatMenu extends ScreenAdapter {
         lifeBarMonsterBackground = new Texture("images/combat/lifeBar.png");
         heart = new Texture("images/combat/heart.png");
         mana = new Texture("images/combat/manapotion.png");
+        critical = new Texture("images/combat/coup_critique.png");
         heartRegion = new TextureRegion(heart,screenWidth/50,screenWidth/50);
         manaRegion = new TextureRegion(mana, screenWidth/50,screenWidth/50);
 
@@ -293,6 +294,9 @@ public class CombatMenu extends ScreenAdapter {
 
         sb.draw(background, 0, 0, screenWidth, screenHeight);
         player.getPlayerCharacter().draw(sb, screenWidth / 20f, screenHeight / 3f);
+        if(player.getPlayerCharacter().isCritic() && player.getPlayerCharacter().getCombatState() == Hero.CombatState.ATTACKING){
+            sb.draw(critical, screenWidth / 20f + player.getPlayerCharacter().getWidth()/2f, screenHeight / 3f + player.getPlayerCharacter().getHeight(), screenWidth / 30f, screenHeight/15f);
+        }
         sb.draw(lifeBarBackground, 0,screenHeight - screenHeight/14, screenWidth/3.125f, screenHeight/14); //Vie du heros
         sb.draw(lifeBarBackground, 0,screenHeight - screenHeight/7, screenWidth/3.125f, screenHeight/14); //Mana du heros
         sb.draw(lifeBarBackground, screenWidth - monsters.get(0).getHp()*screenWidth/400f - screenWidth/800f, screenHeight - screenHeight/14,monsters.get(0).getHp()*screenWidth/400f + screenWidth/800f , screenHeight/14); //Vie du monstre
