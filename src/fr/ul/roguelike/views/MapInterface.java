@@ -65,7 +65,7 @@ public class MapInterface extends ScreenAdapter implements InputProcessor {
 
         listeStages = new ArrayList<>();
         mapGenerated = new ArrayList<>();
-        for(int i=0; i<2; i++){
+        for(int i=0; i<3; i++){
             mapGenerated.add(i);
         }
         generateMap();
@@ -265,6 +265,36 @@ public class MapInterface extends ScreenAdapter implements InputProcessor {
                 tampon.getLeftStage().getUniqueStage().setRightStage(tamponD.getUniqueStage());
 
                 createUniqueStage(tamponD.getUniqueStage());
+                break;
+            case 2:
+                createUniqueStage(stage);
+                createRightStage(stage.getUniqueStage());
+                createUniqueStage(stage.getUniqueStage());
+                createLeftStage(stage.getUniqueStage());
+                createUniqueStage(stage.getUniqueStage().getRightStage());
+                createUniqueStage(stage.getUniqueStage().getUniqueStage());
+                createUniqueStage(stage.getUniqueStage().getLeftStage());
+                createUniqueStage(stage.getUniqueStage().getRightStage().getUniqueStage());
+                createUniqueStage(stage.getUniqueStage().getUniqueStage().getUniqueStage());
+                createUniqueStage(stage.getUniqueStage().getLeftStage().getUniqueStage());
+                createUniqueStage(stage.getUniqueStage().getUniqueStage().getUniqueStage().getUniqueStage());
+                tampon = stage.getUniqueStage().getUniqueStage().getUniqueStage().getUniqueStage().getUniqueStage();
+                createLeftStage(stage.getLeftStage());
+                createRightStage(stage.getRightStage());
+                createLeftStage(stage.getLeftStage().getLeftStage());
+                stage.getRightStage().getRightStage().setLeftStage(stage.getUniqueStage().getRightStage().getUniqueStage());
+                createRightStage(stage.getRightStage().getRightStage());
+                createUniqueStage(stage.getLeftStage().getLeftStage().getLeftStage());
+                createUniqueStage(stage.getRightStage().getRightStage().getRightStage());
+                stage.getRightStage().getRightStage().getRightStage().getUniqueStage().setUniqueStage(tampon);
+                stage.getLeftStage().getLeftStage().getLeftStage().getUniqueStage().setUniqueStage(tampon);
+                stage.getRightStage().getRightStage().getRightStage().getUniqueStage().setUniqueStage(tampon);
+                stage.getUniqueStage().getLeftStage().getUniqueStage().getUniqueStage().setUniqueStage(tampon);
+                stage.getUniqueStage().getRightStage().getUniqueStage().getUniqueStage().setUniqueStage(tampon);
+                createUniqueStage(tampon);
+                createUniqueStage(tampon.getUniqueStage());
+                stage.getLeftStage().getLeftStage().getLeftStage().setRightStage(stage.getUniqueStage().getLeftStage().getUniqueStage().getUniqueStage());
+                stage.getUniqueStage().getLeftStage().getUniqueStage().setRightStage(stage.getUniqueStage().getUniqueStage().getUniqueStage().getUniqueStage());
                 break;
 
         }
