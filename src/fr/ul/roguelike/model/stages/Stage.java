@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+import static fr.ul.roguelike.RogueLike.screenWidth;
+
 public abstract class Stage {
 
 
@@ -12,7 +14,7 @@ public abstract class Stage {
     protected Texture texture;
     protected Texture texturePassed;
     protected Vector2 position;
-    protected int rayon = 30;
+    protected int rayon = screenWidth/45;
     protected boolean passed;
     protected boolean actual;
     protected int coeff = 2;
