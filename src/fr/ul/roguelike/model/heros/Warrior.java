@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import fr.ul.roguelike.views.MainMenu;
+
 import static fr.ul.roguelike.RogueLike.screenWidth;
 import static fr.ul.roguelike.RogueLike.screenHeight;
 import static fr.ul.roguelike.model.heros.Hero.CombatState.*;
@@ -53,6 +55,9 @@ public class Warrior extends Hero {
             if(animAttack.getKeyFrameIndex(animeTime) == getHitFrame(animAttack) && !hasAttack){
                 degat = true;
                 hasAttack = true;
+                if (MainMenu.player.getManaLeft() > 15){
+                    MainMenu.player.useMana(15);
+                }
             }
         }
 

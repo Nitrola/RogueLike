@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.roguelike.model.Player;
+import fr.ul.roguelike.views.MainMenu;
 
 import java.util.Random;
 
@@ -102,6 +103,9 @@ public abstract class Hero {
             if(animAttack.getKeyFrameIndex(animeTime) == getHitFrame() && !hasAttack){
                 degat = true;
                 hasAttack = true;
+                if (MainMenu.player.getManaLeft() > 15){
+                    MainMenu.player.useMana(15);
+                }
             }
         }
 

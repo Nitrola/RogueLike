@@ -140,8 +140,6 @@ public class Player {
         if(playerCharacter.getCombatState() != Hero.CombatState.DEAD) {
             if (manaLeft > manaUsed) {
                 manaLeft -= manaUsed;
-                playerCharacter.setCombatState(Hero.CombatState.ATTACKING);
-                playerCharacter.setAnimeTime(0.0f);
             }
             else {
                 manaLeft = 0.0f;

@@ -50,9 +50,8 @@ public class CombatController {
                         }
                     }
                 }
-                if (player.getManaLeft() > 15){
-                    player.useMana(15);
-                }
+                player.getPlayerCharacter().setCombatState(Hero.CombatState.ATTACKING);
+                player.getPlayerCharacter().setAnimeTime(0.0f);
             }
 
             //Le joueur bloque
