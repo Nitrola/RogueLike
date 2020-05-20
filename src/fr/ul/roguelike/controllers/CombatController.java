@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
 import fr.ul.roguelike.model.heros.Hero;
+import fr.ul.roguelike.model.heros.Warrior;
 import fr.ul.roguelike.model.monsters.Monster;
 import fr.ul.roguelike.model.Player;
 
@@ -33,6 +34,9 @@ public class CombatController {
             int posY = screenHeight - Gdx.input.getY();
 
             //Le joueur attaque
+            if(attack.contains(posX, posY) && !monsters.isEmpty() && player.getPlayerCharacter() instanceof Warrior){
+                ((Warrior) player.getPlayerCharacter()).changeAttack();
+            }
             if (attack.contains(posX, posY) && !monsters.isEmpty() && player.getPlayerCharacter().getCombatState() != Hero.CombatState.ATTACKING) {
                 if(monsters.get(0).getCurrentHp() > 0) {
                     if (!monsters.get(0).isBlocking()) {
@@ -41,7 +45,7 @@ public class CombatController {
                         float res = monsters.get(0).getTimeSincePreviousAttack() - monsters.get(0).getAttackSpeed()/2;
                         if(res <= 0){
                             monsters.get(0).updateLastAttackTimer(0);
-                        }else {
+                        }else{
                             monsters.get(0).updateLastAttackTimer(res);
                         }
                     }
