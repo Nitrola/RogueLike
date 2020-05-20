@@ -1,5 +1,6 @@
 package fr.ul.roguelike.model;
 
+import fr.ul.roguelike.model.heros.Alchimist;
 import fr.ul.roguelike.model.heros.Hero;
 import fr.ul.roguelike.model.heros.Warrior;
 import fr.ul.roguelike.model.items.equipments.Equipement;
@@ -102,7 +103,19 @@ public class Player {
      * Inflige des damages au personnage
      */
     public void receiveHit(int dmg){
-        if(playerCharacter.getCombatState() != Hero.CombatState.DEAD && playerCharacter.getCombatState() != Hero.CombatState.BLOCKING){
+        if(playerCharacter instanceof Alchimist) {
+            if(playerCharacter.getCombatState() != Hero.CombatState.DEAD && !((Alchimist) playerCharacter).isWall()){
+                getPlayerCharacter().setCombatState(Hero.CombatState.HIT);
+                if (healthLeft - dmg > 0 && healthLeft - dmg < playerCharacter.getHp()) {
+                    this.healthLeft -= dmg;
+                } else if(healthLeft - dmg <= 0) {
+                    healthLeft = 0;
+                }
+                else if(healthLeft - dmg >= playerCharacter.getHp()){
+                    healthLeft = playerCharacter.getHp();
+                }
+            }
+        }else if(playerCharacter.getCombatState() != Hero.CombatState.DEAD && playerCharacter.getCombatState() != Hero.CombatState.BLOCKING){
             getPlayerCharacter().setCombatState(Hero.CombatState.HIT);
             if (healthLeft - dmg > 0 && healthLeft - dmg < playerCharacter.getHp()) {
                 this.healthLeft -= dmg;

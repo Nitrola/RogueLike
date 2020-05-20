@@ -19,7 +19,7 @@ public abstract class Hero {
 
     private int physicalDmg;
     private int magicalDmg;
-    private float posX, posY;
+    protected float posX, posY;
 
     //ranged from 0 to 1
     private float physicalDef;
@@ -36,20 +36,20 @@ public abstract class Hero {
         WIN
     }
 
-    private CombatState combatState;
+    protected CombatState combatState;
 
     Animation<Texture> animIdle;
     Animation<Texture> animBlock;
     Animation<Texture> animAttack;
     Animation<Texture> animDead;
     Animation<Texture> animHit;
-    private float stateTime;
-    private float animeTime;
+    protected float stateTime;
+    protected float animeTime;
 
     float width;
     float height;
 
-    private boolean inInventory, hasAttack, degat, critic;
+    protected boolean inInventory, hasAttack, degat, critic;
 
 
     /**
@@ -97,10 +97,6 @@ public abstract class Hero {
         Texture currentFrame = new Texture("images/combat/Def.png");
 
         if(combatState == CombatState.ATTACKING) {
-            //CECI EST DU BRICOLAGE
-            if(this instanceof Alchimist) {
-                posX += screenWidth/17f;
-            }
             animeTime += Gdx.graphics.getDeltaTime();
             currentFrame = animAttack.getKeyFrame(animeTime, false);
             if(animAttack.getKeyFrameIndex(animeTime) == getHitFrame() && !hasAttack){
