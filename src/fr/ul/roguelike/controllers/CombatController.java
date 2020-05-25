@@ -7,6 +7,7 @@ import fr.ul.roguelike.model.heros.Hero;
 import fr.ul.roguelike.model.heros.Warrior;
 import fr.ul.roguelike.model.monsters.Monster;
 import fr.ul.roguelike.model.Player;
+import fr.ul.roguelike.views.MainMenu;
 
 import static fr.ul.roguelike.RogueLike.screenHeight;
 
@@ -56,8 +57,8 @@ public class CombatController {
 
             //Le joueur bloque
             if (block.contains(posX, posY) && player.getPlayerCharacter().getCombatState() != Hero.CombatState.BLOCKING) {
-                if(player.getManaLeft() > 10) {
-                    player.useMana(10);
+                if(player.getManaLeft() > player.getPlayerCharacter().getBlockCost()) {
+                    player.useMana(MainMenu.player.getPlayerCharacter().getBlockCost());
                     player.parry();
                 }
             }

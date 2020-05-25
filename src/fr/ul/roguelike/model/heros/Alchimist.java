@@ -14,15 +14,15 @@ public class Alchimist extends Hero {
     private boolean wall = false;
 
     public Alchimist() {
-        super(100,100,1f,0.01f,10,1,0.5f,0.5f);
+        super(175,100,0.20f,0.20f,10,17,7.5f,7.5f);
         nb_spell_slots = 2;
 
-        animAttack = new Animation<Texture>(0.075f,loadFrames(36,"images/combat/Alchimist/Attack/alchimist_attack_"));
-        animBlock = new Animation<Texture>(0.065f,loadFrames(36,"images/combat/Alchimist/Attack/alchimist_attack_"));
+        animAttack = new Animation<Texture>(0.0675f,loadFrames(29,"images/combat/Alchimist/Attack/alchimist_attack_"));
+        animBlock = new Animation<Texture>(0.0625f,loadFrames(36,"images/combat/Alchimist/Attack/alchimist_attack_"));
         animDead = new Animation<Texture>(0.1f,loadFrames(12,"images/combat/Alchimist/Death/alchimist_death_"));
         animIdle = new Animation<Texture>(0.1f,loadFrames(24,"images/combat/Alchimist/Idle/alchimist_idle_"));
         animHit = new Animation<Texture>(0.1f,loadFrames(4,"images/combat/Alchimist/Hit/alchimist_death_"));
-        animWall = new Animation<Texture>(0.1f,loadFrames(30,"images/combat/Alchimist/Icewall/icewall_"));
+        animWall = new Animation<Texture>(0.12f,loadFrames(30,"images/combat/Alchimist/Icewall/icewall_"));
 
         width = screenWidth/2f;
         height = screenHeight/1.5f;
@@ -78,6 +78,16 @@ public class Alchimist extends Hero {
                 blockTime = 0;
             }
         }
+    }
+
+    @Override
+    public int getAttackCost() {
+        return 20;
+    }
+
+    @Override
+    public int getBlockCost() {
+        return 15;
     }
 
     @Override

@@ -55,8 +55,8 @@ public class Warrior extends Hero {
             if(animAttack.getKeyFrameIndex(animeTime) == getHitFrame(animAttack) && !hasAttack){
                 degat = true;
                 hasAttack = true;
-                if (MainMenu.player.getManaLeft() > 15){
-                    MainMenu.player.useMana(15);
+                if (MainMenu.player.getManaLeft() > MainMenu.player.getPlayerCharacter().getAttackCost()){
+                    MainMenu.player.useMana(MainMenu.player.getPlayerCharacter().getAttackCost());
                 }
             }
         }
@@ -81,6 +81,16 @@ public class Warrior extends Hero {
         }
 
         sb.draw(currentFrame, posX, posY, width, height);
+    }
+
+    @Override
+    public int getAttackCost() {
+        return 15;
+    }
+
+    @Override
+    public int getBlockCost() {
+        return 10;
     }
 
     @Override

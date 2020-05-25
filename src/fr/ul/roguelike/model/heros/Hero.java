@@ -104,8 +104,8 @@ public abstract class Hero {
             if(animAttack.getKeyFrameIndex(animeTime) == getHitFrame() && !hasAttack){
                 degat = true;
                 hasAttack = true;
-                if (MainMenu.player.getManaLeft() > 15){
-                    MainMenu.player.useMana(15);
+                if (MainMenu.player.getManaLeft() > MainMenu.player.getPlayerCharacter().getAttackCost()){
+                    MainMenu.player.useMana(MainMenu.player.getPlayerCharacter().getAttackCost());
                 }
             }
         }
@@ -129,10 +129,14 @@ public abstract class Hero {
         sb.draw(currentFrame,posX,posY,width , height);
     }
 
+    public abstract int getAttackCost();
+    public abstract int getBlockCost();
+
     public boolean shouldIdle(){
         if( combatState != CombatState.IDLE){
             if(combatState == ATTACKING && animAttack.isAnimationFinished(animeTime)) {
                 animeTime = 0.0f;
+                critic = false;
                 return true;
             }
             if(combatState == BLOCKING && animBlock.isAnimationFinished(animeTime)) {
