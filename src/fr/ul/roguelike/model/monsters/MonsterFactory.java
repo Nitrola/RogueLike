@@ -1,6 +1,8 @@
 package fr.ul.roguelike.model.monsters;
 
 import fr.ul.roguelike.model.monsters.bosses.Arachnoide;
+import fr.ul.roguelike.model.monsters.bosses.FinalBossOne;
+import fr.ul.roguelike.model.monsters.bosses.FinalBossTwo;
 import fr.ul.roguelike.model.monsters.bosses.Griffin;
 import fr.ul.roguelike.model.monsters.bosses.miniBosses.Hyppogriff;
 import fr.ul.roguelike.model.monsters.bosses.miniBosses.Jose;
@@ -55,6 +57,12 @@ public class MonsterFactory {
         }
         if(monsterName.equals("orcarcher")){
             return new OrcArcher(100, 0, 3f, 0, 10, 10, 10f, 10f);
+        }
+        if(monsterName.equals("finalbossone")){
+            return new FinalBossOne(100, 0, 6f, 0, 10, 10, 10f, 10f, 0);
+        }
+        if(monsterName.equals("finalbosstwo")){
+            return new FinalBossTwo(200, 0, 5f, 0.0f, 50, 0, 15f, 50f, 0);
         }
             return null;
     }

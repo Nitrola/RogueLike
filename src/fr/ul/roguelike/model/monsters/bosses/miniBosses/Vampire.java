@@ -89,7 +89,7 @@ public class Vampire extends MiniBoss {
         update();
     }
 
-    private void update(){
+    public void update(){
         boolean res = shouldIdle();
         if(res && combatState == DEAD){
             combatState = Hero.CombatState.WIN;

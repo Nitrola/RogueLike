@@ -20,6 +20,8 @@ import fr.ul.roguelike.model.monsters.bosses.Boss;
 import fr.ul.roguelike.model.monsters.Monster;
 import fr.ul.roguelike.model.monsters.MonsterFactory;
 import fr.ul.roguelike.model.Player;
+import fr.ul.roguelike.model.monsters.bosses.FinalBossOne;
+import fr.ul.roguelike.model.monsters.bosses.FinalBossTwo;
 import fr.ul.roguelike.model.stages.CombatStage;
 import fr.ul.roguelike.model.stages.MiniBossStage;
 import fr.ul.roguelike.model.stages.Stage;
@@ -143,8 +145,12 @@ public class CombatMenu extends ScreenAdapter {
         }else{
             if(player.getCpt() == 1){
                 monsters.add(MonsterFactory.create("griffin"));
-            }if(player.getCpt() == 2){
+            }
+            if(player.getCpt() == 2){
                 monsters.add(MonsterFactory.create("arachnoide"));
+            }
+            if(player.getCpt() == 3){
+                monsters.add(MonsterFactory.create("finalbossone"));
             }
         }
     }
@@ -387,6 +393,12 @@ public class CombatMenu extends ScreenAdapter {
             player.getPlayerCharacter().setDegat(false);
             if (monsters.get(0).getCurrentHp() <= 0 && monsters.get(0).getCombatState() != Hero.CombatState.DEAD) {
                 monsters.get(0).setCombatState(Hero.CombatState.DEAD);
+            }
+        }
+        if(!monsters.isEmpty() && monsters.get(0) instanceof FinalBossOne){
+            if(monsters.get(0).getCombatState() == Hero.CombatState.RESSURECTING){
+                monsters.remove(0);
+                monsters.add(MonsterFactory.create("finalbosstwo"));
             }
         }
     }

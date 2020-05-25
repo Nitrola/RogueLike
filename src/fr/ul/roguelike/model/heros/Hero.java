@@ -34,6 +34,7 @@ public abstract class Hero {
         HIT,
         DEAD,
         IDLE,
+        RESSURECTING,
         WIN
     }
 
