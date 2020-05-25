@@ -301,7 +301,7 @@ public class CombatMenu extends ScreenAdapter {
         sb.draw(background, 0, 0, screenWidth, screenHeight);
         player.getPlayerCharacter().draw(sb, screenWidth / 20f, screenHeight / 3f);
         if(player.getPlayerCharacter().isCritic() && player.getPlayerCharacter().getCombatState() == Hero.CombatState.ATTACKING){
-            sb.draw(critical, screenWidth / 20f + player.getPlayerCharacter().getWidth()/2f, screenHeight / 3f + player.getPlayerCharacter().getHeight(), screenWidth / 30f, screenHeight/15f);
+            sb.draw(critical, screenWidth / 3.5f, screenHeight / 1.5f, screenWidth / 30f, screenHeight/15f);
         }
         sb.draw(lifeBarBackground, 0,screenHeight - screenHeight/14, screenWidth/3.125f, screenHeight/14); //Vie du heros
         sb.draw(lifeBarBackground, 0,screenHeight - screenHeight/7, screenWidth/3.125f, screenHeight/14); //Mana du heros
