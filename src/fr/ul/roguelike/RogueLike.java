@@ -32,7 +32,9 @@ public class RogueLike extends Game {
 
     public void changeScreen(){
         MainMenu mainMenu = new MainMenu(this);
+        MainMenu.music.stop();
         setScreen(mainMenu);
+
     }
 
 	@Override

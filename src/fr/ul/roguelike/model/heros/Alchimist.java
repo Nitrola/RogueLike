@@ -14,7 +14,7 @@ public class Alchimist extends Hero {
     private boolean wall = false;
 
     public Alchimist() {
-        super(175,100,0.20f,0.20f,10,17,7.5f,7.5f);
+        super(175,100,0.20f,0.20f,10,30,7.5f,7.5f);
         nb_spell_slots = 2;
 
         animAttack = new Animation<Texture>(0.0675f,loadFrames(29,"images/combat/Alchimist/Attack/alchimist_attack_"));

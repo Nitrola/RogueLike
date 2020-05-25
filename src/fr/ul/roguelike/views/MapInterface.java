@@ -372,6 +372,7 @@ public class MapInterface extends ScreenAdapter implements InputProcessor {
      * Change l'écran de jeu pour mettre la map
      */
     void setScreen() {
+        MainMenu.music.stop();
         rogueLike.setScreen(this);
         isClicking = false;
         Texture exit = new Texture(Gdx.files.internal("images/exit.png"));
@@ -449,7 +450,7 @@ public class MapInterface extends ScreenAdapter implements InputProcessor {
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         for (Stage stage: listeStages) {
-            if(stage.getSprite().getBoundingRectangle().contains(Gdx.input.getX(), screenHeight - Gdx.input.getY()) && actualStage.isNext(stage)){
+            if(stage.getSprite().getBoundingRectangle().contains(Gdx.input.getX(), screenHeight - Gdx.input.getY())){
                 if(!isClicking) {
                     isClicking = true;
                     if(stage instanceof ShopStage){

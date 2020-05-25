@@ -2,6 +2,7 @@ package fr.ul.roguelike.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -85,10 +86,12 @@ public class CombatMenu extends ScreenAdapter {
         player = p;
         player.resetMana();
         stage = s;
+        monsters = new ArrayList<>();
+        textureInit();
         createMonster();
 
         gen_monsters(p.getCurrentLevel());
-        textureInit();
+
     }
 
     private void gen_monsters(int playerLevel){
@@ -96,7 +99,6 @@ public class CombatMenu extends ScreenAdapter {
     }
 
     private void createMonster(){
-        monsters = new ArrayList<>();
         Random r = new Random();
         int randomMob = r.nextInt(8);
         int randomMiniBoss = r.nextInt(4);
@@ -143,6 +145,10 @@ public class CombatMenu extends ScreenAdapter {
                     break;
             }
         }else{
+            MainMenu.music = Gdx.audio.newMusic(Gdx.files.internal("sounds/boss.mp3"));
+            MainMenu.music.setVolume(0.3f);
+            MainMenu.music.play();
+            background = new Texture("images/combat/background_cave.png");
             if(player.getCpt() == 1){
                 monsters.add(MonsterFactory.create("griffin"));
             }
