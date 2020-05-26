@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import fr.ul.roguelike.views.MainMenu;
 
 import static fr.ul.roguelike.RogueLike.screenWidth;
 import static fr.ul.roguelike.RogueLike.screenHeight;
@@ -43,6 +44,9 @@ public class Alchimist extends Hero {
             if(animAttack.getKeyFrameIndex(animeTime) == getHitFrame() && !hasAttack){
                 degat = true;
                 hasAttack = true;
+                if (MainMenu.player.getManaLeft() > getAttackCost()){
+                    MainMenu.player.useMana(getAttackCost());
+                }
             }
         }
 

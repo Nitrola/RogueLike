@@ -102,6 +102,7 @@ public class CombatMenu extends ScreenAdapter {
         Random r = new Random();
         int randomMob = r.nextInt(8);
         int randomMiniBoss = r.nextInt(4);
+        //Combat de mob
         if(stage instanceof CombatStage){
             switch (randomMob) {
                 case 0 :
@@ -129,6 +130,7 @@ public class CombatMenu extends ScreenAdapter {
                     monsters.add(MonsterFactory.create("knight"));
                     break;
             }
+            //Combat de mini boss
         }else if(stage instanceof MiniBossStage){
             switch (randomMiniBoss) {
                 case 0:
@@ -144,9 +146,11 @@ public class CombatMenu extends ScreenAdapter {
                     monsters.add(MonsterFactory.create("vampire"));
                     break;
             }
+            //Combat de Boss
         }else{
             MainMenu.music = Gdx.audio.newMusic(Gdx.files.internal("sounds/boss.mp3"));
             MainMenu.music.setVolume(0.3f);
+            MainMenu.music.setLooping(true);
             MainMenu.music.play();
             background = new Texture("images/combat/background_cave.png");
             if(player.getCpt() == 1){
