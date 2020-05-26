@@ -18,7 +18,7 @@ public class Warrior extends Hero {
     private Animation<Texture> animAttack3;
 
     public Warrior() {
-        super(200,100,0.40f,100f,20,1,10f,5f); //Damage = 10
+        super(200,100,0.40f,20f,20,1,10f,5f); //Damage = 10
         nb_spell_slots = 2;
         Texture warriorSheet = new Texture("images/combat/warriorWalk.png");
         TextureRegion[][] tmp = TextureRegion.split(warriorSheet,warriorSheet.getWidth() / 3 , warriorSheet.getHeight());
@@ -40,6 +40,7 @@ public class Warrior extends Hero {
 
         width = screenWidth/2f;
         height = screenHeight/1.5f;
+        sound = Gdx.audio.newSound(Gdx.files.internal("sounds/warrior_attack.mp3"));
     }
 
     public void draw(SpriteBatch sb, float posX, float posY){
@@ -55,6 +56,7 @@ public class Warrior extends Hero {
             if(animAttack.getKeyFrameIndex(animeTime) == getHitFrame(animAttack) && !hasAttack){
                 degat = true;
                 hasAttack = true;
+                sound.play(0.3f);
                 if (MainMenu.player.getManaLeft() > MainMenu.player.getPlayerCharacter().getAttackCost()){
                     MainMenu.player.useMana(MainMenu.player.getPlayerCharacter().getAttackCost());
                 }

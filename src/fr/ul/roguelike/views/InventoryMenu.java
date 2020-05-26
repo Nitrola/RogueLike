@@ -3,6 +3,7 @@ package fr.ul.roguelike.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -204,6 +205,8 @@ public class InventoryMenu extends ScreenAdapter {
      */
     private void upgrade(Equipement equipement){
         equipement.getEquipement().upgrade();
+        Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/enclume.mp3"));
+        sound.play(0.3f);
         camp = false;
         player.getPlayerCharacter().setInInventory(false);
         mapInterface.setScreen();
