@@ -31,7 +31,7 @@ import fr.ul.roguelike.model.items.equipments.potions.ManaPotion;
 import fr.ul.roguelike.model.items.Item;
 import fr.ul.roguelike.model.Popup;
 import fr.ul.roguelike.model.items.equipments.weapons.*;
-import fr.ul.roguelike.model.items.runes.Stone;
+import fr.ul.roguelike.model.items.runes.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -66,8 +66,9 @@ public class ShopMenu extends ScreenAdapter {
         ArrayList<Item> items = new ArrayList<>();
         this.mapInterface = mapInterface;
 
-        items.add(new HealthPotion());
-        items.add(new ManaPotion());
+        //items.add(new HealthPotion());
+        //items.add(new ManaPotion());
+
         /*items.add(new Rune("sword",75, "Arme tranchante de corps à corps"));
         items.add(new Rune("bow",65, "Il est beau mon bow"));
         items.add(new Rune("shield",70, "Permet de se protéger"));
@@ -86,13 +87,19 @@ public class ShopMenu extends ScreenAdapter {
         items.add(new BaseBow());
         items.add(new HighMageMantel());
         items.add(new WaterStick());
-        items.add(new Casque());
+        /*items.add(new Casque());
         items.add(new Axe());
         items.add(new BowJakshir());
         items.add(new Chestplate());
-        items.add(new Mantle());
+        items.add(new Mantle());*/
         //Runes
-        items.add(new Stone());
+        /*items.add(new Stone());
+        items.add(new ProtectingStone());
+        items.add(new Talisman());
+        items.add(new Dumbbell());
+        items.add(new PhilosopherStone());
+        items.add(new Hourglass());*/
+        items.add(new Tooth());
 
 
         shop = new ArrayList<>();

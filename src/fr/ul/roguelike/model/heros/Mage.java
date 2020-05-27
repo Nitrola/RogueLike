@@ -1,5 +1,6 @@
 package fr.ul.roguelike.model.heros;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import static fr.ul.roguelike.RogueLike.screenWidth;
@@ -19,6 +20,7 @@ public class Mage extends Hero {
 
         width = screenWidth/2f;
         height = screenHeight/1.5f;
+        sound = Gdx.audio.newSound(Gdx.files.internal("sounds/mage_attack.mp3"));
     }
 
     @Override

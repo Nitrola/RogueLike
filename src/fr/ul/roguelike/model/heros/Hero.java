@@ -29,6 +29,8 @@ public abstract class Hero {
 
     int nb_spell_slots;
 
+    private boolean regen;
+
     public enum CombatState{
         ATTACKING,
         BLOCKING,
@@ -83,6 +85,7 @@ public abstract class Hero {
         degat = false;
         hasAttack = false;
         critic = false;
+        regen = false;
     }
 
     Texture[] loadFrames(int nb,String path){
@@ -166,6 +169,14 @@ public abstract class Hero {
             width = getWidth() * 1.5f;
             height = getHeight() * 1.5f;
         }
+    }
+
+    public boolean isRegen() {
+        return regen;
+    }
+
+    public void setRegen(boolean regen) {
+        this.regen = regen;
     }
 
     public boolean hasFinishedAttack() {

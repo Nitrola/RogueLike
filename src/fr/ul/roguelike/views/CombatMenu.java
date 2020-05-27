@@ -398,6 +398,9 @@ public class CombatMenu extends ScreenAdapter {
                 monsters.get(0).setDegat(false);
             }
         }
+        if(MainMenu.player.getPlayerCharacter().isDegat() && player.getPlayerCharacter().isRegen()){
+            MainMenu.player.heal((int)((player.getPlayerCharacter().getPhysicalDmg(player) + 2*player.getPlayerCharacter().getMagicalDmg(player))/10));
+        }
         if(player.getPlayerCharacter().isDegat()){
             monsters.get(0).receiveHit((int)(player.getDamage(monsters.get(0))));
             player.getPlayerCharacter().setDegat(false);
@@ -411,6 +414,7 @@ public class CombatMenu extends ScreenAdapter {
                 monsters.add(MonsterFactory.create("finalbosstwo"));
             }
         }
+
     }
 
     @Override
