@@ -40,6 +40,7 @@ public class Warrior extends Hero {
 
         width = screenWidth/2f;
         height = screenHeight/1.5f;
+        sound = Gdx.audio.newSound(Gdx.files.internal("sounds/warrior_attack.mp3"));
     }
 
     public void draw(SpriteBatch sb, float posX, float posY){
@@ -55,6 +56,7 @@ public class Warrior extends Hero {
             if(animAttack.getKeyFrameIndex(animeTime) == getHitFrame(animAttack) && !hasAttack){
                 degat = true;
                 hasAttack = true;
+                sound.play(0.3f);
                 if (MainMenu.player.getManaLeft() > MainMenu.player.getPlayerCharacter().getAttackCost()){
                     MainMenu.player.useMana(MainMenu.player.getPlayerCharacter().getAttackCost());
                 }

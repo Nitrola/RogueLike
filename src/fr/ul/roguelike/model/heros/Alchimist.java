@@ -27,6 +27,7 @@ public class Alchimist extends Hero {
 
         width = screenWidth/2f;
         height = screenHeight/1.5f;
+        sound = Gdx.audio.newSound(Gdx.files.internal("sounds/alchimist_attack.mp3"));
     }
 
     public void draw(SpriteBatch sb, float posX, float posY){
@@ -44,6 +45,7 @@ public class Alchimist extends Hero {
             if(animAttack.getKeyFrameIndex(animeTime) == getHitFrame() && !hasAttack){
                 degat = true;
                 hasAttack = true;
+                sound.play(0.3f);
                 if (MainMenu.player.getManaLeft() > getAttackCost()){
                     MainMenu.player.useMana(getAttackCost());
                 }
@@ -96,7 +98,7 @@ public class Alchimist extends Hero {
 
     @Override
     public int getHitFrame() {
-        return 22;
+        return 21;
     }
 
     public boolean isWall() {

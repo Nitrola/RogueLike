@@ -1,6 +1,7 @@
 package fr.ul.roguelike.model.heros;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -39,6 +40,7 @@ public abstract class Hero {
     }
 
     protected CombatState combatState;
+    protected Sound sound;
 
     Animation<Texture> animIdle;
     Animation<Texture> animBlock;
@@ -104,6 +106,7 @@ public abstract class Hero {
             if(animAttack.getKeyFrameIndex(animeTime) == getHitFrame() && !hasAttack){
                 degat = true;
                 hasAttack = true;
+                sound.play(0.3f);
                 if (MainMenu.player.getManaLeft() > MainMenu.player.getPlayerCharacter().getAttackCost()){
                     MainMenu.player.useMana(MainMenu.player.getPlayerCharacter().getAttackCost());
                 }
