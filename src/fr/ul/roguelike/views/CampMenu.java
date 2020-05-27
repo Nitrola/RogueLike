@@ -3,7 +3,6 @@ package fr.ul.roguelike.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -61,7 +60,7 @@ public class CampMenu extends ScreenAdapter {
         fond.setWidth(RogueLike.screenWidth);
         fond.setHeight(RogueLike.screenHeight);
         stage.addActor(fond);
-        animation = new Animation<Texture>(0.1f, loadFrames(8,"images/Fire/fire_"));
+        animation = new Animation<>(0.1f, loadFrames(8,"images/Fire/fire_"));
         sprite = new Sprite();
         int buttonWidth = (int)(screenWidth/8f);
         int buttonHeight = (int)(screenHeight/4.5f);
@@ -136,8 +135,8 @@ public class CampMenu extends ScreenAdapter {
     private void drawLifeBars(){
 
         sb.begin();
-        sb.draw(lifeBarBackground, 0,screenHeight - screenHeight/14, screenWidth/3.125f, screenHeight/14); //Vie du heros
-        sb.draw(lifeBarBackground, 0,screenHeight - screenHeight/7, screenWidth/3.125f, screenHeight/14); //Mana du heros
+        sb.draw(lifeBarBackground, 0,screenHeight - screenHeight/14f, screenWidth/3.125f, screenHeight/14f); //Vie du heros
+        sb.draw(lifeBarBackground, 0,screenHeight - screenHeight/7f, screenWidth/3.125f, screenHeight/14f); //Mana du heros
         sb.end();
 
         //player life bar

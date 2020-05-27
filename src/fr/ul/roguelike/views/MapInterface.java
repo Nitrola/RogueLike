@@ -36,7 +36,7 @@ public class MapInterface extends ScreenAdapter implements InputProcessor {
     private Stage actualStage;
 
     private com.badlogic.gdx.scenes.scene2d.Stage stage;
-    private boolean isClicking, print;
+    private boolean isClicking;
     private int coeff = screenWidth/16;
     private ArrayList<Integer> mapGenerated;
 
@@ -169,7 +169,7 @@ public class MapInterface extends ScreenAdapter implements InputProcessor {
     /**
      * Appelle les fonctions qui génère l'arbre
      */
-    public void generateMap(){
+    void generateMap(){
         listeStages.clear();
         int x = screenWidth / 8;
         int y = screenHeight / 2;
@@ -396,7 +396,7 @@ public class MapInterface extends ScreenAdapter implements InputProcessor {
     ///////Getters and Setters///////
     /////////////////////////////////
 
-    public RogueLike getRogueLike() {
+    RogueLike getRogueLike() {
         return rogueLike;
     }
 
@@ -412,7 +412,7 @@ public class MapInterface extends ScreenAdapter implements InputProcessor {
         return actualStage instanceof BossStage;
     }
 
-    public boolean isEnded(){
+    boolean isEnded(){
         boolean res = false;
         if(mapGenerated.isEmpty()){
             res = true;
@@ -420,7 +420,7 @@ public class MapInterface extends ScreenAdapter implements InputProcessor {
         return res;
     }
 
-    public void setInputProcessor() {
+    void setInputProcessor() {
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(stage);
         inputMultiplexer.addProcessor(this);
@@ -460,7 +460,6 @@ public class MapInterface extends ScreenAdapter implements InputProcessor {
                     }else if(stage instanceof CampStage){
                         rogueLike.setScreen(new CampMenu(this));
                     }else if(stage instanceof MiniBossStage){
-                        //TODO faire combat plus dur
                         rogueLike.setScreen(new CombatMenu(player, this, stage));
                     }else if(stage instanceof BossStage){
                         rogueLike.setScreen(new CombatMenu(player, this, stage));

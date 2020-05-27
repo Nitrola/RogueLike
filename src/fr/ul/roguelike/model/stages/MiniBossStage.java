@@ -10,7 +10,6 @@ public class MiniBossStage extends Stage {
 
     /**
      * Creer un stage de mini Boss
-     * @param pos
      */
     public MiniBossStage(Vector2 pos){
         super(pos);

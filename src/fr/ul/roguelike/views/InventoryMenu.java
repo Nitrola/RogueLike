@@ -140,11 +140,11 @@ public class InventoryMenu extends ScreenAdapter {
         Texture manaPotion, potion;
         manaPotion = new Texture("images/combat/manapotion.png");
         potion = new Texture("images/combat/potion.png");
-        potionTable.add(new Image(potion)).width(2*screenWidth/50).height(2*screenHeight/28.125f);
+        potionTable.add(new Image(potion)).width(2*screenWidth/50f).height(2*screenHeight/28.125f);
         potionTable.add(labelHealthPotion = new Label(Integer.toString(player.getNbPotionHealth()),new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
 
 
-        potionTable.add(new Image(manaPotion)).width(2*screenWidth/50).height(2*screenHeight/28.125f);
+        potionTable.add(new Image(manaPotion)).width(2*screenWidth/50f).height(2*screenHeight/28.125f);
         potionTable.add(labelManaPotion = new Label(Integer.toString(player.getNbPotionMana()),new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
 
         potionTable.setPosition(screenWidth*0.87f,screenHeight*0.96f);
@@ -161,7 +161,7 @@ public class InventoryMenu extends ScreenAdapter {
         statsTable.add(labelAttackMagic = new Label(Integer.toString((int) player.getPlayerCharacter().getMagicalDmg(player)), new Label.LabelStyle(new BitmapFont(), Color.RED))).width(screenWidth/20f);
         //Points de vie
         statsTable.add(new Image(textureHealth)).width(screenWidth/18f).height(screenHeight/10f).pad(screenWidth/60f);
-        statsTable.add(labelHealth = new Label(Integer.toString((int) player.getPlayerCharacter().getHp()), new Label.LabelStyle(new BitmapFont(), Color.RED))).width(screenWidth/20f).width(screenWidth/20f);
+        statsTable.add(labelHealth = new Label(Integer.toString(player.getPlayerCharacter().getHp()), new Label.LabelStyle(new BitmapFont(), Color.RED))).width(screenWidth/20f).width(screenWidth/20f);
 
         statsTable.row().height(screenHeight/20f);
         //Defense
@@ -172,7 +172,7 @@ public class InventoryMenu extends ScreenAdapter {
         statsTable.add(labelDefenseMagic = new Label(Integer.toString((int) player.getPlayerCharacter().getMagicalDef(player)), new Label.LabelStyle(new BitmapFont(), Color.RED))).width(screenWidth/20f);
         //Mana
         statsTable.add(new Image(textureMana)).width(screenWidth/18f).height(screenHeight/6f).pad(screenWidth/60f);
-        statsTable.add(labelMana = new Label(Integer.toString((int) player.getPlayerCharacter().getMana()), new Label.LabelStyle(new BitmapFont(), Color.RED))).width(screenWidth/20f).width(screenWidth/20f);
+        statsTable.add(labelMana = new Label(Integer.toString(player.getPlayerCharacter().getMana()), new Label.LabelStyle(new BitmapFont(), Color.RED))).width(screenWidth/20f).width(screenWidth/20f);
 
         //Bouton Exit
         Texture exit = new Texture(Gdx.files.internal("images/exit.png"));
@@ -257,8 +257,8 @@ public class InventoryMenu extends ScreenAdapter {
         labelAttackMagic.setText(Integer.toString((int) player.getPlayerCharacter().getMagicalDmgWithoutCrit(player)));
         labelDefense.setText(Integer.toString((int) player.getPlayerCharacter().getPhysicalDef(player)));
         labelDefenseMagic.setText(Integer.toString((int) player.getPlayerCharacter().getMagicalDef(player)));
-        labelHealth.setText(Integer.toString((int) player.getPlayerCharacter().getHp()));
-        labelMana.setText(Integer.toString((int) player.getPlayerCharacter().getMana()));
+        labelHealth.setText(Integer.toString(player.getPlayerCharacter().getHp()));
+        labelMana.setText(Integer.toString(player.getPlayerCharacter().getMana()));
         spriteBatch.end();
 
         stage.draw();

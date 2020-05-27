@@ -22,7 +22,6 @@ public class CombatStage extends Stage {
 
     /**
      * Affiche le SpriteBatch
-     * @param spriteBatch
      */
     public void draw(SpriteBatch spriteBatch){
         if(passed) {

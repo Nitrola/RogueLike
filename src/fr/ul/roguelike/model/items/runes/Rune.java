@@ -34,6 +34,7 @@ public abstract class Rune extends Item {
     public float getHp() {
         return hp;
     }
+
     public void setHp(float hp) {
         this.hp = hp;
     }

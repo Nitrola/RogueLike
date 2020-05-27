@@ -10,7 +10,6 @@ import fr.ul.roguelike.views.MainMenu;
 
 import java.util.Random;
 
-import static fr.ul.roguelike.RogueLike.screenWidth;
 import static fr.ul.roguelike.model.heros.Hero.CombatState.*;
 
 public abstract class Hero {
@@ -40,7 +39,7 @@ public abstract class Hero {
     }
 
     protected CombatState combatState;
-    protected Sound sound;
+    Sound sound;
 
     Animation<Texture> animIdle;
     Animation<Texture> animBlock;
@@ -53,7 +52,8 @@ public abstract class Hero {
     float width;
     float height;
 
-    protected boolean inInventory, hasAttack, degat, critic;
+    protected boolean hasAttack, degat;
+    private boolean inInventory, critic;
 
 
     /**
@@ -168,10 +168,6 @@ public abstract class Hero {
         }
     }
 
-    public boolean hasFinishedAttack() {
-        return animAttack.isAnimationFinished(animeTime);
-    }
-
     public void setAnimeTime(float animeTime) {
         this.animeTime = animeTime;
     }
@@ -271,10 +267,6 @@ public abstract class Hero {
         return height;
     }
 
-    public boolean isInInventory() {
-        return inInventory;
-    }
-
     public void setInInventory(boolean inInventory) {
         this.inInventory = inInventory;
         changeSize();
@@ -294,10 +286,6 @@ public abstract class Hero {
 
     public boolean isCritic() {
         return critic;
-    }
-
-    public void setCritic(boolean critic) {
-        this.critic = critic;
     }
 
     public abstract int getHitFrame();
