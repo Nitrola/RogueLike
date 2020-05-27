@@ -66,7 +66,7 @@ public class CombatController {
             //Le joueur prend une potion de soin
             if (healthPotion.contains(posX, posY)) {
                 if(player.getNbPotionHealth() > 0) {
-                    player.heal(10);
+                    player.heal(50);
                     player.usePotionHealth();
                 }
             }
@@ -74,7 +74,7 @@ public class CombatController {
             //Le joueur prend une potion de mana
             if (manaPotion.contains(posX, posY)) {
                 if(player.getNbPotionMana() > 0) {
-                    player.regenMana(10f);
+                    player.regenMana(15f);
                     player.usePotionMana();
                 }
             }

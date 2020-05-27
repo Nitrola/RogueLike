@@ -10,7 +10,7 @@ public class BowJakshir extends Equipement {
      */
     public BowJakshir() {
         super("Bow Jakshir", 75,"a bow abracadabrantesque");
-        equipement = new EquipementStats(5, 0, 0, 0);
+        equipement = new EquipementStats(12, 1, -1, -1);
         texture = new Texture("images/equipment/bowJakshir.png");
         equipementType = EquipementType.WEAPON;
     }

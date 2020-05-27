@@ -18,7 +18,7 @@ public class Warrior extends Hero {
     private Animation<Texture> animAttack3;
 
     public Warrior() {
-        super(200,100,0.40f,100f,20,1,10f,5f); //Damage = 10
+        super(200,100,0.40f,20f,20,1,10f,5f); //Damage = 10
         nb_spell_slots = 2;
         Texture warriorSheet = new Texture("images/combat/warriorWalk.png");
         TextureRegion[][] tmp = TextureRegion.split(warriorSheet,warriorSheet.getWidth() / 3 , warriorSheet.getHeight());

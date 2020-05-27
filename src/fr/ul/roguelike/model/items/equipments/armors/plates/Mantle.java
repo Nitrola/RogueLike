@@ -7,8 +7,8 @@ import fr.ul.roguelike.model.items.equipments.EquipementStats;
 public class Mantle extends Equipement {
 
     public Mantle() {
-        super("Mantle", 10,"You're a wizard with that");
-        equipement = new EquipementStats(0,0,1f,10f);
+        super("Mantle", 37,"You're a wizard with that");
+        equipement = new EquipementStats(0,0,1f,4f);
         texture = new Texture("images/equipment/mantle.png");
         equipementType = EquipementType.PLATE;
     }

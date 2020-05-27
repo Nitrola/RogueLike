@@ -11,7 +11,7 @@ public class Chestplate extends Equipement {
      */
     public Chestplate() {
         super("Chestplate", 40,"???");
-        equipement = new EquipementStats(0,0,15f,1f);
+        equipement = new EquipementStats(0,0,4f,1f);
         texture = new Texture("images/equipment/chestplate.png");
         equipementType = EquipementType.PLATE;
     }
