@@ -10,17 +10,17 @@ import static fr.ul.roguelike.RogueLike.screenWidth;
 public abstract class Stage {
 
 
-    protected Sprite sprite;
+    Sprite sprite;
     protected Texture texture;
-    protected Texture texturePassed;
-    protected Vector2 position;
-    protected int rayon = screenWidth/45;
-    protected boolean passed;
-    protected boolean actual;
-    protected int coeff = 2;
-    protected Stage rightStage;
-    protected Stage leftStage;
-    protected Stage uniqueStage;
+    Texture texturePassed;
+    private Vector2 position;
+    int rayon = screenWidth/45;
+    boolean passed;
+    boolean actual;
+    int coeff = 2;
+    private Stage rightStage;
+    private Stage leftStage;
+    private Stage uniqueStage;
 
 
     /**

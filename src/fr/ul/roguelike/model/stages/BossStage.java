@@ -12,7 +12,7 @@ public class BossStage extends Stage {
 
     /**
      * Creer un stage de Boss
-     * @param pos
+     * @param pos Position du stage
      */
     public BossStage(Vector2 pos){
         super(pos);

@@ -18,7 +18,6 @@ public class CombatController {
     private Rectangle attack,block,healthPotion,manaPotion;
     private Player player;
     private ArrayList<Monster> monsters;
-    private float physicalDamage, magicalDamage;
 
     public CombatController(Rectangle attack, Rectangle block, Rectangle healthPotion, Rectangle manaPotion, Player player, ArrayList<Monster> monsters) {
         this.attack = attack;

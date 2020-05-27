@@ -5,23 +5,19 @@ import fr.ul.roguelike.model.heros.Hero;
 import fr.ul.roguelike.model.heros.Warrior;
 import fr.ul.roguelike.model.items.equipments.Equipement;
 import fr.ul.roguelike.model.items.Item;
-import fr.ul.roguelike.model.items.runes.Rune;
 import fr.ul.roguelike.model.monsters.Monster;
-import fr.ul.roguelike.model.spells.Spell;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Player {
     private Hero playerCharacter;
 
-    private ArrayList<Spell> spells;
     private ArrayList<Item> items;
 
     private int currentLevel;
     private int healthLeft;
     private float manaLeft;
     private int currentGold;
-    private PlayerGear playerGear;
 
     private int[] potionsTable; //Premiere case: potion de soin - Seconde case: potion de mana
     private Equipement[] inventoryEquipements;
@@ -34,8 +30,6 @@ public class Player {
      */
     public Player(){
         playerCharacter = new Warrior();
-        playerGear = new PlayerGear();
-        spells = new ArrayList<>(playerCharacter.getNb_spell_slots());
         items = new ArrayList<>();
         //0 = head, 1 = right arm, 2 = left arm, 3 = plate
         inventoryEquipements = new Equipement[4];
@@ -150,7 +144,6 @@ public class Player {
 
     /**
      * Donne une somme aléatoire d'argent
-     * @param nb
      */
     public void giveMoney(int nb) {
         Random randomGenerator = new Random();
@@ -224,20 +217,12 @@ public class Player {
         return bonus;
     }
 
-    public void addStat(float hp, float mana, float mana_regen, float critic_chance, float physical_dmg, float magical_dmg, float physical_def, float magical_def){
+    void addStat(float hp, float mana, float mana_regen, float critic_chance, float physical_dmg, float magical_dmg, float physical_def, float magical_def){
         getPlayerCharacter().addStat(hp,mana,mana_regen,critic_chance,physical_dmg,magical_dmg,physical_def,magical_def);
-    }
-
-    public PlayerGear getPlayerGear() {
-        return playerGear;
     }
 
     public Hero getPlayerCharacter() {
         return playerCharacter;
-    }
-
-    public ArrayList<Spell> getSpells() {
-        return spells;
     }
 
     public ArrayList<Item> getItems() {
@@ -268,7 +253,7 @@ public class Player {
         return potionsTable[1];
     }
 
-    public void receivePotionHealth(){
+    void receivePotionHealth(){
         potionsTable[0]++;
     }
 
@@ -276,7 +261,7 @@ public class Player {
         potionsTable[0]--;
     }
 
-    public void receivePotionMana(){
+    void receivePotionMana(){
         potionsTable[1]++;
     }
 
@@ -287,10 +272,12 @@ public class Player {
     public void resetMana() {
         manaLeft=0;
     }
+
     public int getCurrentGold() {
         return currentGold;
     }
-    public void setCurrentGold(int currentGold) {
+
+    void setCurrentGold(int currentGold) {
         this.currentGold = currentGold;
     }
     public int getCpt() {
@@ -300,6 +287,7 @@ public class Player {
         cpt++;
         cptStage = 1;
     }
+
     public void increaseCptStage(){
         cptStage++;
     }

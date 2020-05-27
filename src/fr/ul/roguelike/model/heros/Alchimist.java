@@ -18,12 +18,12 @@ public class Alchimist extends Hero {
         super(175,100,0.20f,0.20f,10,30,7.5f,7.5f);
         nb_spell_slots = 2;
 
-        animAttack = new Animation<Texture>(0.0675f,loadFrames(29,"images/combat/Alchimist/Attack/alchimist_attack_"));
-        animBlock = new Animation<Texture>(0.0625f,loadFrames(36,"images/combat/Alchimist/Attack/alchimist_attack_"));
-        animDead = new Animation<Texture>(0.1f,loadFrames(12,"images/combat/Alchimist/Death/alchimist_death_"));
-        animIdle = new Animation<Texture>(0.1f,loadFrames(24,"images/combat/Alchimist/Idle/alchimist_idle_"));
-        animHit = new Animation<Texture>(0.1f,loadFrames(4,"images/combat/Alchimist/Hit/alchimist_death_"));
-        animWall = new Animation<Texture>(0.12f,loadFrames(30,"images/combat/Alchimist/Icewall/icewall_"));
+        animAttack = new Animation<>(0.0675f,loadFrames(29,"images/combat/Alchimist/Attack/alchimist_attack_"));
+        animBlock = new Animation<>(0.0625f,loadFrames(36,"images/combat/Alchimist/Attack/alchimist_attack_"));
+        animDead = new Animation<>(0.1f,loadFrames(12,"images/combat/Alchimist/Death/alchimist_death_"));
+        animIdle = new Animation<>(0.1f,loadFrames(24,"images/combat/Alchimist/Idle/alchimist_idle_"));
+        animHit = new Animation<>(0.1f,loadFrames(4,"images/combat/Alchimist/Hit/alchimist_death_"));
+        animWall = new Animation<>(0.12f,loadFrames(30,"images/combat/Alchimist/Icewall/icewall_"));
 
         width = screenWidth/2f;
         height = screenHeight/1.5f;
@@ -69,6 +69,7 @@ public class Alchimist extends Hero {
             animeTime += Gdx.graphics.getDeltaTime();
             currentFrame = animDead.getKeyFrame(animeTime, false);
         }
+
         if(combatState == CombatState.HIT) {
             animeTime += Gdx.graphics.getDeltaTime();
             currentFrame = animHit.getKeyFrame(animeTime, false);

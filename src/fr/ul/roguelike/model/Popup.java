@@ -152,7 +152,7 @@ public class Popup {
     /**
      * Supprime les elements
      */
-    public void dispose(){
+    private void dispose(){
         buttonYes.addAction(Actions.removeActor());
         buttonNo.addAction(Actions.removeActor());
         image.addAction(Actions.removeActor());

@@ -2,7 +2,6 @@ package fr.ul.roguelike.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -22,7 +21,6 @@ import fr.ul.roguelike.model.monsters.Monster;
 import fr.ul.roguelike.model.monsters.MonsterFactory;
 import fr.ul.roguelike.model.Player;
 import fr.ul.roguelike.model.monsters.bosses.FinalBossOne;
-import fr.ul.roguelike.model.monsters.bosses.FinalBossTwo;
 import fr.ul.roguelike.model.stages.CombatStage;
 import fr.ul.roguelike.model.stages.MiniBossStage;
 import fr.ul.roguelike.model.stages.Stage;
@@ -41,26 +39,19 @@ public class CombatMenu extends ScreenAdapter {
     private ArrayList<Monster> monsters;
 
     private SpriteBatch sb;
-    private ShapeRenderer sr;
 
     private Texture background;
-    private Texture life;
     private TextureRegion lifeBar;
-    private Texture manaBa;
     private TextureRegion manaBar;
-    private Texture monsterLifeBa;
     private TextureRegion monsterLifeBar;
     private Sprite attackButton;
     private Sprite defButton;
     private Sprite manaPotion;
     private Sprite healthPotion;
     private Texture lifeBarBackground;
-    private Texture lifeBarMonsterBackground;
     private Texture heart, mana, critical;
     private TextureRegion heartRegion, manaRegion;
     private boolean ended;
-
-    private float physicalDamage,magicalDamage;
 
     private Label labelHealthPotion,labelManaPotion;
 
@@ -89,14 +80,8 @@ public class CombatMenu extends ScreenAdapter {
         monsters = new ArrayList<>();
         textureInit();
         createMonster();
-
-        gen_monsters(p.getCurrentLevel());
-
     }
 
-    private void gen_monsters(int playerLevel){
-
-    }
 
     private void createMonster(){
         Random r = new Random();
@@ -181,20 +166,19 @@ public class CombatMenu extends ScreenAdapter {
         healthPotion = new Sprite(new Texture("images/combat/button_potion.png"));
         defButton = new Sprite(new Texture("images/combat/button_def.png"));
         lifeBarBackground = new Texture("images/combat/lifeBar.png");
-        lifeBarMonsterBackground = new Texture("images/combat/lifeBar.png");
         heart = new Texture("images/combat/heart.png");
         mana = new Texture("images/combat/manapotion.png");
         critical = new Texture("images/combat/coup_critique.png");
         heartRegion = new TextureRegion(heart,screenWidth/50,screenWidth/50);
         manaRegion = new TextureRegion(mana, screenWidth/50,screenWidth/50);
 
-        life = new Texture("images/lifebar.png");
+        Texture life = new Texture("images/lifebar.png");
         lifeBar = new TextureRegion(life,screenWidth/2, screenHeight/15);
-        manaBa = new Texture("images/manabar.png");
+        Texture manaBa = new Texture("images/manabar.png");
         manaBar = new TextureRegion(manaBa,screenWidth/2, screenHeight/15);
 
         //Bar pour le monstre
-        monsterLifeBa = new Texture("images/monsterLifebar.png");
+        Texture monsterLifeBa = new Texture("images/monsterLifebar.png");
         monsterLifeBar = new TextureRegion(monsterLifeBa,screenWidth/2, screenHeight/15);
 
         // resizing buttons
@@ -232,7 +216,7 @@ public class CombatMenu extends ScreenAdapter {
         labelHealthPotion.setPosition(healthPotion.getX()+3*buttonSize/4f,healthPotion.getY()-screenHeight/36f);
         labelManaPotion.setPosition(manaPotion.getX()+3*buttonSize/4f,manaPotion.getY()-screenHeight/36f);
         fontGen.dispose();
-        sr = new ShapeRenderer();
+        ShapeRenderer sr = new ShapeRenderer();
         sr.setProjectionMatrix(cam.combined);
 
         //player regenration
@@ -292,7 +276,7 @@ public class CombatMenu extends ScreenAdapter {
                 com.badlogic.gdx.utils.Timer.Task task = new com.badlogic.gdx.utils.Timer.Task() {
                     @Override
                     public void run() {
-                        mapInterface.getRogueLike().setScreen(new MainMenu(mapInterface.getRogueLike()));;
+                        mapInterface.getRogueLike().setScreen(new MainMenu(mapInterface.getRogueLike()));
                     }
                 };
                 timer.scheduleTask(task, 5);
@@ -313,9 +297,9 @@ public class CombatMenu extends ScreenAdapter {
         if(player.getPlayerCharacter().isCritic() && player.getPlayerCharacter().getCombatState() == Hero.CombatState.ATTACKING){
             sb.draw(critical, screenWidth / 3.5f, screenHeight / 1.5f, screenWidth / 30f, screenHeight/15f);
         }
-        sb.draw(lifeBarBackground, 0,screenHeight - screenHeight/14, screenWidth/3.125f, screenHeight/14); //Vie du heros
-        sb.draw(lifeBarBackground, 0,screenHeight - screenHeight/7, screenWidth/3.125f, screenHeight/14); //Mana du heros
-        sb.draw(lifeBarBackground, screenWidth - monsters.get(0).getHp()*screenWidth/400f - screenWidth/800f, screenHeight - screenHeight/14,monsters.get(0).getHp()*screenWidth/400f + screenWidth/800f , screenHeight/14); //Vie du monstre
+        sb.draw(lifeBarBackground, 0,screenHeight - screenHeight/14f, screenWidth/3.125f, screenHeight/14f); //Vie du heros
+        sb.draw(lifeBarBackground, 0,screenHeight - screenHeight/7f, screenWidth/3.125f, screenHeight/14f); //Mana du heros
+        sb.draw(lifeBarBackground, screenWidth - monsters.get(0).getHp()*screenWidth/400f - screenWidth/800f, screenHeight - screenHeight/14f,monsters.get(0).getHp()*screenWidth/400f + screenWidth/800f , screenHeight/14f); //Vie du monstre
 
         if (!monsters.isEmpty()) {
             monsters.get(0).draw(sb, screenWidth*2/3, screenHeight / 3);
@@ -355,7 +339,7 @@ public class CombatMenu extends ScreenAdapter {
         //monster health bar
         if(!monsters.isEmpty()) {
             sb.begin();
-            sb.draw(monsterLifeBar,screenWidth - monsters.get(0).getCurrentHp()*screenWidth/400f, screenHeight+screenHeight/200 - screenHeight/14);
+            sb.draw(monsterLifeBar,screenWidth - monsters.get(0).getCurrentHp()*screenWidth/400f, screenHeight+screenHeight/200f - screenHeight/14f);
             sb.end();
         }
 

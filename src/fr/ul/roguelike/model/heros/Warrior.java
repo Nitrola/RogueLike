@@ -22,21 +22,21 @@ public class Warrior extends Hero {
         nb_spell_slots = 2;
         Texture warriorSheet = new Texture("images/combat/warriorWalk.png");
         TextureRegion[][] tmp = TextureRegion.split(warriorSheet,warriorSheet.getWidth() / 3 , warriorSheet.getHeight());
-        TextureRegion[] walkFrames = new TextureRegion[3*1];
+        TextureRegion[] walkFrames = new TextureRegion[3];
         int index = 0;
         for(int i = 0; i < 3; i++){
             tmp[0][i].flip(true,false);
             walkFrames[index++] = tmp[0][i];
         }
 
-        animAttack1 = new Animation<Texture>(0.1f,loadFrames(6,"images/combat/Warrior/Attack/Warrior_Attack_"));
+        animAttack1 = new Animation<>(0.1f,loadFrames(6,"images/combat/Warrior/Attack/Warrior_Attack_"));
         animAttack = animAttack1;
-        animAttack2 = new Animation<Texture>(0.1f,loadFrames(5,"images/combat/Warrior/Attack2/Warrior_Attack_"));
-        animAttack3 = new Animation<Texture>(0.1f,loadFrames(9,"images/combat/Warrior/Attack3/Warrior_Attack_"));
-        animBlock = new Animation<Texture>(0.1f,loadFrames(4,"images/combat/Warrior/Block/Warrior_Block_"));
-        animDead = new Animation<Texture>(0.1f,loadFrames(9,"images/combat/Warrior/Death/Warrior_Death_"));
-        animIdle = new Animation<Texture>(0.1f,loadFrames(7,"images/combat/Warrior/Idle/Warrior_Idle_"));
-        animHit = new Animation<Texture>(0.1f,loadFrames(1,"images/combat/Warrior/Hit/Warrior_Hit_"));
+        animAttack2 = new Animation<>(0.1f,loadFrames(5,"images/combat/Warrior/Attack2/Warrior_Attack_"));
+        animAttack3 = new Animation<>(0.1f,loadFrames(9,"images/combat/Warrior/Attack3/Warrior_Attack_"));
+        animBlock = new Animation<>(0.1f,loadFrames(4,"images/combat/Warrior/Block/Warrior_Block_"));
+        animDead = new Animation<>(0.1f,loadFrames(9,"images/combat/Warrior/Death/Warrior_Death_"));
+        animIdle = new Animation<>(0.1f,loadFrames(7,"images/combat/Warrior/Idle/Warrior_Idle_"));
+        animHit = new Animation<>(0.1f,loadFrames(1,"images/combat/Warrior/Hit/Warrior_Hit_"));
 
         width = screenWidth/2f;
         height = screenHeight/1.5f;
