@@ -219,7 +219,7 @@ public abstract class Hero {
     }
 
     public float getPhysicalDmg(Player player) {
-        float res = physicalDmg + player.getPhysicalAttackBonus()/2;
+        float res = physicalDmg + player.getPhysicalAttackBonus();
         Random random = new Random();
         int alea = random.nextInt(100);
         if(alea < criticChance){
@@ -230,7 +230,7 @@ public abstract class Hero {
     }
 
     public float getMagicalDmg(Player player) {
-        float res = magicalDmg + player.getMagicalAttackBonus()/2;
+        float res = magicalDmg + player.getMagicalAttackBonus();
         Random random = new Random();
         int alea = random.nextInt(100);
         if(alea < criticChance){
@@ -240,19 +240,19 @@ public abstract class Hero {
     }
 
     public float getPhysicalDmgWithoutCrit(Player player) {
-        return physicalDmg + player.getPhysicalAttackBonus()/2;
+        return physicalDmg + player.getPhysicalAttackBonus();
     }
 
     public float getMagicalDmgWithoutCrit(Player player) {
-        return  magicalDmg + player.getMagicalAttackBonus()/2;
+        return  magicalDmg + player.getMagicalAttackBonus();
     }
 
     public float getPhysicalDef(Player player) {
-        return physicalDef + player.getPhysicalDefenseBonus()/2;
+        return physicalDef + player.getPhysicalDefenseBonus();
     }
 
     public float getMagicalDef(Player player) {
-        return magicalDef + player.getMagicalDefenseBonus()/2;
+        return magicalDef + player.getMagicalDefenseBonus();
     }
 
 

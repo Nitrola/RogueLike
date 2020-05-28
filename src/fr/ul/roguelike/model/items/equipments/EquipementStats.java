@@ -23,6 +23,8 @@ public class EquipementStats {
     public void upgrade() {
         physicalDamage *= 1.5f;
         magicalDamage *= 1.5f;
+        armor *= 1.5f;
+        magicResist *= 1.5f;
     }
 
     //////////////////////////////////

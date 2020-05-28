@@ -66,40 +66,33 @@ public class ShopMenu extends ScreenAdapter {
         ArrayList<Item> items = new ArrayList<>();
         this.mapInterface = mapInterface;
 
-        //items.add(new HealthPotion());
-        //items.add(new ManaPotion());
+        items.add(new HealthPotion());
+        items.add(new ManaPotion());
 
-        /*items.add(new Rune("sword",75, "Arme tranchante de corps à corps"));
-        items.add(new Rune("bow",65, "Il est beau mon bow"));
-        items.add(new Rune("shield",70, "Permet de se protéger"));
-        items.add(new Rune("spatule",100000, "Trouvez en deux pour avoir un personnage en plus !"));
-        items.add(new Rune("aiguisoir",100, "Bah... il aiguise quoi frère"));
-        items.add(new Rune("book",20, "Qu'est-ce que tu veux foutre d'un bouquin en combat ?"));
-        items.add(new Rune("cape",88, "Rends invi... heu non attenez c'est pas ça"));
-        items.add(new Rune("parchemin",99, "Un parchemin sur un parchemin"));
-        items.add(new Rune("pierre de protection",144, "Pierre vous protègera à l'avenir"));
-        items.add(new Rune("pierre",45, "Une pierre. Si si, oui je sais, elle coûte cher"));
-        items.add(new Rune("talisman",48, "On sait pas trop s'il marche vraiment celui là"));
-        */
         //Equipements
         items.add(new DemonSword());
         items.add(new ArcherPlate());
         items.add(new BaseBow());
         items.add(new HighMageMantel());
         items.add(new WaterStick());
-        /*items.add(new Casque());
+        items.add(new Casque());
         items.add(new Axe());
         items.add(new BowJakshir());
         items.add(new Chestplate());
-        items.add(new Mantle());*/
+        items.add(new Mantle());
+        items.add(new Book());
+        items.add(new Shield());
+
         //Runes
-        /*items.add(new Stone());
+        items.add(new Stone());
         items.add(new ProtectingStone());
         items.add(new Talisman());
         items.add(new Dumbbell());
         items.add(new PhilosopherStone());
-        items.add(new Hourglass());*/
+        items.add(new Hourglass());
         items.add(new Tooth());
+        items.add(new Spatula());
+        items.add(new Parchment());
 
 
         shop = new ArrayList<>();

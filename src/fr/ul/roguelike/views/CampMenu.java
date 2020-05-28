@@ -64,7 +64,7 @@ public class CampMenu extends ScreenAdapter {
         sprite = new Sprite();
         int buttonWidth = (int)(screenWidth/8f);
         int buttonHeight = (int)(screenHeight/4.5f);
-        sprite.setPosition(RogueLike.screenWidth/2f - buttonWidth /2f ,RogueLike.screenHeight/2f);
+        sprite.setPosition(2*RogueLike.screenWidth/3f - buttonWidth /2f,RogueLike.screenHeight/2f - buttonHeight*1.25f);
         sprite.setSize(buttonWidth, buttonHeight);
         player = mapInterface.getPlayer();
         lifeBarBackground = new Texture("images/combat/lifeBar.png");
@@ -80,11 +80,11 @@ public class CampMenu extends ScreenAdapter {
         manaBar = new TextureRegion(manaBa,screenWidth/2, screenHeight/15);
 
         //Bouton upgrade
-        Texture texture = new Texture(Gdx.files.internal("images/badlogic.jpg"));
+        Texture texture = new Texture(Gdx.files.internal("images/anvil.png"));
         Drawable drawable = new TextureRegionDrawable(new TextureRegion(texture));
         upgradeButton = new ButtonItem(drawable,"??");
         upgradeButton.setSize(buttonWidth, buttonHeight);
-        upgradeButton.setPosition(RogueLike.screenWidth/2f - buttonWidth /2f,RogueLike.screenHeight/2f - buttonHeight*1.5f);
+        upgradeButton.setPosition(RogueLike.screenWidth/3f - buttonWidth /2f,RogueLike.screenHeight/2f - buttonHeight*1.25f);
         upgradeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
