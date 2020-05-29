@@ -93,6 +93,7 @@ public class ShopMenu extends ScreenAdapter {
         items.add(new Tooth());
         items.add(new Spatula());
         items.add(new Parchment());
+        items.add(new Feather());
 
 
         shop = new ArrayList<>();

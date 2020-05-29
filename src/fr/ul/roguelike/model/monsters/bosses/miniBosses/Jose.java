@@ -3,9 +3,13 @@ package fr.ul.roguelike.model.monsters.bosses.miniBosses;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import fr.ul.roguelike.model.heros.Hero;
+import fr.ul.roguelike.model.items.runes.Rune;
+import fr.ul.roguelike.model.items.runes.Stone;
+import fr.ul.roguelike.views.MainMenu;
 
 import static fr.ul.roguelike.RogueLike.screenHeight;
 import static fr.ul.roguelike.RogueLike.screenWidth;
+import static fr.ul.roguelike.model.heros.Hero.CombatState.DEAD;
 
 public class Jose extends MiniBoss {
     /**
@@ -34,6 +38,19 @@ public class Jose extends MiniBoss {
         combatState = Hero.CombatState.IDLE;
         width = screenWidth/2.5f;
         height = screenHeight/1.5f;
+    }
+
+    protected void update(){
+        boolean res = shouldIdle();
+        if(res && combatState == DEAD){
+            combatState = Hero.CombatState.WIN;
+            Rune item = new Stone();
+            MainMenu.player.addItem(item);
+        }else {
+            if (res) {
+                combatState = Hero.CombatState.IDLE;
+            }
+        }
     }
 
     @Override

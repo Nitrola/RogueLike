@@ -463,6 +463,7 @@ public class InventoryMenu extends ScreenAdapter {
 
     public void addItem(Rune item){
         runes.add(item);
+        MainMenu.player.getPlayerCharacter().addStat(item.getHp(), item.getMana(),item.getManaRegen(),item.getCriticalChance(), item.getPhysicalDamage(),item.getMagicalDamage(),item.getArmor(), item.getMagicResist());
     }
 
     public void addEquipement(Equipement equipement){

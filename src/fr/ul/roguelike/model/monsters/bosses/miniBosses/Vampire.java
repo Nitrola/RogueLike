@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.roguelike.model.heros.Hero;
+import fr.ul.roguelike.model.items.runes.Rune;
+import fr.ul.roguelike.model.items.runes.Tooth;
 import fr.ul.roguelike.views.MainMenu;
 
 import static fr.ul.roguelike.RogueLike.screenHeight;
@@ -93,6 +95,8 @@ public class Vampire extends MiniBoss {
         boolean res = shouldIdle();
         if(res && combatState == DEAD){
             combatState = Hero.CombatState.WIN;
+            Rune item = new Tooth();
+            MainMenu.player.addItem(item);
         }else {
             if (res) {
                 combatState = Hero.CombatState.IDLE;

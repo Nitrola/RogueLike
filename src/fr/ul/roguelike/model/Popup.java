@@ -87,8 +87,6 @@ public class Popup {
                     }
                     if(item instanceof Rune) {
                         shopMenu.getMapInterface().getInventoryMenu().addItem((Rune) item);
-                        MainMenu.player.addStat(((Rune) item).getHp(),((Rune) item).getMana(),((Rune) item).getManaRegen(), ((Rune) item).getCriticalChance(),
-                                ((Rune) item).getPhysicalDamage(),((Rune) item).getMagicalDamage(),((Rune) item).getArmor(),((Rune) item).getMagicResist());
                     }
                     if(item instanceof Equipement) {
                         shopMenu.getMapInterface().getInventoryMenu().addEquipement((Equipement) item);

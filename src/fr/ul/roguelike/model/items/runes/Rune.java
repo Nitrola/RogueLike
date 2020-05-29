@@ -1,5 +1,7 @@
 package fr.ul.roguelike.model.items.runes;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import fr.ul.roguelike.model.items.Item;
 
 public abstract class Rune extends Item {
@@ -18,7 +20,6 @@ public abstract class Rune extends Item {
      */
     public Rune(String name, int price, String descr){
         super(name,price,descr);
-
     }
 
     @Override

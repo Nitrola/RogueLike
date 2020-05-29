@@ -49,6 +49,7 @@ public class MapInterface extends ScreenAdapter implements InputProcessor {
         this.rogueLike = rogueLike;
         player = p;
         inventoryMenu = new InventoryMenu(this);
+        player.setInventaryMenu(inventoryMenu);
         stage = new com.badlogic.gdx.scenes.scene2d.Stage();
 
         InputMultiplexer inputMultiplexer = new InputMultiplexer();

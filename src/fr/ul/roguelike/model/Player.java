@@ -5,12 +5,17 @@ import fr.ul.roguelike.model.heros.Hero;
 import fr.ul.roguelike.model.heros.Warrior;
 import fr.ul.roguelike.model.items.equipments.Equipement;
 import fr.ul.roguelike.model.items.Item;
+import fr.ul.roguelike.model.items.runes.Rune;
 import fr.ul.roguelike.model.monsters.Monster;
+import fr.ul.roguelike.views.InventoryMenu;
+
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Player {
     private Hero playerCharacter;
+
+    private InventoryMenu inventoryMenu;
 
     private ArrayList<Item> items;
 
@@ -140,6 +145,20 @@ public class Player {
             }
 
         }
+    }
+
+    /**
+     * Donne une rune au joueur
+     */
+    public void addItem(Rune rune){
+        inventoryMenu.addItem(rune);
+    }
+
+    /**
+     * Donne un equipement au joueur
+     */
+    public void addEquipement(Equipement equipement){
+        inventoryMenu.addEquipement(equipement);
     }
 
     /**
@@ -294,5 +313,9 @@ public class Player {
 
     public int getCptStage() {
         return cptStage;
+    }
+
+    public void setInventaryMenu(InventoryMenu inventoryMenu) {
+        this.inventoryMenu = inventoryMenu;
     }
 }

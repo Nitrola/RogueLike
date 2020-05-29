@@ -4,13 +4,14 @@ package fr.ul.roguelike.model.items.runes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
-public class ProtectingStone extends Rune {
+public class Feather extends Rune {
     /**
-     * Creer une rune pierre
+     * Creer une rune plume
      */
-    public ProtectingStone() {
-        super("Stone_of_protection",39, "Une pierre. Si si, oui je sais, elle coûte cher");
-        this.setArmor(5);
+    public Feather() {
+        super("feather",48, "Plume");
+        this.setCriticalChance(5);
+        this.setMana(20);
         this.setTexture(new Texture(Gdx.files.internal("images/" + getName() + ".png")));
     }
 }
