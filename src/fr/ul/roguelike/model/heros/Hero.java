@@ -54,8 +54,8 @@ public abstract class Hero {
     float width;
     float height;
 
-    protected boolean hasAttack, degat;
-    private boolean inInventory, critic;
+    protected boolean hasAttack, degat, critic;;
+    private boolean inInventory;
 
 
     /**

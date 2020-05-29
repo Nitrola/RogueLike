@@ -9,7 +9,7 @@ public class Stone extends Rune {
      * Pierre donnant des PV max supplémentaires
      */
     public Stone() {
-        super("pierre",45, "Une pierre. Si si, oui je sais, elle coûte cher");
+        super("pierre",45, "Increase your health max by 10");
         this.setHp(10);
         this.setTexture(new Texture(Gdx.files.internal("images/" + getName() + ".png")));
     }

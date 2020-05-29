@@ -110,6 +110,7 @@ public class Warrior extends Hero {
                 animAttack = animAttack1;
             }
             animeTime = 0;
+            critic = false;
             degat = false;
             hasAttack = false;
         }

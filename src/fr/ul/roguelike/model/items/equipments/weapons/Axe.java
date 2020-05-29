@@ -9,7 +9,7 @@ public class Axe extends Equipement {
      * Hache de combat
      */
     public Axe() {
-        super("Axe", 39,"not for kids");
+        super("Axe", 39,"Not for kids");
         equipement = new EquipementStats(5, 0, 0, 0);
         texture = new Texture("images/equipment/axe.png");
         equipementType = EquipementType.WEAPON;

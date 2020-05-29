@@ -9,7 +9,7 @@ public class Book extends Equipement {
      * Arc special
      */
     public Book() {
-        super("book", 30,"Donne +1 d'attaque physique et +6 d'attaque magique");
+        super("book", 30,"Give +1 physical damage and +6 magical damage");
         equipement = new EquipementStats(1, 6, 0, 0);
         texture = new Texture("images/equipment/book.png");
         equipementType = EquipementType.WEAPON;

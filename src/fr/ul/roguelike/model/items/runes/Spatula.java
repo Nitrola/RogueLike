@@ -6,10 +6,10 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Spatula extends Rune {
     /**
-     * Pierre donnant des PV max supplémentaires
+     * Créer spatule
      */
     public Spatula() {
-        super("spatula",99, "Seul les dieux connaissent son utilité");
+        super("spatula",99, "The legend said it comes from Runeterra. Raise your critical chance by 20%");
         this.setCriticalChance(20);
         this.setTexture(new Texture(Gdx.files.internal("images/" + getName() + ".png")));
     }

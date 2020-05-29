@@ -6,10 +6,10 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class PhilosopherStone extends Rune {
     /**
-     * Creer une rune pierre
+     * Creer une pierre philosphale
      */
     public PhilosopherStone() {
-        super("philosopher's_stone",43, "Une pierre. Si si, oui je sais, elle coûte cher");
+        super("philosopher's_stone",43, "Former Edward brother item. Increase greatly your magical attack");
         this.setMagicalDamage(6);
         this.setTexture(new Texture(Gdx.files.internal("images/" + getName() + ".png")));
     }
